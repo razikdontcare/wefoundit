@@ -1,6 +1,5 @@
 {
   "name": "wefoundit",
-  "module": "index.ts",
   "devDependencies": {
     "@types/bun": "latest",
     "concurrently": "^9.1.2"
