@@ -5,7 +5,7 @@ import BetIcon from "./icons/bet";
 export default function Navbar() {
   return (
     <>
-      <nav className="flex items-center justify-between p-4 primary-text mx-auto">
+      <div className="flex items-center justify-between p-4 primary-text mx-auto">
         <div className="flex items-center gap-5">
           <a href="/" className="text-3xl flex items-center">
             We<span className="font-bold">Found</span>It
@@ -28,7 +28,7 @@ export default function Navbar() {
             Submit
           </a>
         </div>
-      </nav>
+      </div>
     </>
   );
 }
