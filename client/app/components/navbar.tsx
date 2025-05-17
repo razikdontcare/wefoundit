@@ -16,7 +16,7 @@ export default function Navbar() {
         <div className="flex items-center">
           <SearchBar />
         </div>
-        <div className="flex items-center justify-end font-bold text-base gap-5 w-full">
+        <div className="flex items-center justify-end font-bold text-base gap-8 w-full">
           <a href="/">Home</a>
           <a href="/browse">Browse</a>
           <a href="/auth">Sign In</a>
