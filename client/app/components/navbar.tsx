@@ -6,7 +6,7 @@ export default function Navbar() {
   return (
     <>
       <div className="flex items-center justify-between p-4 primary-text mx-auto">
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 w-full">
           <a href="/" className="text-3xl flex items-center">
             We<span className="font-bold">Found</span>It
           </a>
@@ -16,7 +16,7 @@ export default function Navbar() {
         <div className="flex items-center">
           <SearchBar />
         </div>
-        <div className="flex items-center font-bold text-base gap-5">
+        <div className="flex items-center justify-end font-bold text-base gap-5 w-full">
           <a href="/">Home</a>
           <a href="/browse">Browse</a>
           <a href="/auth">Sign In</a>
