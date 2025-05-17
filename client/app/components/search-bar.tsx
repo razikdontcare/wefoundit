@@ -43,14 +43,25 @@ export default function SearchBar({
 
   const handlePlaceholderClick = () => {
     setIsFocused(true);
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+    // Use setTimeout to ensure the focus happens after state update
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 0);
   };
 
   return (
     <>
-      <div className="relative w-full max-w-lg" ref={containerRef}>
+      <div
+        className="relative w-full max-w-lg"
+        ref={containerRef}
+        onClick={() => {
+          if (!isFocused && inputRef.current) {
+            inputRef.current.focus();
+          }
+        }}
+      >
         <div className="py-2 px-3 gap-3 bg-gray-100 text-text flex items-center justify-center rounded-full border border-text-muted min-w-xs">
           <div
             className={`flex items-center w-full ${
