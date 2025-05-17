@@ -51,7 +51,7 @@ export default function SearchBar({
   return (
     <>
       <div className="relative w-full max-w-lg" ref={containerRef}>
-        <div className="py-2 px-3 gap-3 bg-gray-100 text-text flex items-center justify-center rounded-full min-w-xs">
+        <div className="py-2 px-3 gap-3 bg-gray-100 text-text flex items-center justify-center rounded-full border border-gray-100 min-w-xs">
           <div
             className={`flex items-center w-full ${
               !isFocused && !query ? "invisible" : "visible"
