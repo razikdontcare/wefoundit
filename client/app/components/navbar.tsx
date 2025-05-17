@@ -1,6 +1,6 @@
 import DarkModeToggle from "./toggleTheme";
 import SearchBar from "./search-bar";
-import Bet from "./icons/bet";
+import BetIcon from "./icons/bet";
 
 export default function Navbar() {
   return (
@@ -24,7 +24,7 @@ export default function Navbar() {
             href="/submit"
             className="pl-2 pr-4 py-2 border border-primary text-primary rounded-lg text-sm/4 uppercase tracking-widest flex items-center gap-2"
           >
-            <Bet />
+            <BetIcon />
             Submit
           </a>
         </div>
