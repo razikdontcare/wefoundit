@@ -22,7 +22,7 @@ export default function Home() {
       {/* Recent Items Section */}
       <section className="py-20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-semibold">Recent Lost & Found Items</h2>
+          <h2 className="text-4xl/12 font-bold">Recent Lost & Found Items</h2>
           <p className="mt-4 text-gray-600">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima,
             amet?
