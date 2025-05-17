@@ -49,7 +49,7 @@ const DarkModeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="flex items-center justify-center p-2 rounded-lg hover:bg-surface-1 dark:hover:bg-surface-1-dark transition-colors"
+      className="flex items-center justify-center p-2 rounded-lg hover:bg-surface-1 dark:hover:bg-surface-1-dark transition-colors cursor-pointer"
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
     >
       {theme === "light" ? (
