@@ -13,16 +13,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.get(
-  "/",
-  (req: Request, res: Response<ApiResponse<null>>, next: NextFunction) => {
-    res.status(200).json({
-      success: true,
-      message: "Welcome to the API",
-      data: null,
-    });
-  }
-);
+app.get("/", (req: Request, res: Response<ApiResponse<null>>) => {
+  res.status(200).json({
+    success: true,
+    message: "WeFoundIt API",
+    data: null,
+  });
+});
 
 // handle 404
 app.use((req: Request, res: Response<ApiResponse<null>>, _: NextFunction) => {

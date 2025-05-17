@@ -1,15 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans: 'Poppins', sans-serif;
+
+  /* Warna latar belakang */
+  --color-background-1: #F2F4F6;
+  --color-background-2: #EDEFF1;
+  --color-background-1-dark: #1C1F23;
+  --color-background-2-dark: #25282C;
+
+  /* Warna permukaan/kartu */
+  --color-surface-1: #E6EBEF;
+  --color-surface-2: #F5F7FA;
+  --color-surface-1-dark: #2B2F36;
+  --color-surface-2-dark: #353A40;
+
+  /* Warna teks */
+  --color-text: #1E293B;
+  --color-text-muted: #6B7280;
+  --color-text-dark: #F3F4F6;
+  --color-text-muted-dark: #9CA3AF;
+
+  /* Warna aksen */
+  --color-primary: #3B82F6;
+  --color-secondary: #F59E0B;
+  --color-danger: #EF4444;
+  --color-danger-dark: #F87171;
+  --color-success: #10B981;
+  --color-success-dark: #34D399;
+  --color-info: #6366F1;
+  --color-info-dark: #8B5CF6;
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-background-1 text-text dark:bg-background-1-dark dark:text-text-dark;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
+  }
+}
+
+.primary-text {
+  @apply text-text dark:text-text-dark;
+}
+
+.primary-text-reverse {
+  @apply dark:text-text text-text-dark;
+}
+
+.secondary-text {
+  @apply text-text-muted dark:text-text-muted-dark;
+}
+
+.btn-primary {
+  @apply bg-primary text-text dark:bg-primary dark:text-text-dark;
+}
+
+.box-primary {
+  @apply bg-surface-1 text-text dark:bg-surface-1-dark dark:text-text-dark;
+}
+
+.box-secondary {
+  @apply bg-surface-2 dark:bg-surface-2-dark;
+}
+
+.background {
+  @apply bg-background-1 dark:bg-background-1-dark;
+}
+
+.background-2 {
+  @apply bg-background-2 dark:bg-background-2-dark;
+}
+
+.background-3 {
+  @apply bg-background-1/80 dark:bg-background-1-dark/80;
+}
+
+.alert {
+  &.alert-danger {
+    @apply bg-danger text-text dark:bg-danger-dark dark:text-text-dark;
+  }
+  &.alert-success {
+    @apply bg-success text-text dark:bg-success-dark dark:text-text-dark;
+  }
+  &.alert-info {
+    @apply bg-info text-text dark:bg-info-dark dark:text-text-dark;
   }
 }
