@@ -35,12 +35,13 @@ const register = async (req: Request, res: Response): Promise<void> => {
     };
     res.status(201).json(response);
   } catch (error: any) {
-    const statusCode = error.message.includes("already exists") ? 409 : 500;
+    const statusCode = error.code === "uid-already-exists" ? 409 : 500;
     const response: ApiResponse<null> = {
       success: false,
-      message: error.message.includes("already exists")
-        ? error.message
-        : "Registration failed",
+      message:
+        error.code === "uid-already-exists"
+          ? error.message
+          : "Registration failed",
       data: null,
     };
     res.status(statusCode).json(response);
