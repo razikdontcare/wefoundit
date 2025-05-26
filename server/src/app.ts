@@ -3,6 +3,8 @@ import type { Express, Request, Response, NextFunction } from "express";
 import { config } from "dotenv";
 import cors from "cors";
 import type { ApiResponse } from "./types/ApiType";
+import { DecodedIdToken } from "firebase-admin/auth";
+import { authRouter } from "./routes/auth.routes";
 
 config();
 
@@ -13,7 +15,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.get("/", (req: Request, res: Response<ApiResponse<null>>) => {
+// Extend Express Request interface
+declare global {
+  namespace Express {
+    interface Request {
+      user?: DecodedIdToken;
+    }
+  }
+}
+
+app.get("/", (_req: Request, res: Response<ApiResponse<null>>) => {
   res.status(200).json({
     success: true,
     message: "WeFoundIt API",
@@ -21,8 +32,11 @@ app.get("/", (req: Request, res: Response<ApiResponse<null>>) => {
   });
 });
 
+// Routes
+app.use("/auth", authRouter);
+
 // handle 404
-app.use((req: Request, res: Response<ApiResponse<null>>, _: NextFunction) => {
+app.use((_req: Request, res: Response<ApiResponse<null>>, _: NextFunction) => {
   res.status(404).json({
     success: false,
     message: "Not Found",

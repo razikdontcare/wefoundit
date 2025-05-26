@@ -1,16 +1,18 @@
-import { initializeServerApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { initializeApp, AppOptions, cert } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
+import { getAuth } from "firebase-admin/auth";
 import { env } from "../config";
 
-const firebaseConfig = {
-  apiKey: env.FIREBASE_APIKEY,
-  authDomain: env.FIREBASE_AUTHDOMAIN,
-  projectId: env.FIREBASE_PROJECTID,
-  storageBucket: env.FIREBASE_STORAGEBUCKET,
-  messagingSenderId: env.FIREBASE_MESSAGINGSENDERID,
-  appId: env.FIREBASE_APPID,
-  measurementId: env.FIREBASE_MEASUREMENTID,
+const adminConfig: AppOptions = {
+  credential: cert({
+    projectId: env.FIREBASE_PROJECTID,
+    clientEmail: env.ADMIN_CLIENTEMAIL,
+    privateKey: env.ADMIN_PRIVATEKEY?.replace(/\\n/g, "\n"),
+  }),
 };
 
-const app = initializeServerApp(firebaseConfig, {});
-export const auth = getAuth(app);
+const firebaseApp = initializeApp(adminConfig);
+
+const db = getFirestore(firebaseApp);
+const auth = getAuth(firebaseApp);
+export { firebaseApp, db, auth };

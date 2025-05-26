@@ -1,0 +1,28 @@
+{
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+      "text": "Generate commit messages following this monorepo structure: [scope]: type(optional-context): description"
+    },
+    {
+      "text": "Use these scope prefixes based on which files are changed: [A] for project A only, [B] for project B only, [A][B] for both projects A and B, [common] for shared/common code, [root] for monorepo infrastructure and root-level configs, [docs] for documentation changes"
+    },
+    {
+      "text": "Follow conventional commit types: feat (new features), fix (bug fixes), chore (maintenance/dependencies), refactor (code restructuring), docs (documentation), test (adding/updating tests), ci (CI/CD changes), perf (performance improvements), style (formatting/linting)"
+    },
+    {
+      "text": "Add optional context in parentheses when helpful: (auth) for authentication, (api) for API changes, (ui) for user interface, (database) for database changes, (utils) for utilities"
+    },
+    {
+      "text": "Analyze the changed files to determine scope: if changes are only in project A directories/files use [A], if only in project B use [B], if affecting both projects use [A][B], if affecting shared libraries use [common], if affecting build tools or monorepo config use [root]"
+    },
+    {
+      "text": "Use imperative mood for descriptions (add, fix, update not added, fixed, updated). Keep subject line under 72 characters. Start description with lowercase unless it's a proper noun"
+    },
+    {
+      "text": "Examples: '[A]: feat(auth): add OAuth2 integration', '[B]: fix(api): resolve null pointer exception', '[A][B]: refactor(utils): extract common validation functions', '[root]: chore: update TypeScript dependencies', '[common]: feat(logger): add structured logging utility'"
+    },
+    {
+      "text": "If unsure between scopes, prefer the more specific one that covers all affected areas. For dependency updates affecting multiple projects, use [root] for build dependencies or [A][B] for runtime dependencies"
+    }
+  ]
+}
