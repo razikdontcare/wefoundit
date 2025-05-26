@@ -15,15 +15,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// Extend Express Request interface
-declare global {
-  namespace Express {
-    interface Request {
-      user?: DecodedIdToken;
-    }
-  }
-}
-
 app.get("/", (_req: Request, res: Response<ApiResponse<null>>) => {
   res.status(200).json({
     success: true,
