@@ -36,7 +36,7 @@ const authenticateToken: RequestHandler = async (
       data: null,
     };
 
-    res.status(403).json(response);
+    res.status(401).json(response);
     return;
   }
 };
