@@ -2,6 +2,7 @@ import express from "express";
 import type { Express, Request, Response, NextFunction } from "express";
 import { config } from "dotenv";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import type { ApiResponse } from "./types/ApiType";
 
 config();
@@ -10,6 +11,7 @@ const app: Express = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
