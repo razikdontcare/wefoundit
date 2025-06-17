@@ -3,8 +3,6 @@ import type { Express, Request, Response, NextFunction } from "express";
 import { config } from "dotenv";
 import cors from "cors";
 import type { ApiResponse } from "./types/ApiType";
-import { DecodedIdToken } from "firebase-admin/auth";
-import { authRouter } from "./routes/auth.routes";
 
 config();
 
@@ -22,9 +20,6 @@ app.get("/", (_req: Request, res: Response<ApiResponse<null>>) => {
     data: null,
   });
 });
-
-// Routes
-app.use("/auth", authRouter);
 
 // handle 404
 app.use((_req: Request, res: Response<ApiResponse<null>>, _: NextFunction) => {
