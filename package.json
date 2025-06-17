@@ -9,13 +9,12 @@
   },
   "private": true,
   "scripts": {
-    "dev:client": "bun --cwd=./client dev",
-    "dev:server": "bun --cwd=./server dev",
+    "dev:client": "bun --cwd=./apps/client dev",
+    "dev:server": "bun --cwd=./apps/server dev",
     "dev": "concurrently \"bun run dev:client\" \"bun run dev:server\""
   },
   "type": "module",
   "workspaces": [
-    "client",
-    "server"
+    "apps/*"
   ]
 }

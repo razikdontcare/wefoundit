@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.get("/", (req: Request, res: Response<ApiResponse<null>>) => {
+app.get("/", (_req: Request, res: Response<ApiResponse<null>>) => {
   res.status(200).json({
     success: true,
     message: "WeFoundIt API",
@@ -22,7 +22,7 @@ app.get("/", (req: Request, res: Response<ApiResponse<null>>) => {
 });
 
 // handle 404
-app.use((req: Request, res: Response<ApiResponse<null>>, _: NextFunction) => {
+app.use((_req: Request, res: Response<ApiResponse<null>>, _: NextFunction) => {
   res.status(404).json({
     success: false,
     message: "Not Found",
