@@ -1,8 +1,11 @@
 import DarkModeToggle from "./toggleTheme";
 import SearchBar from "./search-bar";
 import BetIcon from "./icons/bet";
+import { useNavigate } from "react-router";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="flex items-center justify-between p-4 primary-text mx-auto">
@@ -14,7 +17,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center">
-          <SearchBar />
+          <SearchBar onSearch={(query) => navigate(`/search?q=${query}`)} />
         </div>
         <div className="flex items-center justify-end font-bold text-base gap-8 w-full">
           <a href="/">Home</a>
