@@ -4,7 +4,7 @@
       "text": "Generate commit messages following this monorepo structure: [scope]: type(optional-context): description"
     },
     {
-      "text": "Use these scope prefixes based on which files are changed: [A] for project A only, [B] for project B only, [A][B] for both projects A and B, [common] for shared/common code, [root] for monorepo infrastructure and root-level configs, [docs] for documentation changes"
+      "text": "Use these scope prefixes based on which files are changed: [server] for project server only, [client] for project client only, [server][client] for both projects server and client, [common] for shared/common code, [root] for monorepo infrastructure and root-level configs, [docs] for documentation changes"
     },
     {
       "text": "Follow conventional commit types: feat (new features), fix (bug fixes), chore (maintenance/dependencies), refactor (code restructuring), docs (documentation), test (adding/updating tests), ci (CI/CD changes), perf (performance improvements), style (formatting/linting)"
@@ -13,16 +13,16 @@
       "text": "Add optional context in parentheses when helpful: (auth) for authentication, (api) for API changes, (ui) for user interface, (database) for database changes, (utils) for utilities"
     },
     {
-      "text": "Analyze the changed files to determine scope: if changes are only in project A directories/files use [A], if only in project B use [B], if affecting both projects use [A][B], if affecting shared libraries use [common], if affecting build tools or monorepo config use [root]"
+      "text": "Analyze the changed files to determine scope: if changes are only in project server directories/files use [server], if only in project client use [client], if affecting both projects use [server][client], if affecting shared libraries use [common], if affecting build tools or monorepo config use [root]"
     },
     {
       "text": "Use imperative mood for descriptions (add, fix, update not added, fixed, updated). Keep subject line under 72 characters. Start description with lowercase unless it's a proper noun"
     },
     {
-      "text": "Examples: '[A]: feat(auth): add OAuth2 integration', '[B]: fix(api): resolve null pointer exception', '[A][B]: refactor(utils): extract common validation functions', '[root]: chore: update TypeScript dependencies', '[common]: feat(logger): add structured logging utility'"
+      "text": "Examples: '[server]: feat(auth): add OAuth2 integration', '[client]: fix(ui): resolve render issue', '[server][client]: refactor(utils): extract common validation functions', '[root]: chore: update TypeScript dependencies', '[common]: feat(logger): add structured logging utility'"
     },
     {
-      "text": "If unsure between scopes, prefer the more specific one that covers all affected areas. For dependency updates affecting multiple projects, use [root] for build dependencies or [A][B] for runtime dependencies"
+      "text": "If unsure between scopes, prefer the more specific one that covers all affected areas. For dependency updates affecting multiple projects, use [root] for build dependencies or [server][client] for runtime dependencies"
     }
   ]
 }
