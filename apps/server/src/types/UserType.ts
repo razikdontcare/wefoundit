@@ -2,13 +2,13 @@ export type User = {
   id: string;
   email: string;
   name: string;
-  passwordHash?: string;
-  photoURL?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  password_hash?: string;
+  photo_url?: string;
+  created_at?: Date;
+  updated_at?: Date;
   role: "user" | "admin";
   active: boolean;
-  lastLogin?: Date;
+  last_login?: Date;
   providers: Array<"google" | "email">;
 };
 

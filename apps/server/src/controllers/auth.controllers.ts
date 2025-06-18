@@ -1,6 +1,7 @@
 import { authService } from "../services/auth.services";
 import { Request, Response } from "express";
 import { AuthError } from "../interfaces/AuthError";
+import { ApiResponse } from "../types/ApiType";
 
 export const authController = {
   async loginWithEmail(req: Request, res: Response) {
@@ -13,28 +14,49 @@ export const authController = {
         sameSite: "strict",
         maxAge: 30 * 60 * 1000, // 30 minutes
       });
-      res.status(200).json(result);
+
+      const response: ApiResponse<typeof result> = {
+        success: true,
+        message: "Login successful",
+        data: result,
+      };
+      res.status(200).json(response);
       return;
     } catch (error) {
-      res.status(400).json({ error: (error as AuthError).message });
+      const response: ApiResponse<null> = {
+        success: false,
+        message: (error as AuthError).message,
+        data: null,
+      };
+      res.status(400).json(response);
       return;
     }
   },
 
   async registerWithEmail(req: Request, res: Response) {
     try {
-      const { email, password, name, photoURL } = req.body;
+      const { email, password, name, photo_url } = req.body;
       const user = await authService.registerWithEmail({
         email,
         password,
         name,
-        photoURL,
+        photo_url,
       });
 
-      res.status(201).json(user);
+      const response: ApiResponse<typeof user> = {
+        success: true,
+        message: "User registered successfully",
+        data: user,
+      };
+      res.status(201).json(response);
       return;
     } catch (error) {
-      res.status(400).json({ error: (error as AuthError).message });
+      const response: ApiResponse<null> = {
+        success: false,
+        message: (error as AuthError).message,
+        data: null,
+      };
+      res.status(400).json(response);
       return;
     }
   },
@@ -49,10 +71,21 @@ export const authController = {
         sameSite: "strict",
         maxAge: 30 * 60 * 1000, // 30 minutes
       });
-      res.status(200).json(result);
+
+      const response: ApiResponse<typeof result> = {
+        success: true,
+        message: "Google login successful",
+        data: result,
+      };
+      res.status(200).json(response);
       return;
     } catch (error) {
-      res.status(400).json({ error: (error as AuthError).message });
+      const response: ApiResponse<null> = {
+        success: false,
+        message: (error as AuthError).message,
+        data: null,
+      };
+      res.status(400).json(response);
       return;
     }
   },
@@ -62,13 +95,29 @@ export const authController = {
       const userId = req.params.id;
       const user = await authService.getUserById(userId);
       if (!user) {
-        res.status(404).json({ error: "User not found" });
+        const response: ApiResponse<null> = {
+          success: false,
+          message: "User not found",
+          data: null,
+        };
+        res.status(404).json(response);
         return;
       }
-      res.status(200).json(user);
+
+      const response: ApiResponse<typeof user> = {
+        success: true,
+        message: "User retrieved successfully",
+        data: user,
+      };
+      res.status(200).json(response);
       return;
     } catch (error) {
-      res.status(400).json({ error: (error as AuthError).message });
+      const response: ApiResponse<null> = {
+        success: false,
+        message: (error as AuthError).message,
+        data: null,
+      };
+      res.status(400).json(response);
       return;
     }
   },
@@ -76,29 +125,61 @@ export const authController = {
   async logout(_: Request, res: Response) {
     try {
       res.clearCookie("sessionToken");
-      res.status(200).json({ message: "Logged out successfully" });
+      const response: ApiResponse<null> = {
+        success: true,
+        message: "Logged out successfully",
+        data: null,
+      };
+      res.status(200).json(response);
       return;
     } catch (error) {
-      res.status(500).json({ error: "Internal Server Error" });
+      const response: ApiResponse<null> = {
+        success: false,
+        message: "Internal Server Error",
+        data: null,
+      };
+      res.status(500).json(response);
       return;
     }
   },
+
   async getCurrentUser(req: Request, res: Response) {
     try {
       if (!req.user) {
-        res.status(401).json({ error: "Unauthorized" });
+        const response: ApiResponse<null> = {
+          success: false,
+          message: "Unauthorized",
+          data: null,
+        };
+        res.status(401).json(response);
         return;
       }
-      // Assuming req.user is populated by authMiddleware
+
       const user = await authService.getUserById(req.user.id);
       if (!user) {
-        res.status(404).json({ error: "User not found" });
+        const response: ApiResponse<null> = {
+          success: false,
+          message: "User not found",
+          data: null,
+        };
+        res.status(404).json(response);
         return;
       }
-      res.status(200).json(user);
+
+      const response: ApiResponse<typeof user> = {
+        success: true,
+        message: "Current user retrieved successfully",
+        data: user,
+      };
+      res.status(200).json(response);
       return;
     } catch (error) {
-      res.status(400).json({ error: (error as AuthError).message });
+      const response: ApiResponse<null> = {
+        success: false,
+        message: (error as AuthError).message,
+        data: null,
+      };
+      res.status(400).json(response);
       return;
     }
   },
