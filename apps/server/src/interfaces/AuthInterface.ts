@@ -12,7 +12,7 @@ export interface IAuthService {
     email,
     password,
     name,
-    photoURL,
+    photo_url,
   }: RegisterUser): Promise<User>;
   getUserById(id: string): Promise<User | null>;
 }

@@ -1,6 +1,7 @@
 import { authService } from "../services/auth.services";
 import { Request, Response } from "express";
 import { AuthError } from "../interfaces/AuthError";
+import { sendResponse, sendErrorResponse } from "../utils/responseHelper";
 
 export const authController = {
   async loginWithEmail(req: Request, res: Response) {
@@ -13,28 +14,29 @@ export const authController = {
         sameSite: "strict",
         maxAge: 30 * 60 * 1000, // 30 minutes
       });
-      res.status(200).json(result);
+
+      sendResponse(res, "Login successful", result);
       return;
     } catch (error) {
-      res.status(400).json({ error: (error as AuthError).message });
+      sendErrorResponse(res, (error as AuthError).message);
       return;
     }
   },
 
   async registerWithEmail(req: Request, res: Response) {
     try {
-      const { email, password, name, photoURL } = req.body;
+      const { email, password, name, photo_url } = req.body;
       const user = await authService.registerWithEmail({
         email,
         password,
         name,
-        photoURL,
+        photo_url,
       });
 
-      res.status(201).json(user);
+      sendResponse(res, "User registered successfully", user, 201);
       return;
     } catch (error) {
-      res.status(400).json({ error: (error as AuthError).message });
+      sendErrorResponse(res, (error as AuthError).message);
       return;
     }
   },
@@ -49,10 +51,11 @@ export const authController = {
         sameSite: "strict",
         maxAge: 30 * 60 * 1000, // 30 minutes
       });
-      res.status(200).json(result);
+
+      sendResponse(res, "Google login successful", result);
       return;
     } catch (error) {
-      res.status(400).json({ error: (error as AuthError).message });
+      sendErrorResponse(res, (error as AuthError).message);
       return;
     }
   },
@@ -62,13 +65,14 @@ export const authController = {
       const userId = req.params.id;
       const user = await authService.getUserById(userId);
       if (!user) {
-        res.status(404).json({ error: "User not found" });
+        sendErrorResponse(res, "User not found", 404);
         return;
       }
-      res.status(200).json(user);
+
+      sendResponse(res, "User retrieved successfully", user);
       return;
     } catch (error) {
-      res.status(400).json({ error: (error as AuthError).message });
+      sendErrorResponse(res, (error as AuthError).message);
       return;
     }
   },
@@ -76,29 +80,31 @@ export const authController = {
   async logout(_: Request, res: Response) {
     try {
       res.clearCookie("sessionToken");
-      res.status(200).json({ message: "Logged out successfully" });
+      sendResponse(res, "Logged out successfully", null);
       return;
     } catch (error) {
-      res.status(500).json({ error: "Internal Server Error" });
+      sendErrorResponse(res, "Internal Server Error", 500);
       return;
     }
   },
+
   async getCurrentUser(req: Request, res: Response) {
     try {
       if (!req.user) {
-        res.status(401).json({ error: "Unauthorized" });
+        sendErrorResponse(res, "Unauthorized", 401);
         return;
       }
-      // Assuming req.user is populated by authMiddleware
+
       const user = await authService.getUserById(req.user.id);
       if (!user) {
-        res.status(404).json({ error: "User not found" });
+        sendErrorResponse(res, "User not found", 404);
         return;
       }
-      res.status(200).json(user);
+
+      sendResponse(res, "Current user retrieved successfully", user);
       return;
     } catch (error) {
-      res.status(400).json({ error: (error as AuthError).message });
+      sendErrorResponse(res, (error as AuthError).message);
       return;
     }
   },
