@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Search } from "lucide-react";
 
+
 interface SearchBarProps {
   placeholder?: string;
   onSearch?: (query: string) => void;
@@ -15,6 +16,7 @@ export default function SearchBar({
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState(0);
+
 
   useEffect(() => {
     if (containerRef.current) {
@@ -50,6 +52,8 @@ export default function SearchBar({
       }
     }, 0);
   };
+
+
 
   return (
     <>
