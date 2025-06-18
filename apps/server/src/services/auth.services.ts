@@ -32,7 +32,6 @@ class AuthService implements IAuthService {
     }
 
     const user = users[0];
-    console.log("User found:", user);
     const isPasswordValid = await bcrypt.compare(
       password,
       user.password_hash || ""
