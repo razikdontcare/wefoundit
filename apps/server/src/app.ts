@@ -2,7 +2,9 @@ import express from "express";
 import type { Express, Request, Response, NextFunction } from "express";
 import { config } from "dotenv";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import type { ApiResponse } from "./types/ApiType";
+import { authRoutes } from "./routes/auth.routes";
 
 config();
 
@@ -10,6 +12,7 @@ const app: Express = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
@@ -20,6 +23,9 @@ app.get("/", (_req: Request, res: Response<ApiResponse<null>>) => {
     data: null,
   });
 });
+
+// auth routes
+app.use("/api/auth", authRoutes);
 
 // handle 404
 app.use((_req: Request, res: Response<ApiResponse<null>>, _: NextFunction) => {
