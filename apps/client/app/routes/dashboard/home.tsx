@@ -1,5 +1,5 @@
-import DarkModeToggle from "~/components/toggleTheme";
 import type { Route } from "./+types/home";
+import DarkModeToggle from "~/components/toggleTheme";
 import SidebarHeader from "~/components/sidebar-header";
 import { Button } from "~/components/ui/button";
 import { Link } from "react-router";

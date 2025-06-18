@@ -1,3 +1,4 @@
+import React from "react";
 import { Separator } from "~/components/ui/separator";
 import {
   Breadcrumb,
@@ -29,8 +30,8 @@ export default function SidebarHeader({
         <Breadcrumb>
           <BreadcrumbList>
             {breadcrumbLinks.map((link, index) => (
-              <>
-                <BreadcrumbItem key={index}>
+              <React.Fragment key={index}>
+                <BreadcrumbItem>
                   {index === breadcrumbLinks.length - 1 ? (
                     <BreadcrumbPage>{link.label}</BreadcrumbPage>
                   ) : (
@@ -42,7 +43,7 @@ export default function SidebarHeader({
                 {index < breadcrumbLinks.length - 1 && (
                   <BreadcrumbSeparator className="hidden md:block" />
                 )}
-              </>
+              </React.Fragment>
             ))}
             {/* <BreadcrumbItem className="hidden md:block">
                 <BreadcrumbLink href="#">General</BreadcrumbLink>
