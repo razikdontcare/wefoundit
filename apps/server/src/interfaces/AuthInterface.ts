@@ -16,13 +16,3 @@ export interface IAuthService {
   }: RegisterUser): Promise<User>;
   getUserById(id: string): Promise<User | null>;
 }
-
-export class AuthError extends Error {
-  public code: string;
-
-  constructor(code: string, message: string) {
-    super(message);
-    this.name = "AuthError";
-    this.code = code;
-  }
-}

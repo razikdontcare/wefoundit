@@ -4,7 +4,7 @@ import pool from "../lib/mysql";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import type { RegisterUser, User } from "../types/UserType";
-import { AuthError } from "../interfaces/AuthInterface";
+import { AuthError } from "../interfaces/AuthError";
 import { env } from "../config";
 
 class AuthService implements IAuthService {
