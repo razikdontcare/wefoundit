@@ -75,7 +75,8 @@ class AuthService implements IAuthService {
 
     if (users.length > 0) {
       user = users[0];
-      if (!user.providers.includes("google")) {
+      const currentProviders = user.providers || [];
+      if (!currentProviders.includes("google")) {
         await pool.execute(
           `UPDATE users SET providers = JSON_ARRAY_APPEND(providers, '$', 'google'), updated_at = NOW() WHERE id = ?`,
           [user.id]
@@ -88,23 +89,28 @@ class AuthService implements IAuthService {
       ]);
     } else {
       const connection = await pool.getConnection();
-      const repository = new MySqlUidRepository(connection, "users");
-      const uidGenerator = new UidGenerator(repository);
-      await uidGenerator.initializeFromDatabase();
-      const uid = await uidGenerator.generateSafe();
-      const [_] = await pool.execute(
-        `INSERT INTO users (id, email, name, photo_url, created_at, updated_at, last_login, role, active, providers) VALUES (?, ?, ?, ?, NOW(), NOW(), NOW(), 'user', true, JSON_ARRAY('google'))`,
-        [
-          uid,
-          decodedToken.email,
-          decodedToken.name || "",
-          decodedToken.picture || "",
-        ]
-      );
-      const [newRows] = await pool.execute(`SELECT * FROM users WHERE id = ?`, [
-        uid,
-      ]);
-      user = (newRows as User[])[0];
+      try {
+        const repository = new MySqlUidRepository(connection, "users");
+        const uidGenerator = new UidGenerator(repository);
+        await uidGenerator.initializeFromDatabase();
+        const uid = await uidGenerator.generateSafe();
+        const [_] = await pool.execute(
+          `INSERT INTO users (id, email, name, photo_url, created_at, updated_at, last_login, role, active, providers) VALUES (?, ?, ?, ?, NOW(), NOW(), NOW(), 'user', true, JSON_ARRAY('google'))`,
+          [
+            uid,
+            decodedToken.email,
+            decodedToken.name || "",
+            decodedToken.picture || "",
+          ]
+        );
+        const [newRows] = await pool.execute(
+          `SELECT * FROM users WHERE id = ?`,
+          [uid]
+        );
+        user = (newRows as User[])[0];
+      } finally {
+        connection.release();
+      }
     }
 
     const jwtPayload = {
@@ -141,23 +147,27 @@ class AuthService implements IAuthService {
       throw new AuthError("USER_ALREADY_EXISTS", "User already exists");
     }
     const connection = await pool.getConnection();
-    const repository = new MySqlUidRepository(connection, "users");
-    const uidGenerator = new UidGenerator(repository);
-    await uidGenerator.initializeFromDatabase();
-    const uid = await uidGenerator.generateSafe();
+    try {
+      const repository = new MySqlUidRepository(connection, "users");
+      const uidGenerator = new UidGenerator(repository);
+      await uidGenerator.initializeFromDatabase();
+      const uid = await uidGenerator.generateSafe();
 
-    const passwordHash = await bcrypt.hash(password, 10);
+      const passwordHash = await bcrypt.hash(password, 10);
 
-    const [_] = await pool.execute(
-      `INSERT INTO users (id, email, name, password_hash, photo_url, created_at, updated_at, last_login, role, active, providers) VALUES (?, ?, ?, ?, ?, NOW(), NOW(), NOW(), 'user', true, JSON_ARRAY('email'))`,
-      [uid, email, name, passwordHash, photo_url || ""]
-    );
-    const [newRows] = await pool.execute(`SELECT * FROM users WHERE id = ?`, [
-      uid,
-    ]);
-    const user = (newRows as User[])[0];
+      const [_] = await pool.execute(
+        `INSERT INTO users (id, email, name, password_hash, photo_url, created_at, updated_at, last_login, role, active, providers) VALUES (?, ?, ?, ?, ?, NOW(), NOW(), NOW(), 'user', true, JSON_ARRAY('email'))`,
+        [uid, email, name, passwordHash, photo_url || ""]
+      );
+      const [newRows] = await pool.execute(`SELECT * FROM users WHERE id = ?`, [
+        uid,
+      ]);
+      const user = (newRows as User[])[0];
 
-    return this.sanitizeUser(user);
+      return this.sanitizeUser(user);
+    } finally {
+      connection.release();
+    }
   }
   async getUserById(id: string): Promise<Omit<User, "password_hash"> | null> {
     if (!id) {
