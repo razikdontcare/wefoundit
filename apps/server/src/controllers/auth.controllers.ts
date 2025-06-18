@@ -1,7 +1,7 @@
 import { authService } from "../services/auth.services";
 import { Request, Response } from "express";
 import { AuthError } from "../interfaces/AuthError";
-import { ApiResponse } from "../types/ApiType";
+import { sendResponse, sendErrorResponse } from "../utils/responseHelper";
 
 export const authController = {
   async loginWithEmail(req: Request, res: Response) {
@@ -15,20 +15,10 @@ export const authController = {
         maxAge: 30 * 60 * 1000, // 30 minutes
       });
 
-      const response: ApiResponse<typeof result> = {
-        success: true,
-        message: "Login successful",
-        data: result,
-      };
-      res.status(200).json(response);
+      sendResponse(res, "Login successful", result);
       return;
     } catch (error) {
-      const response: ApiResponse<null> = {
-        success: false,
-        message: (error as AuthError).message,
-        data: null,
-      };
-      res.status(400).json(response);
+      sendErrorResponse(res, (error as AuthError).message);
       return;
     }
   },
@@ -43,20 +33,10 @@ export const authController = {
         photo_url,
       });
 
-      const response: ApiResponse<typeof user> = {
-        success: true,
-        message: "User registered successfully",
-        data: user,
-      };
-      res.status(201).json(response);
+      sendResponse(res, "User registered successfully", user, 201);
       return;
     } catch (error) {
-      const response: ApiResponse<null> = {
-        success: false,
-        message: (error as AuthError).message,
-        data: null,
-      };
-      res.status(400).json(response);
+      sendErrorResponse(res, (error as AuthError).message);
       return;
     }
   },
@@ -72,20 +52,10 @@ export const authController = {
         maxAge: 30 * 60 * 1000, // 30 minutes
       });
 
-      const response: ApiResponse<typeof result> = {
-        success: true,
-        message: "Google login successful",
-        data: result,
-      };
-      res.status(200).json(response);
+      sendResponse(res, "Google login successful", result);
       return;
     } catch (error) {
-      const response: ApiResponse<null> = {
-        success: false,
-        message: (error as AuthError).message,
-        data: null,
-      };
-      res.status(400).json(response);
+      sendErrorResponse(res, (error as AuthError).message);
       return;
     }
   },
@@ -95,29 +65,14 @@ export const authController = {
       const userId = req.params.id;
       const user = await authService.getUserById(userId);
       if (!user) {
-        const response: ApiResponse<null> = {
-          success: false,
-          message: "User not found",
-          data: null,
-        };
-        res.status(404).json(response);
+        sendErrorResponse(res, "User not found", 404);
         return;
       }
 
-      const response: ApiResponse<typeof user> = {
-        success: true,
-        message: "User retrieved successfully",
-        data: user,
-      };
-      res.status(200).json(response);
+      sendResponse(res, "User retrieved successfully", user);
       return;
     } catch (error) {
-      const response: ApiResponse<null> = {
-        success: false,
-        message: (error as AuthError).message,
-        data: null,
-      };
-      res.status(400).json(response);
+      sendErrorResponse(res, (error as AuthError).message);
       return;
     }
   },
@@ -125,20 +80,10 @@ export const authController = {
   async logout(_: Request, res: Response) {
     try {
       res.clearCookie("sessionToken");
-      const response: ApiResponse<null> = {
-        success: true,
-        message: "Logged out successfully",
-        data: null,
-      };
-      res.status(200).json(response);
+      sendResponse(res, "Logged out successfully", null);
       return;
     } catch (error) {
-      const response: ApiResponse<null> = {
-        success: false,
-        message: "Internal Server Error",
-        data: null,
-      };
-      res.status(500).json(response);
+      sendErrorResponse(res, "Internal Server Error", 500);
       return;
     }
   },
@@ -146,40 +91,20 @@ export const authController = {
   async getCurrentUser(req: Request, res: Response) {
     try {
       if (!req.user) {
-        const response: ApiResponse<null> = {
-          success: false,
-          message: "Unauthorized",
-          data: null,
-        };
-        res.status(401).json(response);
+        sendErrorResponse(res, "Unauthorized", 401);
         return;
       }
 
       const user = await authService.getUserById(req.user.id);
       if (!user) {
-        const response: ApiResponse<null> = {
-          success: false,
-          message: "User not found",
-          data: null,
-        };
-        res.status(404).json(response);
+        sendErrorResponse(res, "User not found", 404);
         return;
       }
 
-      const response: ApiResponse<typeof user> = {
-        success: true,
-        message: "Current user retrieved successfully",
-        data: user,
-      };
-      res.status(200).json(response);
+      sendResponse(res, "Current user retrieved successfully", user);
       return;
     } catch (error) {
-      const response: ApiResponse<null> = {
-        success: false,
-        message: (error as AuthError).message,
-        data: null,
-      };
-      res.status(400).json(response);
+      sendErrorResponse(res, (error as AuthError).message);
       return;
     }
   },
