@@ -12,6 +12,7 @@ export const authMiddleware = (
     req.cookies.sessionToken || req.headers.authorization?.split(" ")[1];
   if (!token) {
     res.status(401).json({ error: "Unauthorized" });
+    return;
   }
 
   try {
@@ -23,5 +24,6 @@ export const authMiddleware = (
       error: "Invalid or expired token",
       message: (error as Error).message,
     });
+    return;
   }
 };

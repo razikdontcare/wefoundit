@@ -4,7 +4,7 @@ import pool from "../lib/mysql";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import type { RegisterUser, User } from "../types/UserType";
-import { AuthError } from "../interfaces/AuthInterface";
+import { AuthError } from "../interfaces/AuthError";
 import { env } from "../config";
 
 class AuthService implements IAuthService {
@@ -71,7 +71,7 @@ class AuthService implements IAuthService {
         );
       }
     } else {
-      const [insertResult] = await pool.execute(
+      const [_] = await pool.execute(
         `INSERT INTO users (id, email, name, photoURL, createdAt, updatedAt, role, active, providers) VALUES (?, ?, ?, ?, NOW(), NOW(), 'user', true, JSON_ARRAY('google'))`,
         [
           decodedToken.uid,
@@ -81,7 +81,7 @@ class AuthService implements IAuthService {
         ]
       );
       const [newRows] = await pool.execute(`SELECT * FROM users WHERE id = ?`, [
-        (insertResult as any).insertId,
+        decodedToken.uid,
       ]);
       user = (newRows as User[])[0];
     }
