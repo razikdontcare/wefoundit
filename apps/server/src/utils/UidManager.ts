@@ -10,6 +10,8 @@ interface UidRepository {
 class MySqlUidRepository implements UidRepository {
   private connection: mysql.Connection;
   private tableName: string;
+  private static readonly UID_SUBSTRING_START = 8; // "U" + MMDDYY + 5 digits
+  private static readonly UID_LENGTH = 12; // "U" + MMDDYY (6) + 5 digits (0-99999)
 
   constructor(connection: mysql.Connection, tableName: string = "users") {
     this.connection = connection;
@@ -19,7 +21,7 @@ class MySqlUidRepository implements UidRepository {
   async existsById(uid: string): Promise<boolean> {
     try {
       const [rows] = await this.connection.execute(
-        `SELECT 1 FROM ${this.tableName} WHERE id = ? LIMIT 1`,
+        `SELECT 1 FROM \`${this.tableName}\` WHERE id = ? LIMIT 1`,
         [uid]
       );
       return Array.isArray(rows) && rows.length > 0;
@@ -33,9 +35,9 @@ class MySqlUidRepository implements UidRepository {
     try {
       const [rows] = await this.connection.execute(
         `
-        SELECT MAX(CAST(SUBSTRING(id, 8) AS UNSIGNED)) as max_counter 
+        SELECT MAX(CAST(SUBSTRING(id, ${MySqlUidRepository.UID_SUBSTRING_START}) AS UNSIGNED)) as max_counter 
         FROM ${this.tableName} 
-        WHERE id LIKE ? AND LENGTH(id) = 12
+        WHERE id LIKE ? AND LENGTH(id) = ${MySqlUidRepository.UID_LENGTH}
       `,
         [`U${dateString}%`]
       );
