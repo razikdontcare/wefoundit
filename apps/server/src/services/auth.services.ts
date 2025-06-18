@@ -148,12 +148,12 @@ class AuthService implements IAuthService {
 
     const passwordHash = await bcrypt.hash(password, 10);
 
-    const [insertResult] = await pool.execute(
+    const [_] = await pool.execute(
       `INSERT INTO users (id, email, name, password_hash, photo_url, created_at, updated_at, last_login, role, active, providers) VALUES (?, ?, ?, ?, ?, NOW(), NOW(), NOW(), 'user', true, JSON_ARRAY('email'))`,
       [uid, email, name, passwordHash, photo_url || ""]
     );
     const [newRows] = await pool.execute(`SELECT * FROM users WHERE id = ?`, [
-      (insertResult as any).insertId,
+      uid,
     ]);
     const user = (newRows as User[])[0];
 
