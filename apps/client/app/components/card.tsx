@@ -1,42 +1,57 @@
+import { Compass, Info } from "lucide-react";
+
 export default function Card() {
   return (
     <>
-      <div className="relative w-full min-h-[36rem] bg-blue-400 text-black dark:bg-gray-700 dark:text-white  drop-shadow-2xl rounded-md overflow-hidden">
-        <img
-          src="https://picsum.photos/200/300"
-          alt="foto"
-          className="w-[200rem] max-h-[15rem]"
-        />
-        <div className="p-3  flex items-center space-x-3 justify-between">
-          <span className="p-1  alert alert-info rounded-md font-bold ">
-            Handphone
-          </span>
-          <span className="italic text-black dark:text-white ml-7">
-            Found on Thu, Apr 17 at 15:46 PM
-          </span>
+      <div className=" w-full min-h-[36rem] bg-blue-400 text-black dark:bg-gray-700 dark:text-white  drop-shadow-2xl rounded-md overflow-hidden">
+        <div className="relative aspect-video overflow-hidden">
+          <img
+            src="https://picsum.photos/640/360"
+            alt="foto"
+            className="absolute w-full aspect-video object-cover object-center inset-0"
+          />
         </div>
-        <div className="">
-          <span className="text-3xl font-bold p-3">MiawPhone 7</span>
-        </div>
+        <div className="p-5 flex flex-col gap-2">
+          <div className=" flex items-center justify-between">
+            <span className="px-2 py-1  alert alert-info rounded-md font-bold text-sm  ">
+              Handphone
+            </span>
+            <span className="italic text-black dark:text-white ml-7 text-xs">
+              Found on Thu, Apr 17 at 15:46 PM
+            </span>
+          </div>
 
-        <div className="">LOKASI</div>
+          <div className="">
+            <span className="text-2xl font-bold py-3">MiawPhone 7</span>
+          </div>
 
-        <div className="">X1</div>
+          <div className="flex gap-2 items-center">
+            <Compass /> Lokasi
+          </div>
 
-        <div className="">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-          blanditiis officiis minus illo itaque! Blanditiis animi, debitis iste
-          cupiditate voluptas nihil quae vel, consectetur deleniti autem,
-          voluptatem distinctio mollitia dicta?
-        </div>
+          <div className="flex gap-2 items-center">
+            <Info /> x1
+          </div>
 
-        <div className="border-1 border-blue-600">
-          <span className="flex items-center justify-center py-2">Details</span>
-        </div>
-        <div className="btn-primary">
-          <span className="flex items-center justify-center mt-3 py-2">
-            Center
-          </span>
+          <div className="text-sm">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+            blanditiis officiis minus illo itaque! Blanditiis animi, debitis
+            iste cupiditate voluptas nihil quae vel, consectetur deleniti autem,
+            voluptatem distinctio mollitia dicta?
+          </div>
+
+          <div className="flex flex-col w-full gap-2">
+            <div className="border-1 border-blue-600">
+              <span className="flex items-center justify-center py-2 text-sm font-bold uppercase">
+                Details
+              </span>
+            </div>
+            <div className="btn-primary">
+              <span className="flex items-center justify-center py-2 text-sm font-bold uppercase">
+                Claim
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </>

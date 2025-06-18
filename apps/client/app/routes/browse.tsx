@@ -11,7 +11,7 @@ export default function Browse() {
         <h1 className="text-4xl font-bold">Browse Lost & Found Items</h1>
         <div className="w-[140px] h-[4px] bg-black dark:bg-white rounded-full"></div>
       </div>
-      <div className="container mx-auto grid grid-cols-3 gap-4 p-4">
+      <div className="container mx-auto max-w-7xl grid grid-cols-3 gap-4 py-4">
         {Array.from({ length: 10 }).map((_, index) => (
           <div key={index}>
             <Card />
