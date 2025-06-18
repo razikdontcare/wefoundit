@@ -36,7 +36,7 @@ class MySqlUidRepository implements UidRepository {
       const [rows] = await this.connection.execute(
         `
         SELECT MAX(CAST(SUBSTRING(id, ${MySqlUidRepository.UID_SUBSTRING_START}) AS UNSIGNED)) as max_counter 
-        FROM ${this.tableName} 
+        FROM \`${this.tableName}\` 
         WHERE id LIKE ? AND LENGTH(id) = ${MySqlUidRepository.UID_LENGTH}
       `,
         [`U${dateString}%`]
