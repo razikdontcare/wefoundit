@@ -1,36 +1,38 @@
 import type { Route } from "./+types/details";
-import{ Undo2 } from "lucide-react";
+import{ StepBack, Undo2 } from "lucide-react";
 import{ XCircle } from "lucide-react";
 import{ CircleCheckBig } from "lucide-react";
+import { useNavigate } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
 }
 
-export default function Details() {
+export default function Details({ params }: { params: { id: string } }) {
+    const navigate = useNavigate();
   return (
     <>
         <div className="rounded-lg container mx-auto max-w-7xl flex-col justify-center items-center my-10 gap-4 box-primary py-4 px-4">
             <div className="flex justify-between items-center w-full rounded-md px-4 py-2">
-                <Undo2/>
+                <Undo2 onClick={() => navigate(-1)} className="cursor-pointer"/>
                 <span className="min-w-[100px] flex flex-row justify-between items-center alert alert-danger text-white px-2 py-2 rounded-md text-xs font-bold gap-2">
                     <XCircle className="text-red-500" />
                     Belum Ditemukan
-                    {/* if (status === "not-found") {
+                    {/* if (status === "found") {
                         <XCircle className="text-red-500" />
-                        Belum Ditemukan
+                        Belum Diklaim
                     }
                     else if (status === "lost") {
                         <XCircle className="text-red-500" />
                         Belum Ditemukan
                     }
-                    else if (status === "found") {
+                    else if (status === "founded") {
                         <CircleCheckBig className="text-green-500"/>
-                        Sudah Ditemukan
+                        Sudah Diklaim
                     }
                     else if (status === "claimed") {
                         <CircleCheckBig className="text-gray-500" />
-                        Sudah Diklaim
+                        Sudah Ditemukan
                     } */}
                 </span>
             </div>
@@ -75,11 +77,11 @@ export default function Details() {
                             </div>
                         </div>
                     </div>
-                    <div className="btn-primary rounded-md w-full min-h-[3rem]">
-                        <span className="flex items-center justify-center py-3 text-sm font-bold uppercase">
-                            Claim
-                        </span>
-                    </div>
+                    <button className="btn-primary rounded-md w-full min-h-[3rem] cursor-pointer">
+                        <a href={`/chat/${params.id}`} className="flex items-center justify-center py-3 text-sm font-bold uppercase">
+                            Hubungi Pelapor
+                        </a>
+                    </button>
                 </div>
             </div>
         </div>
