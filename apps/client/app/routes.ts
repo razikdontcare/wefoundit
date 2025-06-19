@@ -9,8 +9,3 @@ export default [
 
   ]),
 ] satisfies RouteConfig;
-
-// array = [a, b, c]
-// ...array
-// for (const item of array) {
-//   console.log(item);
