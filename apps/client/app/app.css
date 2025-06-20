@@ -57,7 +57,7 @@ body {
 }
 
 .btn-primary {
-  @apply bg-primary text-text dark:bg-primary dark:text-text-dark;
+  @apply bg-primary text-text dark:bg-primary dark:text-text-dark hover:bg-primary/90;
 }
 
 .box-primary {

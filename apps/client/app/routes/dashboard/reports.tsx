@@ -60,16 +60,7 @@ export default function Reports({ loaderData }: Route.ComponentProps) {
   const { data } = loaderData;
   return (
     <>
-      <SidebarHeader breadcrumbLinks={breadcrumbLinks}>
-        <DarkModeToggle />
-        <Button asChild className="btn-primary">
-          <Link to={"/submit"}>
-            {" "}
-            <ClipboardPlus />
-            <span>Laporan Baru</span>
-          </Link>
-        </Button>
-      </SidebarHeader>
+      <SidebarHeader breadcrumbLinks={breadcrumbLinks} />
       <main className="flex flex-col m-10 gap-4">
         <div className="flex flex-col gap-2 max-w-2xl">
           <h1 className="font-bold text-3xl">Status Laporan</h1>

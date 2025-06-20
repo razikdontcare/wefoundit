@@ -71,9 +71,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: "Account",
-            url: "#",
+            url: defineUrl("/dashboard/settings/account"),
             icon: UserPen,
-            isActive: isActive("/dashboard/account"),
+            isActive: isActive("/dashboard/settings/account"),
           },
         ],
       },

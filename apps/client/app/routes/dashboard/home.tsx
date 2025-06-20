@@ -17,16 +17,7 @@ const breadcrumbLinks = [
 export default function Dashboard() {
   return (
     <>
-      <SidebarHeader breadcrumbLinks={breadcrumbLinks}>
-        <DarkModeToggle />
-        <Button asChild className="btn-primary">
-          <Link to={"/submit"}>
-            {" "}
-            <ClipboardPlus />
-            <span>Laporan Baru</span>{" "}
-          </Link>
-        </Button>
-      </SidebarHeader>
+      <SidebarHeader breadcrumbLinks={breadcrumbLinks} />
       <main className="container mx-auto h-full flex flex-col items-center justify-center gap-3">
         <div className="flex items-center justify-center flex-col max-w-2xl gap-2">
           <h1 className="font-bold text-2xl text-center">

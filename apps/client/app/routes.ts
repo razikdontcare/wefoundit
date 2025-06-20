@@ -17,6 +17,9 @@ export default [
   ...prefix("/dashboard", [
     layout("./layouts/dashboard-layout.tsx", [
       index("./routes/dashboard/home.tsx"),
+      ...prefix("/settings", [
+        route("/account", "./routes/dashboard/accounts.tsx"),
+      ]),
     ]),
   ]),
 ] satisfies RouteConfig;
