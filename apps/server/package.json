@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "email": "email dev",
     "build": "tsc",
     "start": "node dist/index.js",
     "lint": "eslint . --ext .ts",
@@ -18,12 +19,14 @@
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",
     "eslint": "^9.26.0",
+    "react-email": "4.0.16",
     "tsx": "^4.19.4"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@react-email/components": "0.1.0",
     "@types/cors": "^2.8.18",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
@@ -33,6 +36,8 @@
     "firebase": "^11.8.1",
     "firebase-admin": "^13.4.0",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.14.1"
+    "mysql2": "^3.14.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
   }
 }
