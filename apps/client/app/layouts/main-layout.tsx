@@ -1,5 +1,6 @@
 import Navbar from "~/components/navbar";
 import { Outlet } from "react-router";
+import Footer from "~/components/footer";
 
 export default function MainLayout() {
   return (
@@ -10,6 +11,9 @@ export default function MainLayout() {
       <main className="flex-grow">
         <Outlet />
       </main>
+      <footer className="border-t border-white">
+        <Footer />
+      </footer>
     </div>
   );
 }
