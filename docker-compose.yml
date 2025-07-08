@@ -1,24 +1,16 @@
-version: "3.8"
 services:
   client:
-    build:
-      context: ./apps/client
-      dockerfile: Dockerfile
+    image: ghcr.io/razikdontcare/wefoundit-client:latest
     ports:
       - "5173:5173"
-    working_dir: /app
     environment:
       - NODE_ENV=production
     depends_on:
       - server
+
   server:
-    build:
-      context: ./apps/server
-      dockerfile: Dockerfile
+    image: ghcr.io/razikdontcare/wefoundit-server:latest
     ports:
       - "3000:3000"
-    working_dir: /app
     environment:
       - NODE_ENV=production
-  # depends_on:
-  #   - db
