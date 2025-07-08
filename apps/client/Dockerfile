@@ -6,7 +6,7 @@ RUN bun install
 FROM oven/bun:1.1 AS production-dependencies-env
 WORKDIR /app
 COPY . .
-RUN bun install --production
+RUN bun install
 
 FROM oven/bun:1.1 AS build-env
 WORKDIR /app
