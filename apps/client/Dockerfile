@@ -1,22 +1,21 @@
-FROM node:20-alpine AS development-dependencies-env
-COPY . /app
+FROM oven/bun:1.1 AS development-dependencies-env
 WORKDIR /app
-RUN npm ci
+COPY . .
+RUN bun install
 
-FROM node:20-alpine AS production-dependencies-env
-COPY ./package.json /app/
+FROM oven/bun:1.1 AS production-dependencies-env
 WORKDIR /app
-RUN npm ci --omit=dev
+COPY . .
+RUN bun install --production
 
-FROM node:20-alpine AS build-env
-COPY . /app/
-COPY --from=development-dependencies-env /app/node_modules /app/node_modules
+FROM oven/bun:1.1 AS build-env
 WORKDIR /app
-RUN npm run build
+COPY . .
+RUN bun run build # pastikan script build ada di apps/client/package.json
 
-FROM node:20-alpine
-COPY ./package.json /app/
-COPY --from=production-dependencies-env /app/node_modules /app/node_modules
-COPY --from=build-env /app/build /app/build
+FROM oven/bun:1.1
 WORKDIR /app
-CMD ["npm", "run", "start"]
+COPY . .
+COPY --from=production-dependencies-env /app/node_modules ./node_modules
+COPY --from=build-env /app/build ./build
+CMD ["bun", "start"]
