@@ -14,5 +14,5 @@ COPY --from=deps /app/package.json ./
 COPY --from=deps /app/bun.lockb ./
 RUN bun install --production
 
-COPY --from=build /app/build ./build
+COPY --from=build /app/dist ./dist
 CMD ["bun", "run", "start"]
