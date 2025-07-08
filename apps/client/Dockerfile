@@ -11,7 +11,7 @@ RUN bun install --production
 FROM oven/bun:1.1 AS build-env
 WORKDIR /app
 COPY . .
-RUN bun run build # pastikan script build ada di apps/client/package.json
+RUN bun run build
 
 FROM oven/bun:1.1
 WORKDIR /app
