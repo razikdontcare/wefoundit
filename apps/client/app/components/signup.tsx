@@ -40,13 +40,13 @@ export default function Register() {
   };
 
   return (
-    <div className="flex flex-col w-full bg-[#25282C] rounded-l-4xl">
+    <div className="flex flex-col w-full background rounded-l-4xl">
       <div className="flex flex-row-reverse items-center justify-between gap-10 px-4 pt-10 text-white">
-        <p className="text-3xl  font-bold">Sign Up</p>
+        <p className="text-3xl font-bold primary-text">Sign Up</p>
       </div>
 
-      <div className="flex flex-col items-center bg-[#25282C]">
-        <div className="flex flex-row w-full justify-center text-white gap-45">
+      <div className="flex flex-col items-center background gap-4">
+        <div className="flex flex-row w-full justify-center primary-text gap-45">
           <div className="flex flex-row">
             <a href="/" className="text-3xl flex ">
               We<span className="font-bold">Found</span>It
@@ -56,12 +56,12 @@ export default function Register() {
           <div className=""></div>
         </div>
 
-        <div className="flex flex-col w-96 h-105 flex px-4 py-5 box-secondary rounded-lg gap-4">
+        <div className="flex flex-col w-96 h-105 flex px-4 py-5 box-primary rounded-lg gap-4">
           <div className="flex justify-center my-3 text-2xl font-bold">
             Daftar Sekarang
           </div>
           <div className="flex flex-row items-center justify-between mt-2">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm primary-text">
               Sudah punya akun We<b>Found</b>It?
             </p>
             <a
@@ -87,15 +87,15 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-10 bg-white text-[#3A3A3A] rounded-sm cursor-pointer hover:btn-primary transition duration-150 font-bold"
+              className="w-full h-10 btn-primary text-[#3A3A3A] rounded-sm cursor-pointer hover:btn-primary transition duration-150 font-bold"
             >
             {loading ? "Loading..." : "Selanjutnya"}
             </button>
-            <p className="py-2 text-xs text-gray-400 text-center">
+            <p className="py-2 text-xs primary-text text-center">
               ------------atau daftar dengan------------
             </p>
             <button
-              className="flex flex-row justify-center w-full h-12 items-center p-2 text-white border border-gray-300 cursor-pointer rounded-md"
+              className="flex flex-row justify-center w-full h-12 items-center p-2 primary-text border border-gray-300 cursor-pointer rounded-md hover:bg-primary/50 transition duration-150"
               onClick={handleGoogle}
               type="button"
             >
@@ -132,10 +132,10 @@ export default function Register() {
               Butuh Bantuan?
             </a>
             <br />
-            <p className="text-xs text-center text-white">
+            <p className="text-xs text-center primary-text">
               We<b>Found</b>It © 2025
             </p>
-            <p className="text-xs text-center text-white">
+            <p className="text-xs text-center primary-text">
               Made with ❤️ by kelompok E3
             </p>
           </form>

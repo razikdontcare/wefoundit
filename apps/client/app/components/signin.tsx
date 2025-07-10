@@ -35,9 +35,9 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col w-full bg-[#1C1F23]">
-      <div className="flex flex-row items-center justify-between gap-10 px-4 pt-10 text-white">
-        <p className="text-3xl left font-bold">Sign In</p>
+    <div className="flex flex-col w-full background">
+      <div className="flex flex-row items-center primary-text justify-between gap-10 px-4 pt-10 text-white">
+        <p className="text-3xl left font-bold ">Sign In</p>
         <a
           href="/auth/signup"
           className="text-3xl left font-bold cursor-pointer"
@@ -46,15 +46,15 @@ export default function Login() {
         </a>
       </div>
       <div className="flex flex-col pl-96">
-        <div className="flex flex-row py-2 text-white">
+        <div className="flex flex-row py-2 primary-text">
           <a href="/" className="text-3xl flex items-center">
             We<span className="font-bold">Found</span>It
           </a>
           <DarkModeToggle />
         </div>
-        <div className="flex flex-col w-96 h-105 flex px-4 py-5 box-secondary rounded-lg gap-4">
+        <div className="flex flex-col w-96 h-105 flex px-4 py-5 box-primary primary-text rounded-lg gap-4">
           <div className="flex flex-row items-center justify-between mt-2">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm">
               Belum punya akun We<b>Found</b>It?
             </p>
             <a href="/signup" className="text-blue-500 font-bold hover:underline">
@@ -71,19 +71,18 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
               autoFocus
             />
-            <p className="text-xs text-gray-400">Contoh: wefoundit@gmail.com</p>
-            <div className="password-field flex w-full gap-2 relative">
+            <p className="text-xs secondary-text">Contoh: wefoundit@gmail.com</p>
+            <div className="password-field flex w-full gap-2 border border-gray-300 rounded-md">
             <input
               type={showPass ? "text" : "password"}
               placeholder="Password"
-              className="p-2 border border-gray-300 rounded-md relative w-full"
-              onClick={() => setShowPass((v) => !v)}
+              className="p-2 relative w-full"
               tabIndex={-1}
               required
             />
               <button
                 type="button"
-                className="  background: none; border: none; color: #aaa; cursor: pointer; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); padding: 0"
+                className=" p-1 background: none; border: none; color: #aaa; cursor-pointer; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); padding: 0"
                 onClick={() => setShowPass(v => !v)}
                 tabIndex={-1}
                 >
@@ -98,19 +97,19 @@ export default function Login() {
             </a>
             <button
               type="submit"
-              className="w-full h-10 bg-white text-[#3A3A3A] rounded-sm cursor-pointer hover:btn-primary transition duration-150 font-bold"
+              className="w-full h-10 btn-primary text-[#3A3A3A] rounded-sm cursor-pointer hover:btn-primary transition duration-150 font-bold"
               onClick={handleSubmit}
               disabled={loading}
             >
               {loading ? "Loading..." : "Masuk"}
             </button>
-            <p className="py-2 text-xs text-gray-400 text-center">
+            <p className="py-2 text-xs primary-text text-center">
               ------------atau masuk dengan------------
             </p>
             <button
               onClick={handleGoogle}
               type="submit"
-              className="flex flex-row justify-center w-full h-12 items-center p-2 text-white border border-gray-300 cursor-pointer rounded-md"
+              className="flex flex-row justify-center w-full h-12 items-center p-2 primary-text border border-gray-300 cursor-pointer rounded-md hover:bg-primary/50 transition duration-150"
             >
               <svg
                 width="24"
@@ -145,10 +144,10 @@ export default function Login() {
               Butuh Bantuan?
             </a>
             <br />
-            <p className="text-xs text-center text-white">
+            <p className="text-xs text-center primary-text">
               We<b>Found</b>It © 2025
             </p>
-            <p className="text-xs text-center text-white">
+            <p className="text-xs text-center primary-text">
               Made with ❤️ by kelompok E3
             </p>
           </form>
