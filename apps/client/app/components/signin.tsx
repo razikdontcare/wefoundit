@@ -61,7 +61,7 @@ export default function Login() {
               Daftar
             </a>
           </div>
-          <form className="flex flex-col gap-2 mt-4">
+          <form className="flex flex-col gap-2 mt-4" onSubmit={handleSubmit}>
             <input
               type="email"
               placeholder="Email"
@@ -109,6 +109,7 @@ export default function Login() {
             </p>
             <button
               onClick={handleGoogle}
+              type="submit"
               className="flex flex-row justify-center w-full h-12 items-center p-2 text-white border border-gray-300 cursor-pointer rounded-md"
             >
               <svg

@@ -11,8 +11,8 @@ export default function Auth() {
     const navigate = useNavigate();
   return (
     <>
-        <div className="flex flex-row min-h-screen box-primary">
-            <Login />
+        <div className="flex flex-row min-h-screen bg-[#1C1F23]">
+            <Register />
         </div>
     </>
   );
