@@ -31,10 +31,13 @@ export function DataTable<TData, TValue>({
   filterPlaceholder = "Search...",
   columnWidths,
 }: DataTableProps<TData, TValue>) {
+  // Ensure data is always an array
+  const safeData = data ?? [];
+
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
-    data,
+    data: safeData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     onColumnFiltersChange: setColumnFilters,
@@ -44,6 +47,10 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  // Find a suitable column for filtering
+  const filterColumn =
+    table.getColumn("name") || table.getColumn("displayName");
+
   return (
     <>
       <div className="flex items-center">
@@ -51,10 +58,8 @@ export function DataTable<TData, TValue>({
           type="text"
           placeholder={filterPlaceholder}
           className="border border-text-muted rounded-md px-4 py-2 w-full max-w-xs"
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
+          value={(filterColumn?.getFilterValue() as string) ?? ""}
+          onChange={(event) => filterColumn?.setFilterValue(event.target.value)}
         />
       </div>
       <div className="rounded-md border">

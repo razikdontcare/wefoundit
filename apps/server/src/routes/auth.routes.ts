@@ -11,7 +11,7 @@ router.post("/reset-password", authController.resetPassword);
 router.post("/verify", authController.verifyEmail);
 // Protected routes
 router.get("/me", authMiddleware, authController.getCurrentUser);
-router.get("/users/:id", authMiddleware, authController.getUserById);
+router.get("/users/:id", authController.getUserById);
 router.get("/users", authMiddleware, authController.getAllUsers);
 router.post("/logout", authMiddleware, authController.logout);
 router.put("/users/:id", authMiddleware, authController.updateUser);

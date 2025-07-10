@@ -8,6 +8,7 @@ import { distance } from "fastest-levenshtein";
 class ReportService implements IReportService {
   async getAllReports(filter?: {
     jenis_lap?: "kehilangan" | "penemuan";
+    created_by?: string; // Optional filter for user ID
   }): Promise<any[]> {
     // Join laporan with barang to get barang details
     let query = `SELECT laporan.*, 
@@ -18,6 +19,11 @@ class ReportService implements IReportService {
     if (filter && filter.jenis_lap) {
       query += " WHERE laporan.jenis_lap = ?";
       params.push(filter.jenis_lap);
+    }
+    if (filter && filter.created_by) {
+      query += params.length ? " AND" : " WHERE";
+      query += " laporan.user_id = ?";
+      params.push(filter.created_by);
     }
     const [rows] = await pool.query<RowDataPacket[]>(query, params);
     // Map barang fields into a nested object
@@ -132,10 +138,12 @@ class ReportService implements IReportService {
     query: string,
     jenis_lap?: "kehilangan" | "penemuan"
   ): Promise<Report[]> {
-    // Join laporan with barang to get nama_barang and deskripsi
-    let sql = `SELECT laporan.*, barang.nama_barang, barang.deskripsi FROM laporan 
-       JOIN barang ON laporan.barang_id = barang.id 
-       WHERE (barang.nama_barang LIKE ? OR barang.deskripsi LIKE ?)`;
+    // Join laporan with barang to get all barang fields
+    let sql = `SELECT laporan.*, 
+      barang.id as barang_id, barang.nama_barang, barang.jenis_barang, barang.deskripsi, barang.jumlah
+      FROM laporan 
+      JOIN barang ON laporan.barang_id = barang.id 
+      WHERE (barang.nama_barang LIKE ? OR barang.deskripsi LIKE ?)`;
     const params: any[] = [`%${query}%`, `%${query}%`];
     if (jenis_lap) {
       sql += " AND laporan.jenis_lap = ?";
@@ -144,17 +152,37 @@ class ReportService implements IReportService {
     const [rows] = await pool.query<RowDataPacket[]>(sql, params);
     // Fuzzy logic: filter and sort by Levenshtein distance
     const threshold = 3; // max distance allowed for fuzzy match
-    const reports = (rows as any[]).map((report) => {
+    const reports = (rows as any[]).map((row) => {
       const nameDist = distance(
         query.toLowerCase(),
-        (report.nama_barang || "").toLowerCase()
+        (row.nama_barang || "").toLowerCase()
       );
       const descDist = distance(
         query.toLowerCase(),
-        (report.deskripsi || "").toLowerCase()
+        (row.deskripsi || "").toLowerCase()
       );
       const minDist = Math.min(nameDist, descDist);
-      return { ...report, _fuzzyScore: minDist };
+      // Structure result like getAllReports
+      const {
+        barang_id,
+        nama_barang,
+        jenis_barang,
+        deskripsi,
+        jumlah,
+        ...report
+      } = row;
+      return {
+        ...report,
+        barang_id,
+        barang: {
+          id: barang_id,
+          nama_barang,
+          jenis_barang,
+          deskripsi,
+          jumlah,
+        },
+        _fuzzyScore: minDist,
+      };
     });
     // Filter by threshold, or return all if nothing matches closely
     let filtered = reports.filter((r) => r._fuzzyScore <= threshold);

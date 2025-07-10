@@ -4,12 +4,14 @@ import type { Request, Response } from "express";
 
 export const getAllReports = async (req: Request, res: Response) => {
   try {
-    const { jenis_lap } = req.query;
-    const reports = await reportService.getAllReports(
-      jenis_lap
-        ? { jenis_lap: jenis_lap as "kehilangan" | "penemuan" }
-        : undefined
-    );
+    const { jenis_lap, created_by } = req.query;
+    const reports = await reportService.getAllReports({
+      jenis_lap:
+        jenis_lap === "kehilangan" || jenis_lap === "penemuan"
+          ? jenis_lap
+          : undefined,
+      created_by: typeof created_by === "string" ? created_by : undefined,
+    });
     res.json(reports);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch reports" });

@@ -8,14 +8,21 @@ import StepFormUploadFoto from "../components/StepFormUploadFoto";
 import StepFormSuccess from "../components/StepFormSuccess";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { useAuth } from "~/hooks/useSession";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
 }
 
 export default function Laporan() {
+  const { user } = useAuth();
   const [step, setStep] = useState(1);
   let navigate = useNavigate();
+  // If user is not authenticated, redirect to login
+  if (!user) {
+    navigate("/auth");
+    return null; // Prevent rendering the laporan component
+  }
   // Collect all form data here
   const [formData, setFormData] = useState({
     tipeLaporan: null as "kehilangan" | "menemukan" | null,
@@ -96,6 +103,7 @@ export default function Laporan() {
           headers: {
             Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwNzA0MjUwMDAwMSIsImVtYWlsIjoicmlrYWR3aXV0YW1pMkBnbWFpbC5jb20iLCJuYW1lIjoiUmlrYSIsInBob3RvVVJMIjoiIiwicm9sZSI6InVzZXIiLCJhY3RpdmUiOjEsInByb3ZpZGVycyI6IltcImVtYWlsXCJdIiwiaWF0IjoxNzUyMTcxMjg2LCJleHAiOjE3NTIxNzMwODZ9.wAZjRmfaLTqtFG_fmPj6RJ-Tq1t43t1nfAifpalYHd8`,
           },
+          withCredentials: true,
         });
       } else {
         await axios.post(
@@ -106,6 +114,7 @@ export default function Laporan() {
           },
           {
             headers: { "Content-Type": "application/json" },
+            withCredentials: true,
           }
         );
       }

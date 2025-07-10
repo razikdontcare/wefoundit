@@ -2,26 +2,27 @@ import type { Route } from "./+types/dashboard-layout";
 import { Outlet } from "react-router";
 import { SidebarProvider, SidebarInset } from "~/components/ui/sidebar";
 import { AppSidebar } from "~/components/app-sidebar";
+import { redirect } from "react-router";
+import axios from "axios";
 
-async function dummyData() {
-  return {
-    email: "name@example.com",
-    name: "Krisna Federico Utami",
-    avatar: "https://avatars.githubusercontent.com/u/42261380?v=4",
-  };
-}
-
-export async function loader() {
-  const user = await dummyData();
-  return { user };
+export async function clientLoader({ params }: Route.LoaderArgs) {
+  const response = await axios.get("http://localhost:5000/api/auth/me", {
+    withCredentials: true,
+  });
+  if (response.status !== 200) {
+    // If the user is not authenticated, redirect to the login page
+    return redirect("/auth");
+  }
+  return response.data.data;
 }
 
 export default function DashboardLayout({ loaderData }: Route.ComponentProps) {
+  const user = loaderData;
   return (
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset className="background-3">
-        <Outlet context={loaderData} />
+        <Outlet context={user} />
       </SidebarInset>
     </SidebarProvider>
   );

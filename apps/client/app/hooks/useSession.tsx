@@ -5,6 +5,9 @@ export interface User {
   id: string;
   email: string;
   name: string;
+  photo_url?: string;
+  role: "user" | "admin";
+  verified: boolean;
 }
 
 interface AuthContextType {
@@ -29,7 +32,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setLoading(true);
     try {
       const res = await client.get("/api/auth/me", { withCredentials: true });
-      setUser(res.data.data.user);
+      const userData = res.data.data;
+      setUser({
+        ...userData,
+        verified: Boolean(userData.verified),
+      });
     } catch {
       setUser(null);
     }

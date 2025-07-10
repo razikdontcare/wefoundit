@@ -26,8 +26,10 @@ import { Button } from "./ui/button";
 import { Link } from "react-router";
 import { NavUser } from "./nav-user";
 import { useLocation } from "react-router";
+import { useAuth } from "~/hooks/useSession";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useAuth();
   const location = useLocation();
   const pathname = location.pathname;
 
@@ -139,13 +141,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ))}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser
-          user={{
-            name: "rikadoescare",
-            email: "rikautamii23@gmail.com",
-            avatar: "",
-          }}
-        />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
