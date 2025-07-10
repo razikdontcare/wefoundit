@@ -95,7 +95,7 @@ export default function Register({
               type="text"
               placeholder="Nama Lengkap"
               value={name}
-              className="p-2 border border-gray-300 rounded-md"
+              className="p-2 border border-gray-300 rounded-md text-gray-400"
               required
               onChange={(e) => setName(e.target.value)}
             />
@@ -103,7 +103,7 @@ export default function Register({
               type="email"
               placeholder="Email"
               value={email}
-              className="p-2 border border-gray-300 rounded-md"
+              className="p-2 border border-gray-300 rounded-md text-gray-400"
               required
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -113,7 +113,7 @@ export default function Register({
                 type={showPass ? "text" : "password"}
                 placeholder="Password"
                 value={password}
-                className="p-2 border border-gray-300 rounded-md w-full pr-10"
+                className="p-2 border border-gray-300 rounded-md w-full pr-10 text-gray-400"
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />

@@ -85,7 +85,7 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
               </a>
             )}
           </div>
-          <form className="flex flex-col gap-2 mt-4" onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-2 mt-4 text-gray-400" onSubmit={handleSubmit}>
             <input
               type="email"
               placeholder="Email"
