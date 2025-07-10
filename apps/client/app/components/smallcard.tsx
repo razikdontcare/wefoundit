@@ -1,35 +1,44 @@
-export default function SmallCard() {
+export default function SmallCard({ data }: { data?: any }) {
   return (
-    <>
-      <div className=" w-full min-h-[15rem] bg-blue-400 text-black dark:bg-gray-700 dark:text-white  drop-shadow-2xl rounded-md overflow-hidden">
-        <div className="p-5 flex flex-col gap-2">
-          <div className=" flex items-center justify-between">
-            <span className="px-2 py-1  alert alert-info rounded-md font-bold text-sm  ">
-              Handphone
-            </span>
-            <span className="italic text-black dark:text-white xs-7 text-xs">
-              Lost around Thu, Apr 17 at 15:46 PM
-            </span>
-          </div>
+    <div className="w-full min-h-[15rem] bg-blue-400 text-black dark:bg-gray-700 dark:text-white drop-shadow-2xl rounded-md overflow-hidden flex flex-col">
+      <div className="p-4 flex flex-col gap-3 flex-1">
+        <div className="flex items-center justify-between">
+          <span className="px-3 py-1 bg-blue-200 dark:bg-blue-900 rounded font-semibold text-xs">
+            {data.barang.jenis_barang}
+          </span>
+          <span className="italic text-black dark:text-white text-xs">
+            Lost around{" "}
+            {new Date(data.waktu).toLocaleDateString("id-ID", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </span>
+        </div>
 
-          <div className="">
-            <span className="text-2xl font-bold py-3">MiawPhone 7</span>
-          </div>
+        <span className="text-xl font-bold mt-1 mb-2 truncate">
+          {data.barang.nama_barang}
+        </span>
 
-          <div className="relative aspect-video overflow-hidden">
-            <img
-              src="https://picsum.photos/640/360"
-              alt="foto"
-              className="absolute w-full aspect-video object-cover object-center inset-0"
-            />
-            <div className="absolute right-15 rounded-md">
-              <span className="alert alert-danger text-white px-2 py-1 rounded-md text-xs font-bold absolute top-2 left-2">
-                Lost
-              </span>
-            </div>
-          </div>
+        <div className="relative w-full aspect-video rounded overflow-hidden mt-1">
+          <img
+            src={"http://localhost:5000/api/file/" + data?.foto}
+            alt={data.barang.nama_barang}
+            className="w-full h-full object-cover object-center"
+          />
+          <span
+            className={`absolute top-2 left-2 px-3 py-1 rounded-md text-xs font-bold
+            ${
+              data.jenis_lap === "kehilangan"
+                ? "bg-red-600 text-white"
+                : "bg-green-600 text-white"
+            }
+          `}
+          >
+            {data.jenis_lap === "kehilangan" ? "Lost" : "Found"}
+          </span>
         </div>
       </div>
-    </>
+    </div>
   );
 }

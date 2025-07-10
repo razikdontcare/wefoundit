@@ -73,13 +73,13 @@ const StepFormUploadFoto: React.FC<StepFormUploadFotoProps> = ({
       <div className="flex justify-between gap-2">
         <button
           onClick={onBack}
-          className="bg-transparent hover:bg-blue-600  w-full hover:text-white dark:text-white text-black font-semibold py-2 px-8 rounded border border-blue-600 transition"
+          className="cursor-pointer bg-transparent hover:bg-blue-600  w-full hover:text-white dark:text-white text-black font-semibold py-2 px-8 rounded border border-blue-600 transition"
         >
           KEMBALI
         </button>
         <button
           onClick={onNext}
-          className="bg-blue-500 hover:bg-blue-600 font-semibold text-white w-full py-2 rounded"
+          className="cursor-pointer bg-blue-500 hover:bg-blue-600 font-semibold text-white w-full py-2 rounded"
         >
           KIRIM
         </button>

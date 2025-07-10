@@ -62,7 +62,7 @@ const StepFormLokasiWaktu = ({
       <div className="flex justify-between gap-2">
         <button
           onClick={onBack}
-          className="bg-transparent hover:bg-blue-600  w-full hover:text-white dark:text-white text-black font-semibold py-2 px-8 rounded border border-blue-600 transition"
+          className="cursor-pointer bg-transparent hover:bg-blue-600  w-full hover:text-white dark:text-white text-black font-semibold py-2 px-8 rounded border border-blue-600 transition"
         >
           KEMBALI
         </button>
@@ -71,7 +71,7 @@ const StepFormLokasiWaktu = ({
           disabled={
             !data.lokasi || !data.waktu || !data.latitude || !data.longitude
           }
-          className="bg-blue-500 hover:bg-blue-600  text-white w-full hover:text-white font-semibold py-2 px-8 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+          className="cursor-pointer bg-blue-500 hover:bg-blue-600  text-white w-full hover:text-white font-semibold py-2 px-8 rounded disabled:opacity-50 disabled:cursor-not-allowed"
         >
           SELANJUTNYA
         </button>

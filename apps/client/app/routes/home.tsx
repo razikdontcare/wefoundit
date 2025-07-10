@@ -4,12 +4,23 @@ import { CompassIcon } from "lucide-react";
 import BetIcon from "~/components/icons/bet";
 import { Link } from "react-router";
 import SmallCard from "~/components/smallcard";
+import Marquee from "~/components/Marquee";
+import axios from "axios";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
 }
 
-export default function Home() {
+export async function loader() {
+  const response = await axios.get<[]>("http://localhost:5000/api/reports");
+  if (response.status !== 200) {
+    throw new Error("Failed to fetch reports");
+  }
+  return response.data;
+}
+
+export default function Home({ loaderData }: Route.ComponentProps) {
+  const reports = loaderData;
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -30,13 +41,13 @@ export default function Home() {
           <h2 className="text-2xl md:text-4xl/12 font-bold text-center">
             Recent Lost & Found Items
           </h2>
-          <div className="flex overflow-x-auto mt-16">
-            {Array.from({ length: 10 }).map((_, index) => (
+          <Marquee duration={15} className=" mt-16">
+            {reports.map((data, index) => (
               <div key={index} className="flex-shrink-0 w-96 mx-4">
-                <SmallCard />
+                <SmallCard data={data} />
               </div>
             ))}
-          </div>
+          </Marquee>
           <Button className="ml-4 md:ml-16 mt-5 flex items-center">
             <CompassIcon />
             <span>Browse More</span>

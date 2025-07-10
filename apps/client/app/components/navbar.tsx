@@ -130,6 +130,21 @@ export default function Navbar() {
             <SheetHeader>
               <SheetTitle className="mb-5">Menu</SheetTitle>
               <SearchBar onSearch={(query) => navigate(`/search?q=${query}`)} />
+              {/* Add user info for mobile */}
+              {user && (
+                <div className="flex items-center text-sm px-2 pb-4 pt-4">
+                  <Avatar className="size-12 mr-3">
+                    <AvatarImage src={user.photo_url} />
+                    <AvatarFallback className="bg-primary text-white">
+                      {user.name.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col justify-center">
+                    <span className="font-bold">{user.name}</span>
+                    <span className="text-xs">{user.email}</span>
+                  </div>
+                </div>
+              )}
               <div className="flex flex-col text-center mt-2 font-bold text-base gap-1 w-full">
                 {links.map((link) => (
                   <Link
@@ -144,9 +159,18 @@ export default function Navbar() {
                 ))}
                 {user ? (
                   <>
-                    <span className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                      {user.name}
-                    </span>
+                    <Link
+                      to="/dashboard/settings/account"
+                      className="hover:text-primary transition-colors rounded-md p-2"
+                    >
+                      Akun Saya
+                    </Link>
+                    <Link
+                      to="/dashboard/reports"
+                      className="hover:text-primary transition-colors rounded-md p-2"
+                    >
+                      Laporan Saya
+                    </Link>
                     <button
                       onClick={logout}
                       className="mt-2 px-3 py-1 border border-red-500 text-red-500 rounded hover:bg-red-500 hover:text-white transition"
