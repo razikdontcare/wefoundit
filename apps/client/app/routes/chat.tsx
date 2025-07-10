@@ -10,7 +10,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Chat({ params }: { params: { id: string } }) {
-  const navigate = useNavigate();
+const navigate = useNavigate();
   return (
     <>
       <div className="container mx-auto max-w-7xl flex flex-col my-2 gap-4 px-2 sm:px-4">
