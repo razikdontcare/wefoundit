@@ -1,12 +1,12 @@
-import { IAuthService } from "../interfaces/AuthInterface";
-import { auth } from "../lib/firebase";
-import pool from "../lib/mysql";
+import { IAuthService } from "../interfaces/AuthInterface.js";
+import { auth } from "../lib/firebase.js";
+import pool from "../lib/mysql.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import type { RegisterUser, User } from "../types/UserType";
-import { AuthError } from "../interfaces/AuthError";
-import { env } from "../config";
-import { MySqlUidRepository, UidGenerator } from "../utils/UidManager";
+import type { RegisterUser, User } from "../types/UserType.js";
+import { AuthError } from "../interfaces/AuthError.js";
+import { env } from "../config.js";
+import { MySqlUidRepository, UidGenerator } from "../utils/UidManager.js";
 
 class AuthService implements IAuthService {
   private sanitizeUser(

@@ -1,8 +1,8 @@
-import { authService } from "../services/auth.services";
-import { mailService } from "../services/mail.services";
+import { authService } from "../services/auth.services.js";
+import { mailService } from "../services/mail.services.js";
 import { Request, Response } from "express";
-import { AuthError } from "../interfaces/AuthError";
-import { sendResponse, sendErrorResponse } from "../utils/responseHelper";
+import { AuthError } from "../interfaces/AuthError.js";
+import { sendResponse, sendErrorResponse } from "../utils/responseHelper.js";
 
 export const authController = {
   async loginWithEmail(req: Request, res: Response) {

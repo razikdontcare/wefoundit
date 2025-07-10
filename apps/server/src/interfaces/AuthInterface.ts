@@ -1,4 +1,4 @@
-import { RegisterUser, User } from "../types/UserType";
+import { RegisterUser, User } from "../types/UserType.js";
 
 export interface IAuthService {
   loginWithGoogle(

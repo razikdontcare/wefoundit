@@ -1,4 +1,4 @@
-import type { Report } from "../types/ReportType";
+import type { Report } from "../types/ReportType.js";
 
 interface ReportFilter {
   jenis_lap?: "kehilangan" | "penemuan";

@@ -1,8 +1,8 @@
-import type { Report } from "../types/ReportType";
-import type { IReportService } from "../interfaces/ReportInterface";
+import type { Report } from "../types/ReportType.js";
+import type { IReportService } from "../interfaces/ReportInterface.js";
 import pool from "../lib/mysql";
 import type { RowDataPacket } from "mysql2";
-import { generateReportId } from "../utils/ReportIdGenerator";
+import { generateReportId } from "../utils/ReportIdGenerator.js";
 import { distance } from "fastest-levenshtein";
 
 class ReportService implements IReportService {

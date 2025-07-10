@@ -6,9 +6,9 @@ import {
   createReport,
   updateReport,
   deleteReport,
-} from "../controllers/report.controllers";
-import { authMiddleware } from "../middlewares/auth.middlewares";
-import { reportService } from "../services/report.services";
+} from "../controllers/report.controllers.js";
+import { authMiddleware } from "../middlewares/auth.middlewares.js";
+import { reportService } from "../services/report.services.js";
 
 // Middleware to check if user is owner or admin
 import type { Request, Response, NextFunction } from "express";

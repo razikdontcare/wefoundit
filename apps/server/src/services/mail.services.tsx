@@ -1,8 +1,8 @@
-import type { IMailService } from "../interfaces/MailInterface";
-import { env } from "../config";
+import type { IMailService } from "../interfaces/MailInterface.js";
+import { env } from "../config.js";
 import nodemailer from "nodemailer";
 import { render } from "@react-email/components";
-import VerificationEmail from "../emails/Verification";
+import VerificationEmail from "../emails/Verification.js";
 
 export class MailService implements IMailService {
   private transporter: ReturnType<typeof nodemailer.createTransport>;

@@ -1,4 +1,4 @@
-import pool from "../lib/mysql";
+import pool from "../lib/mysql.js";
 
 export async function generateReportId(
   jenis_lap: "kehilangan" | "penemuan",

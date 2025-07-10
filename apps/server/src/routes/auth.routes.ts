@@ -1,6 +1,6 @@
 import express from "express";
-import { authController } from "../controllers/auth.controllers";
-import { authMiddleware } from "../middlewares/auth.middlewares";
+import { authController } from "../controllers/auth.controllers.js";
+import { authMiddleware } from "../middlewares/auth.middlewares.js";
 const router = express.Router();
 // Public routes
 router.post("/login", authController.loginWithEmail);

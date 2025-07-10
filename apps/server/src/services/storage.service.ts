@@ -5,14 +5,14 @@ import {
   GetObjectCommand,
   ListObjectsV2Command,
 } from "@aws-sdk/client-s3";
-import { env } from "../config";
+import { env } from "../config.js";
 import {
   IStorageService,
   UploadParams,
   DeleteParams,
   GetParams,
   ListParams,
-} from "../interfaces/StorageInterface";
+} from "../interfaces/StorageInterface.js";
 import { Readable } from "stream";
 
 export class StorageService implements IStorageService {

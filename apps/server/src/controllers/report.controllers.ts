@@ -1,7 +1,7 @@
-import { reportService } from "../services/report.services";
-import { storageService } from "../services/storage.service";
+import { reportService } from "../services/report.services.js";
+import { storageService } from "../services/storage.service.js";
 import type { Request, Response } from "express";
-import type { Report } from "../types/ReportType";
+import type { Report } from "../types/ReportType.js";
 
 export const getAllReports = async (req: Request, res: Response) => {
   try {
