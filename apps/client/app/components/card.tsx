@@ -13,7 +13,7 @@ export default function Card({ data }: { data?: any }) {
             className="absolute w-full aspect-video object-cover object-center inset-0"
           />
 
-          <div className="absolute right-15 rounded-md">
+          <div className="absolute right-4 rounded-md">
             <span className="alert alert-danger text-white px-2 py-1 rounded-md text-xs font-bold absolute top-2 left-2">
               {data.jenis_lap === "kehilangan" ? "Lost" : "Found"}
             </span>
