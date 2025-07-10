@@ -62,7 +62,7 @@ export default function SearchBar({
           }
         }}
       >
-        <div className="py-2 px-3 gap-3 bg-gray-100 text-text flex items-center justify-center rounded-full border border-text-muted md:min-w-xs">
+        <div className="py-2 px-3 gap-3 bg-gray-100 text-text flex items-center justify-center rounded-full border border-text-muted min-w-60 md:max-w-72">
           <div
             className={`flex items-center w-full ${
               !isFocused && !query ? "invisible" : "visible"

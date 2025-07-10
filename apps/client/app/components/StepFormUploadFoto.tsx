@@ -1,27 +1,49 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import imageCompression from "browser-image-compression";
 
 interface StepFormUploadFotoProps {
   onNext: () => void;
   onBack: () => void;
+  file: File | null;
+  setFile: (file: File | null) => void;
 }
 
-const StepFormUploadFoto: React.FC<StepFormUploadFotoProps> = ({ onNext, onBack }: StepFormUploadFotoProps) => {
-  const [file, setFile] = useState<File | null>(null);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const StepFormUploadFoto: React.FC<StepFormUploadFotoProps> = ({
+  onNext,
+  onBack,
+  file,
+  setFile,
+}) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0]);
+      const imageFile = e.target.files[0];
+      try {
+        const compressedBlob = await imageCompression(imageFile, {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1280,
+          useWebWorker: true,
+        });
+        // Wrap the blob in a File with the original name and type
+        const compressedFile = new File([compressedBlob], imageFile.name, {
+          type: compressedBlob.type || imageFile.type,
+        });
+        setFile(compressedFile);
+      } catch (err) {
+        // fallback to original if compression fails
+        setFile(imageFile);
+      }
     }
   };
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8 primary-text">
-
       {/* Judul */}
       <h3 className="text-center text-lg font-semibold mb-2">Foto</h3>
-      <p className="text-center text-sm mb-6">Unggah gambar untuk memperkuat laporan.</p>
+      <p className="text-center text-sm mb-6">
+        Unggah gambar untuk memperkuat laporan.
+      </p>
 
       {/* Upload Box */}
       <div className="mb-6">

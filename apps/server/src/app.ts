@@ -7,6 +7,7 @@ import type { ApiResponse } from "./types/ApiType.js";
 import { authRoutes } from "./routes/auth.routes.js";
 import { reportRoutes } from "./routes/reports.routes.js";
 import { reportService } from "./services/report.services.js";
+import { fileRoutes } from "./routes/file.routes.js";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 const swaggerDocument = YAML.load("./src/swagger.yaml");
@@ -66,6 +67,7 @@ app.get("/api/search", async (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/reports", reportRoutes);
+app.use("/api/file", fileRoutes);
 
 // handle 404
 app.use((_req: Request, res: Response<ApiResponse<null>>, _: NextFunction) => {

@@ -1,5 +1,3 @@
-import { Compass, Info } from "lucide-react";
-
 export default function SmallCard() {
   return (
     <>

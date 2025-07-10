@@ -8,32 +8,106 @@ import { distance } from "fastest-levenshtein";
 class ReportService implements IReportService {
   async getAllReports(filter?: {
     jenis_lap?: "kehilangan" | "penemuan";
-  }): Promise<Report[]> {
-    let query = "SELECT * FROM laporan";
+  }): Promise<any[]> {
+    // Join laporan with barang to get barang details
+    let query = `SELECT laporan.*, 
+      barang.id as barang_id, barang.nama_barang, barang.jenis_barang, barang.deskripsi, barang.jumlah
+      FROM laporan 
+      JOIN barang ON laporan.barang_id = barang.id`;
     let params: any[] = [];
     if (filter && filter.jenis_lap) {
-      query += " WHERE jenis_lap = ?";
+      query += " WHERE laporan.jenis_lap = ?";
       params.push(filter.jenis_lap);
     }
     const [rows] = await pool.query<RowDataPacket[]>(query, params);
-    return rows as Report[];
+    // Map barang fields into a nested object
+    return (rows as any[]).map((row) => {
+      const {
+        barang_id,
+        nama_barang,
+        jenis_barang,
+        deskripsi,
+        jumlah,
+        ...report
+      } = row;
+      return {
+        ...report,
+        barang_id,
+        barang: {
+          id: barang_id,
+          nama_barang,
+          jenis_barang,
+          deskripsi,
+          jumlah,
+        },
+      };
+    });
   }
 
-  async getReportById(id: string): Promise<Report | null> {
+  async getReportById(id: string): Promise<any | null> {
     const [rows] = await pool.query<RowDataPacket[]>(
-      "SELECT * FROM laporan WHERE id = ?",
+      `SELECT laporan.*, 
+        barang.id as barang_id, barang.nama_barang, barang.jenis_barang, barang.deskripsi, barang.jumlah
+        FROM laporan 
+        JOIN barang ON laporan.barang_id = barang.id
+        WHERE laporan.id = ?`,
       [id]
     );
-    return (rows as Report[])[0] || null;
+    const row = (rows as any[])[0];
+    if (!row) return null;
+    const {
+      barang_id,
+      nama_barang,
+      jenis_barang,
+      deskripsi,
+      jumlah,
+      ...report
+    } = row;
+    return {
+      ...report,
+      barang_id,
+      barang: {
+        id: barang_id,
+        nama_barang,
+        jenis_barang,
+        deskripsi,
+        jumlah,
+      },
+    };
   }
 
   async createReport(
-    report: Omit<Report, "id" | "created_at">
+    report: Omit<Report, "id" | "created_at"> & {
+      barang: {
+        nama_barang: string;
+        jenis_barang: string;
+        deskripsi: string;
+        jumlah: number;
+      };
+    }
   ): Promise<Report> {
-    // Generate custom report ID
+    // 1. Insert barang first
+    const [barangResult]: any = await pool.query(
+      "INSERT INTO barang SET ?",
+      report.barang
+    );
+    const barang_id = barangResult.insertId;
+
+    // 2. Generate custom report ID
     const id = await generateReportId(report.jenis_lap);
     const created_at = new Date();
-    const reportWithId = { ...report, id, created_at };
+
+    // 3. Prepare laporan data
+    const reportWithId = {
+      ...report,
+      barang_id,
+      id,
+      created_at,
+    };
+    // Remove the 'barang' property before insert
+    delete (reportWithId as any).barang;
+
+    // 4. Insert laporan
     await pool.query("INSERT INTO laporan SET ?", reportWithId);
     return reportWithId as Report;
   }

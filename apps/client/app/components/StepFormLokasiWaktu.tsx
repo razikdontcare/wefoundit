@@ -1,19 +1,32 @@
-'use client';
+"use client";
 
-import React from 'react';
+import MapPickerWrapper from "./MapPickerWrapper";
 
 interface StepFormLokasiWaktuProps {
   onBack: () => void;
   onNext: () => void;
+  data: {
+    lokasi?: string;
+    waktu?: string;
+    latitude?: number;
+    longitude?: number;
+  };
+  setData: (data: any) => void;
 }
 
-const StepFormLokasiWaktu = ({onBack, onNext} : StepFormLokasiWaktuProps) => {
+const StepFormLokasiWaktu = ({
+  onBack,
+  onNext,
+  data,
+  setData,
+}: StepFormLokasiWaktuProps) => {
   return (
     <div className="max-w-2xl mx-auto px-4 py-8 primary-text">
-
       {/* Title and Description */}
       <h3 className="text-center text-lg font-semibold mb-2">Lokasi & Waktu</h3>
-      <p className="text-center text-sm mb-6">Informasikan di mana dan kapan barang terakhir terlihat atau ditemukan.</p>
+      <p className="text-center text-sm mb-6">
+        Informasikan di mana dan kapan barang terakhir terlihat atau ditemukan.
+      </p>
 
       {/* Input Lokasi & Tanggal */}
       <div className="flex flex-col sm:flex-row gap-2 mb-4">
@@ -21,35 +34,45 @@ const StepFormLokasiWaktu = ({onBack, onNext} : StepFormLokasiWaktuProps) => {
           type="text"
           placeholder="Lokasi"
           className="bg-white hover:bg-white w-full flex-1 px-4 py-2 rounded text-black"
+          value={data.lokasi || ""}
+          onChange={(e) => setData({ ...data, lokasi: e.target.value })}
         />
         <input
           type="datetime-local"
           className="bg-white hover:bg-white w-full flex-1 px-4 py-2 rounded text-gray-500"
+          value={data.waktu || ""}
+          onChange={(e) => setData({ ...data, waktu: e.target.value })}
         />
       </div>
 
       {/* Google Map Placeholder */}
       <div className="w-full h-60 mb-6">
-        {/* Ganti src sesuai kebutuhan (API key atau komponen Google Maps) */}
-        <iframe
-          title="Lokasi"
-          className="w-full h-full rounded"
-          src="https://maps.google.com/maps?q=Birmingham&t=&z=13&ie=UTF8&iwloc=&output=embed"
-        ></iframe>
+        <MapPickerWrapper
+          onLocationChange={(location) =>
+            setData({
+              ...data,
+              latitude: location.lat,
+              longitude: location.lng,
+            })
+          }
+        />
       </div>
 
       {/* Button Selanjutnya */}
       <div className="flex justify-between gap-2">
-        <button 
+        <button
           onClick={onBack}
           className="bg-transparent hover:bg-blue-600  w-full hover:text-white dark:text-white text-black font-semibold py-2 px-8 rounded border border-blue-600 transition"
-          >
+        >
           KEMBALI
         </button>
-        <button 
+        <button
           onClick={onNext}
-          className="bg-blue-500 hover:bg-blue-600  text-white w-full hover:text-white font-semibold py-2 px-8 rounded"
-          >
+          disabled={
+            !data.lokasi || !data.waktu || !data.latitude || !data.longitude
+          }
+          className="bg-blue-500 hover:bg-blue-600  text-white w-full hover:text-white font-semibold py-2 px-8 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+        >
           SELANJUTNYA
         </button>
       </div>

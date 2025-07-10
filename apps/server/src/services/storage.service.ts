@@ -49,7 +49,7 @@ export class StorageService implements IStorageService {
 
     await this.client.send(command);
 
-    return `${env.S3_BUCKET}/${fullKey}`;
+    return `${key}`;
   }
 
   async delete({ key }: DeleteParams): Promise<boolean> {
