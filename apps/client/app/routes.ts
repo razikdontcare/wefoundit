@@ -15,6 +15,11 @@ export default [
     route("/details/:id", "./routes/details.tsx"),
     route("/chat/:id", "./routes/chat.tsx"),
   ]),
+  ...prefix("/auth", [
+    layout("./layouts/auth-layout.tsx", [
+      index("./routes/auth.tsx"),
+    ]),
+  ]),
   ...prefix("/dashboard", [
     layout("./layouts/dashboard-layout.tsx", [
       route("/reports", "./routes/dashboard/reports.tsx"),
