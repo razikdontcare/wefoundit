@@ -59,7 +59,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           },
           {
             title: "Chats",
-            url: "#",
+            url: "/chats",
             icon: MessageSquare,
             isActive: isActive("/dashboard/chats"),
           },
