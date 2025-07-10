@@ -1,11 +1,7 @@
 import type { Route } from "./+types/users";
-import DarkModeToggle from "~/components/toggleTheme";
 import SidebarHeader from "~/components/sidebar-header";
-import { Button } from "~/components/ui/button";
-import { Link } from "react-router";
-import { ClipboardPlus } from "lucide-react";
 import { DataTable, userColumns } from "~/components/tables";
-import type { User } from "~/types/users";
+import axios from "axios";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
@@ -16,40 +12,19 @@ const breadcrumbLinks = [
   { label: "Kelola Users" },
 ];
 
-async function dummyData(): Promise<User[]> {
-  return [
-    {
-      id: "102505140002",
-      name: "PPP",
-      email: "user@email.com",
-      role: "user",
-      phone: "081234567890",
-      status: "active",
-    },
-    {
-      id: "102505140003",
-      name: "PPPPPPP",
-      email: "userrrrr@email.com",
-      role: "user",
-      status: "inactive",
-    },
-    {
-      id: "102505140001",
-      name: "Admin",
-      email: "admin@email.com",
-      role: "admin",
-      status: "active",
-    },
-  ];
-}
+export async function clientLoader({ request }: Route.LoaderArgs) {
+  const response = await axios.get("http://localhost:5000/api/auth/users", {
+    withCredentials: true,
+  });
+  if (response.status !== 200) {
+    throw new Error("Failed to fetch reports");
+  }
 
-export async function loader() {
-  const data = await dummyData();
-  return { data };
+  return response.data.data;
 }
 
 export default function Reports({ loaderData }: Route.ComponentProps) {
-  const { data } = loaderData;
+  const data = loaderData;
   return (
     <>
       <SidebarHeader breadcrumbLinks={breadcrumbLinks} />

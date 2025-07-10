@@ -5,16 +5,11 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Link, useOutletContext } from "react-router";
 import { useState } from "react";
+import type { User } from "~/hooks/useSession";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
 }
-
-type UserContext = {
-  email: string;
-  name: string;
-  avatar: string;
-};
 
 const breadcrumbLinks = [
   { href: "#", label: "Settings" },
@@ -22,7 +17,7 @@ const breadcrumbLinks = [
 ];
 
 export default function Accounts() {
-  const { user } = useOutletContext<{ user: UserContext }>();
+  const user = useOutletContext<User>();
   const [email, setEmail] = useState(user.email || "");
   const [name, setName] = useState(user.name || "");
 

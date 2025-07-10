@@ -21,45 +21,43 @@ export const reportColumns: ColumnDef<Report>[] = [
   },
   {
     id: "name",
-    accessorKey: "name",
+    accessorKey: "barang.nama_barang",
     header: "Nama Barang",
   },
   {
     id: "variant",
-    accessorKey: "variant",
+    accessorKey: "jenis_lap",
     header: "Jenis Barang",
     cell: ({ row }) => {
-      const variant = row.original.variant;
+      const variant = row.original.jenis_lap;
 
       return (
         <span
           className={`w-full inline-block rounded-full text-center ${
-            variant === "found" ? "bg-secondary" : "bg-danger"
+            variant === "penemuan" ? "bg-secondary" : "bg-danger"
           }`}
         >
-          {variant === "found" ? "Found" : "Lost"}
+          {variant === "penemuan" ? "Found" : "Lost"}
         </span>
       );
     },
   },
   {
     id: "status",
-    accessorKey: "status",
+    accessorKey: "status_lap",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.original.status;
+      const status = row.original.status_lap;
 
       return (
         <span
           className={`w-full inline-block rounded-full text-center ${
-            status === "unclaimed" || status === "notfound"
-              ? "bg-danger"
-              : "bg-success"
+            status === "found" || status === "lost" ? "bg-danger" : "bg-success"
           }`}
         >
-          {status === "unclaimed"
+          {status === "found"
             ? "Belum Diklaim"
-            : status === "notfound"
+            : status === "lost"
             ? "Belum Ditemukan"
             : status === "claimed"
             ? "Diklaim"
@@ -74,14 +72,14 @@ export const reportColumns: ColumnDef<Report>[] = [
       const selected = row.original;
 
       let markAsLabel = "Diklaim";
-      if (selected.variant === "lost") {
-        if (selected.status === "notfound") {
+      if (selected.jenis_lap === "kehilangan") {
+        if (selected.status_lap === "lost") {
           markAsLabel = "Ditemukan";
         } else {
           markAsLabel = "Belum Ditemukan";
         }
-      } else if (selected.variant === "found") {
-        if (selected.status === "unclaimed") {
+      } else if (selected.jenis_lap === "penemuan") {
+        if (selected.status_lap === "found") {
           markAsLabel = "Diklaim";
         } else {
           markAsLabel = "Belum Diklaim";
@@ -102,8 +100,8 @@ export const reportColumns: ColumnDef<Report>[] = [
               <span>Mark as</span>
               <span
                 className={`font-medium ${
-                  selected.status === "notfound" ||
-                  selected.status === "unclaimed"
+                  selected.status_lap === "lost" ||
+                  selected.status_lap === "found"
                     ? "text-success"
                     : "text-danger"
                 }`}
@@ -148,25 +146,25 @@ export const userColumns: ColumnDef<User>[] = [
     accessorKey: "email",
     header: "Email",
   },
-  {
-    id: "phone",
-    accessorKey: "phone",
-    header: "Phone",
-  },
+  // {
+  //   id: "phone",
+  //   accessorKey: "phone",
+  //   header: "Phone",
+  // },
   {
     id: "status",
-    accessorKey: "status",
+    accessorKey: "active",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.original.status;
+      const status = row.original.active;
 
       return (
         <span
           className={`w-full inline-block rounded-full text-center ${
-            status === "active" ? "bg-secondary" : "bg-danger"
+            Boolean(status) ? "bg-secondary" : "bg-danger"
           }`}
         >
-          {status === "active" ? "Active" : "Suspend"}
+          {Boolean(status) ? "Active" : "Suspend"}
         </span>
       );
     },
@@ -185,11 +183,6 @@ export const userColumns: ColumnDef<User>[] = [
     id: "actions",
     cell: ({ row }) => {
       const selected = row.original;
-
-      let markAsLabel = "Diklaim";
-      if (selected.status === "active") {
-      } else if (selected.status === "inactive") {
-      }
 
       return (
         <DropdownMenu>

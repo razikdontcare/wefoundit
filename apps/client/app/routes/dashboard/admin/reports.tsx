@@ -1,11 +1,8 @@
 import type { Route } from "./+types/reports";
-import DarkModeToggle from "~/components/toggleTheme";
 import SidebarHeader from "~/components/sidebar-header";
-import { Button } from "~/components/ui/button";
-import { Link } from "react-router";
-import { ClipboardPlus } from "lucide-react";
 import { DataTable, reportColumns } from "~/components/tables";
 import type { Report } from "~/types/reports";
+import axios from "axios";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
@@ -16,48 +13,18 @@ const breadcrumbLinks = [
   { label: "Kelola Laporan" },
 ];
 
-async function dummyData(): Promise<Report[]> {
-  return [
-    {
-      id: "102505140002",
-      name: "MeowPhone 7",
-      variant: "found",
-      status: "unclaimed",
-    },
-    {
-      id: "102505140003",
-      name: "Charger Xiaomi 65W",
-      variant: "found",
-      status: "unclaimed",
-    },
-    {
-      id: "202505140001",
-      name: "Buku Gambar",
-      variant: "lost",
-      status: "notfound",
-    },
-    {
-      id: "102505140001",
-      name: "Earbuds Hitam",
-      variant: "found",
-      status: "claimed",
-    },
-    {
-      id: "202505140002",
-      name: "Totebag Indomaret",
-      variant: "lost",
-      status: "found",
-    },
-  ];
-}
-
-export async function loader() {
-  const data = await dummyData();
-  return { data };
+export async function clientLoader({ request }: Route.LoaderArgs) {
+  const response = await axios.get("http://localhost:5000/api/reports", {
+    withCredentials: true,
+  });
+  if (response.status !== 200) {
+    throw new Error("Failed to fetch reports");
+  }
+  return response.data;
 }
 
 export default function Reports({ loaderData }: Route.ComponentProps) {
-  const { data } = loaderData;
+  const data = loaderData;
   return (
     <>
       <SidebarHeader breadcrumbLinks={breadcrumbLinks} />

@@ -2,12 +2,21 @@ import type { Route } from "./+types/auth";
 import { useState } from "react";
 import Login from "~/components/signin";
 import Register from "~/components/signup";
+import { useAuth } from "~/hooks/useSession";
+import { useNavigate } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
 }
 
 export default function Auth() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  // If user is already authenticated, redirect to home
+  if (user) {
+    navigate("/");
+    return null; // Prevent rendering the auth component
+  }
   const [showRegister, setShowRegister] = useState(false);
 
   return (
