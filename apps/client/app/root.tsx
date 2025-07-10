@@ -1,11 +1,14 @@
 import {
   isRouteErrorResponse,
+  Link,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import Navbar from "./components/navbar";
+import { Button } from "./components/ui/button";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -48,30 +51,64 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
+  let message = "500";
+  let submessage = "Oops! Something went wrong :')";
+  let details = "We apologize for the inconvenience.+Please try again later.";
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
+    switch (error.status) {
+      case 404:
+        message = "404";
+        submessage = "Page Not Found";
+        details =
+          "The page you are looking for does not exist.+Please check the URL and try again.";
+        break;
+      case 403:
+        message = "403";
+        submessage = "Access Forbidden";
+        details = "You don't have necessary permission+to view this resource.";
+        break;
+      case 401:
+        message = "401";
+        submessage = "Unauthorized Access";
+        details =
+          "Please log in with the appropriate credentials+to access this resource.";
+        break;
+      case 503:
+        message = "503";
+        submessage = "Website is under maintenance!";
+        details =
+          "The site is not available at the moment.+We'll be back online shortly.";
+        break;
+      default:
+        message = "500";
+        submessage = "Oops! Something went wrong :')";
+        details = "We apologize for the inconvenience.+Please try again later.";
+        break;
+    }
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+    <>
+      <Navbar />
+      <main className="container mx-auto max-w-7xl flex flex-col items-center justify-center h-[calc(100vh-72px)] text-center">
+        <h1 className="text-7xl font-bold mb-4">{message}</h1>
+        <p className="text-lg mb-4 font-bold">{submessage}</p>
+        <p className="mb-2">
+          {details.split("+").map((v) => (
+            <span key={v} className="block">
+              {v}
+            </span>
+          ))}
+        </p>
+        <Button asChild>
+          <Link to={"/"}>Back to Home</Link>
+        </Button>
+      </main>
+    </>
   );
 }
