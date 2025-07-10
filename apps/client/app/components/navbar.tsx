@@ -12,12 +12,14 @@ import {
   SheetTrigger,
 } from "~/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
+import { useAuth } from "../hooks/useSession";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const location = useLocation();
   const pathname = location.pathname;
+  const { user, loading, logout } = useAuth();
 
   const isActive = (path: string) => {
     return pathname === path;
@@ -26,7 +28,6 @@ export default function Navbar() {
   const links = [
     { href: "/", label: "Home", isActive: isActive("/") },
     { href: "/browse", label: "Browse", isActive: isActive("/browse") },
-    { href: "/auth", label: "Sign In", isActive: isActive("/auth") },
   ];
 
   return (
@@ -52,6 +53,26 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          {user ? (
+            <>
+              <span className="text-sm text-gray-600 dark:text-gray-300">
+                {user.name}
+              </span>
+              <button
+                onClick={logout}
+                className="ml-2 px-3 py-1 border border-red-500 text-red-500 rounded hover:bg-red-500 hover:text-white transition"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/auth"
+              className="hover:text-primary transition-colors text-nowrap"
+            >
+              Sign In
+            </Link>
+          )}
           <Link
             to="/laporan"
             className="pl-2 pr-4 py-2 border border-primary text-primary rounded-lg text-sm/4 uppercase tracking-widest flex items-center gap-2"
@@ -80,6 +101,26 @@ export default function Navbar() {
                     {link.label}
                   </Link>
                 ))}
+                {user ? (
+                  <>
+                    <span className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                      {user.name}
+                    </span>
+                    <button
+                      onClick={logout}
+                      className="mt-2 px-3 py-1 border border-red-500 text-red-500 rounded hover:bg-red-500 hover:text-white transition"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    to="/auth"
+                    className="hover:text-primary transition-colors text-nowrap mt-2"
+                  >
+                    Sign In
+                  </Link>
+                )}
                 <Link
                   to="/laporan"
                   className="pl-2 pr-4 py-2 mt-2 border border-primary text-primary rounded-lg text-sm/4 uppercase tracking-widest flex items-center gap-2"

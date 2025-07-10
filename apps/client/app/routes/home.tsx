@@ -4,12 +4,14 @@ import { CompassIcon } from "lucide-react";
 import BetIcon from "~/components/icons/bet";
 import { Link } from "react-router";
 import SmallCard from "~/components/smallcard";
+import { useAuth } from "~/hooks/useSession";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
 }
 
 export default function Home() {
+  const { user } = useAuth();
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -21,6 +23,7 @@ export default function Home() {
           <span>
             You Got <span className="text-primary">It!</span>
           </span>
+          <span>{user?.email}</span>
         </h1>
       </section>
 
