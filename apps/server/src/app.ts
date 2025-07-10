@@ -5,6 +5,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import type { ApiResponse } from "./types/ApiType";
 import { authRoutes } from "./routes/auth.routes";
+import { reportRoutes } from "./routes/reports.routes";
+import { reportService } from "./services/report.services";
 
 config();
 
@@ -25,7 +27,39 @@ app.get("/", (_req: Request, res: Response<ApiResponse<null>>) => {
 });
 
 // auth routes
+
+// search endpoint
+app.get("/api/search", async (req, res) => {
+  try {
+    const query = req.query.q as string;
+    const jenis_lap = req.query.jenis_lap as
+      | "kehilangan"
+      | "penemuan"
+      | undefined;
+    if (!query) {
+      res.status(400).json({
+        success: false,
+        message: "Missing search query parameter 'q'",
+        data: null,
+      });
+    }
+    const results = await reportService.search(query, jenis_lap);
+    res.status(200).json({
+      success: true,
+      message: "Search results",
+      data: results,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to perform search",
+      data: null,
+    });
+  }
+});
+
 app.use("/api/auth", authRoutes);
+app.use("/api/reports", reportRoutes);
 
 // handle 404
 app.use((_req: Request, res: Response<ApiResponse<null>>, _: NextFunction) => {
