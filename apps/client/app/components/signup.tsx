@@ -2,12 +2,12 @@ import DarkModeToggle from "./toggleTheme";
 
 export default function Register() {
     return (
-        <div className="flex flex-col w-full bg-[#1C1F23] ">
+        <div className="flex flex-col w-full bg-[#25282C] rounded-l-4xl">
            <div className="flex flex-row-reverse items-center justify-between gap-10 px-4 pt-10 text-white">
                 <p className="text-3xl  font-bold">Sign Up</p>
            </div>
            
-           <div className="flex flex-col items-center bg-[#1C1F23]">
+           <div className="flex flex-col items-center bg-[#25282C]">
                 <div className="flex flex-row w-full justify-center text-white gap-45">
                         <div className="flex flex-row">
                             <a href="/" className="text-3xl flex ">
