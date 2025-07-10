@@ -1,0 +1,40 @@
+paths:
+  /api/reports:
+    get:
+      summary: Get all reports
+      responses:
+        "200":
+          description: List of reports
+          content:
+            application/json:
+              schema:
+                $ref: "../swagger.yaml#/components/schemas/ApiResponseArray"
+    post:
+      summary: Create a new report
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                jenis_lap:
+                  type: string
+                  enum: [kehilangan, penemuan]
+      responses:
+        "201":
+          description: Report created
+          content:
+            application/json:
+              schema:
+                $ref: "../swagger.yaml#/components/schemas/ApiResponseNull"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "../swagger.yaml#/components/schemas/ApiResponseNull"
