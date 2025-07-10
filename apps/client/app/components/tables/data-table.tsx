@@ -71,7 +71,7 @@ export function DataTable<TData, TValue>({
                     width = "120px"; // Fixed width for ID
                     break;
                   case "name":
-                    width = "auto"; // Takes remaining space
+                    width = "400px"; // Takes remaining space
                     break;
                   case "variant":
                     width = "200px"; // Min width for variant

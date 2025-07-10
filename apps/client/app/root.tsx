@@ -9,7 +9,6 @@ import {
 } from "react-router";
 import Navbar from "./components/navbar";
 import { Button } from "./components/ui/button";
-import { useIsMobile } from "./hooks/use-mobile";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -57,8 +56,6 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let details = "We apologize for the inconvenience.+Please try again later.";
   let stack: string | undefined;
 
-  const isMobile = useIsMobile();
-
   if (isRouteErrorResponse(error)) {
     switch (error.status) {
       case 404:
@@ -97,7 +94,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
   return (
     <>
-      {!isMobile && <Navbar />}
+      <Navbar />
       <main className="container mx-auto max-w-7xl flex flex-col items-center justify-center h-[calc(100vh-72px)] text-center">
         <h1 className="text-5xl md:text-7xl font-bold mb-4">{message}</h1>
         <p className="text-sm md:text-lg mb-4 font-bold">{submessage}</p>
