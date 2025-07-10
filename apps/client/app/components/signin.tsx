@@ -40,6 +40,7 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
   };
 
   return (
+
     <div
       className={`w-full min-h-screen flex flex-col bg-[#e1e1e1] dark:bg-[#1C1F23] transition-all duration-500
         ${
@@ -54,14 +55,17 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
       </div> */}
       <div className="flex flex-1 flex-col items-center md:items-end justify-center">
         <div className="flex flex-row py-2 mb-5 primary-text w-full max-w-md justify-start gap-3 items-center">
+
           <a href="/" className="text-3xl flex items-center">
             We<span className="font-bold">Found</span>It
           </a>
           <DarkModeToggle />
         </div>
+
         <div className="flex flex-col w-full max-w-md px-6 py-7 box-secondary rounded-lg gap-4 shadow-lg">
           <div className="flex flex-row items-center justify-between mt-2">
             <p className="text-sm primary-text">
+
               Belum punya akun We<b>Found</b>It?
             </p>
             {onSwitchToRegister ? (
@@ -91,6 +95,7 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
               onChange={(e) => setEmail(e.target.value)}
               autoFocus
             />
+
             <p className="text-xs text-gray-400">Contoh: wefoundit@gmail.com</p>
             <div className="password-field flex w-full gap-2 relative">
               <input
@@ -105,6 +110,7 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
                 type="button"
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
                 onClick={() => setShowPass((v) => !v)}
+
                 tabIndex={-1}
               >
                 {showPass ? <EyeClosed /> : <Eye />}
@@ -121,11 +127,14 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
             )}
             <button
               type="submit"
+
               className="w-full h-10 bg-white text-[#3A3A3A] rounded-sm cursor-pointer hover:bg-blue-100 transition duration-150 font-bold mt-2"
+
               disabled={loading}
             >
               {loading ? "Loading..." : "Masuk"}
             </button>
+
             <div className="flex items-center my-2">
               <div className="flex-grow border-t border-gray-300"></div>
               <span className="mx-2 text-xs primary-text">
@@ -137,6 +146,7 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
               onClick={handleGoogle}
               type="button"
               className="flex flex-row justify-center w-full h-12 items-center p-2 text-white border border-gray-300 cursor-pointer rounded-md bg-[#23272F] hover:bg-[#2c313a] transition"
+
             >
               <svg
                 width="24"
@@ -170,6 +180,7 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
             >
               Butuh Bantuan?
             </a>
+
           </form>
         </div>
         <div className="w-full max-w-md">

@@ -45,15 +45,15 @@ export default function RegisterDetails() {
   };
 
   return (
-    <div className="flex flex-col w-full bg-[#25282C] rounded-l-4xl">
+    <div className="flex flex-col w-full background rounded-l-4xl">
       <div className="flex flex-row-reverse items-center justify-between gap-10 px-4 pt-10 text-white">
-        <p className="text-3xl  font-bold">Sign Up</p>
+        <p className="text-3xl  font-bold primary-text">Sign Up</p>
       </div>
 
-      <div className="flex flex-col items-center bg-[#25282C]">
-        <div className="flex flex-row w-full justify-center text-white gap-45">
+      <div className="flex flex-col items-center background">
+        <div className="flex flex-row w-full justify-center gap-45">
           <div className="flex flex-row">
-            <a href="/" className="text-3xl flex ">
+            <a href="/" className="text-3xl flex primary-text">
               We<span className="font-bold">Found</span>It
             </a>
             <DarkModeToggle />
@@ -61,7 +61,7 @@ export default function RegisterDetails() {
           <div className=""></div>
         </div>
 
-        <div className="flex flex-col w-96 h-110 flex px-4 py-5 box-secondary rounded-lg gap-4">
+        <div className="flex flex-col w-96 h-110 flex px-4 py-5 box-primary rounded-lg gap-4">
           <div className="flex my-3 text-xl font-bold gap-2">
             <Undo2 onClick={() => navigate(-1)} className="cursor-pointer text-blue-500"/>
             Daftar Dengan Email
@@ -84,31 +84,31 @@ export default function RegisterDetails() {
               required
               onChange={(e) => setName(e.target.value)}
             />
-            <div className="password-field flex w-full gap-2 relative">
+            <div className="password-field flex w-full gap-2 relative border border-gray-300 rounded-md">
             <input
               type={showPass ? "text" : "password"}
               placeholder="Password"
-              className="p-2 border border-gray-300 rounded-md relative w-full"
+              className="p-2 relative w-full"
               tabIndex={-1}
               required
             />
               <button
                 type="button"
-                className="  background: none; border: none; color: #aaa; cursor: pointer; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); padding: 0"
+                className="p-1  background: none; color: #aaa; cursor: pointer; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); padding: 0"
                 onClick={() => setShowPass(v => !v)}
                 tabIndex={-1}
                 >
-                {showPass ? <EyeClosed /> : <Eye />}
+                {showPass ? <Eye /> : <EyeClosed />}
               </button>
                 </div>
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-10 bg-white text-[#3A3A3A] rounded-sm cursor-pointer hover:btn-primary transition duration-150 font-bold"
+              className="w-full h-10 btn-secondary text-[#3A3A3A] rounded-sm cursor-pointer hover:btn-primary transition duration-150 font-bold"
             >
             {loading ? "Loading..." : "Daftar"}
             </button>
-            <p className="py-2 text-xs text-gray-400 text-center">
+            <p className="py-2 text-xs text-center primary-text">
               ------------atau daftar dengan------------
             </p>
             <button
@@ -140,7 +140,7 @@ export default function RegisterDetails() {
                   fill="#1976D2"
                 />
               </svg>
-              <p className="ml-2">Google</p>
+              <p className="ml-2 primary-text">Google</p>
             </button>
             <a
               href="/help"
@@ -149,10 +149,10 @@ export default function RegisterDetails() {
               Butuh Bantuan?
             </a>
             <br />
-            <p className="text-xs text-center text-white">
+            <p className="text-xs text-center primary-text">
               We<b>Found</b>It © 2025
             </p>
-            <p className="text-xs text-center text-white">
+            <p className="text-xs text-center primary-text">
               Made with ❤️ by kelompok E3
             </p>
           </form>
