@@ -12,11 +12,9 @@ import {
   Section,
   Link,
 } from "@react-email/components";
-import * as React from "react";
-
 const user = "John Doe";
 const link = "https://wefoundit.com/verify-email?token=1234567890";
-export const MyEmail = () => {
+export const VerificationEmail = () => {
   return (
     <Tailwind>
       <Html>
@@ -70,4 +68,4 @@ const main = {
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
 };
 
-export default MyEmail;
+export default VerificationEmail;

@@ -1,15 +1,17 @@
-import Card from "~/components/card";
 import type { Route } from "./+types/home";
 import { Button } from "~/components/ui/button";
 import { CompassIcon } from "lucide-react";
 import BetIcon from "~/components/icons/bet";
 import { Link } from "react-router";
+import SmallCard from "~/components/smallcard";
+import { useAuth } from "~/hooks/useSession";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
 }
 
 export default function Home() {
+  const { user } = useAuth();
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -21,6 +23,7 @@ export default function Home() {
           <span>
             You Got <span className="text-primary">It!</span>
           </span>
+          <span>{user?.email}</span>
         </h1>
       </section>
 
@@ -30,10 +33,10 @@ export default function Home() {
           <h2 className="text-2xl md:text-4xl/12 font-bold text-center">
             Recent Lost & Found Items
           </h2>
-          <div className="flex overflow-x-auto">
+          <div className="flex overflow-x-auto mt-16">
             {Array.from({ length: 10 }).map((_, index) => (
               <div key={index} className="flex-shrink-0 w-96 mx-4">
-                <Card />
+                <SmallCard />
               </div>
             ))}
           </div>
@@ -58,7 +61,7 @@ export default function Home() {
         </div>
         <div className="flex justify-center mt-8">
           <Button className="flex items-center" asChild>
-            <Link to={"/submit"} className="text-xs md:text-base">
+            <Link to={"/laporan"} className="text-xs md:text-base">
               <BetIcon />
               <span>Laporkan Sekarang</span>
             </Link>
