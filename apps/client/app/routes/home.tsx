@@ -14,7 +14,7 @@ export default function Home() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="h-[calc(100vh-72px)] flex flex-col items-center justify-center">
-        <h1 className="font-bold text-7xl/22 tracking-tight flex flex-col items-center justify-center text-center">
+        <h1 className="font-bold text-5xl/14 md:text-7xl/22 tracking-tight flex flex-col items-center justify-center text-center">
           <span>
             We <span className="text-primary">Found</span> It
           </span>
@@ -27,7 +27,7 @@ export default function Home() {
       {/* Recent Items Section */}
       <section className="py-20">
         <div className="mx-auto">
-          <h2 className="text-4xl/12 font-bold text-center">
+          <h2 className="text-2xl md:text-4xl/12 font-bold text-center">
             Recent Lost & Found Items
           </h2>
           <div className="flex overflow-x-auto">
@@ -37,7 +37,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <Button className="ml-16 mt-5 flex items-center">
+          <Button className="ml-4 md:ml-16 mt-5 flex items-center">
             <CompassIcon />
             <span>Browse More</span>
           </Button>
@@ -46,11 +46,11 @@ export default function Home() {
 
       {/* Additional CTA Section */}
       <section className="py-20">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl font-bold text-center">
+        <div className="max-w-xs md:max-w-7xl mx-auto">
+          <h2 className="text-xl md:text-5xl font-bold text-center">
             Find and Return Items, Easily
           </h2>
-          <p className="max-w-4xl mx-auto text-center mt-4">
+          <p className="text-xs md:text-base md:max-w-4xl mx-auto text-center mt-4">
             WeFoundIt memudahkan proses pencarian dan pengembalian barang hilang
             secara cepat, aman, dan berbasis komunitas. Cukup satu langkah untuk
             mulai bantu orang lain — atau dibantu.
@@ -58,7 +58,7 @@ export default function Home() {
         </div>
         <div className="flex justify-center mt-8">
           <Button className="flex items-center" asChild>
-            <Link to={"/submit"}>
+            <Link to={"/submit"} className="text-xs md:text-base">
               <BetIcon />
               <span>Laporkan Sekarang</span>
             </Link>
