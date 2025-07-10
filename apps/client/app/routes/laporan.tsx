@@ -5,7 +5,9 @@ import StepJenisLaporan from "../components/StepJenisLaporan";
 import StepFormKehilangan from "../components/StepFormKehilangan";
 import StepFormPenemuan from "../components/StepFormPenemuan";
 import StepFormLokasiWaktu from "../components/StepFormLokasiWaktu";
-import StepKonfirmasi from "../components/StepKonfirmasi";
+import StepFormUploadFoto from "../components/StepFormUploadFoto";
+import StepFormSuccess from "../components/StepFormSuccess";
+import { useNavigate } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
@@ -13,6 +15,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Laporan() {
   const [step, setStep] = useState(1);
+  let navigate = useNavigate();
   const [tipeLaporan, setTipeLaporan] = useState<"kehilangan" | "menemukan" | null>(null);
 
   const handlePilihTipe = (tipe: "kehilangan" | "menemukan") => {
@@ -36,9 +39,16 @@ export default function Laporan() {
         {step === 1 && <StepJenisLaporan onSelect={handlePilihTipe} />}
         {step === 2 && tipeLaporan === "kehilangan" && <StepFormKehilangan onNext={next} onBack={back} />}
         {step === 2 && tipeLaporan === "menemukan" && <StepFormPenemuan onNext={next} onBack={back} />}
-        {step === 3 && <StepFormLokasiWaktu />}
-        {/* Langkah 4 misal bisa diisi "Selesai" */}
+        {step === 3 && (
+          <StepFormLokasiWaktu onNext={() => setStep(4)} onBack={() => setStep(2)} />
+        )}
+        {step === 4 && (
+          <StepFormUploadFoto onNext={() => setStep(5)} onBack={() => setStep(3)} />
+        )}
+        {step === 5 && <StepFormSuccess onNext={() => navigate('/')} />}
+
       </div>
     </div>
   );
 }
+

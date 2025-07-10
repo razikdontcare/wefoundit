@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export default function StepFormKehilangan() {
+interface StepFormKehilanganProps {
+  onBack: () => void;
+  onNext: () => void;
+}
+
+export default function StepFormKehilangan({onBack, onNext}: StepFormKehilanganProps) {
   const [jumlahBarang, setJumlahBarang] = useState(1);
 
   const handleTambah = () => setJumlahBarang((prev) => prev + 1);
@@ -20,12 +25,12 @@ export default function StepFormKehilangan() {
         <input
           type="text"
           placeholder="Nama Barang"
-          className="bg-white hover:bg-white flex-1 px-4 py-2 rounded text-black"
+          className="bg-white hover:bg-white w-full flex-1 px-4 py-2 rounded text-black"
         />
         <input
           type="text"
           placeholder="Jenis Barang"
-          className="bg-white hover:bg-white flex-1 px-4 py-2 rounded text-black"
+          className="bg-white hover:bg-white w-full flex-1 px-4 py-2 rounded text-black"
         />
       </div>
 
@@ -60,8 +65,17 @@ export default function StepFormKehilangan() {
         </div>
       </div>
 
-      <div className="flex justify-center">
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded">
+      <div className="flex justify-between gap-2">
+        <button 
+          onClick={onBack}
+          className="bg-transparent hover:bg-blue-600  w-full text-white font-semibold py-2 px-8 rounded border border-blue-600 transition"
+          >
+          KEMBALI
+        </button>
+        <button 
+          onClick={onNext}
+          className="bg-blue-500 hover:bg-blue-600  w-full text-white font-semibold py-2 px-8 rounded"
+          >
           SELANJUTNYA
         </button>
       </div>

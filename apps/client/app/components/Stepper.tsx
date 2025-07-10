@@ -4,7 +4,7 @@ interface StepperProps {
 
 export default function Stepper({ step }: StepperProps) {
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center mb-6">
       {[1, 2, 3, 4].map((num, i) => (
         <div key={i} className="flex items-center">
           <div
@@ -14,7 +14,7 @@ export default function Stepper({ step }: StepperProps) {
           >
             {num}
           </div>
-          {i < 3 && <div className="w-20 h-1 bg-white"></div>}
+          {i < 4 && <div className="w-20 h-1 bg-white"></div>}
         </div>
       ))}
     </div>
