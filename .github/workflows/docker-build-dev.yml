@@ -49,3 +49,11 @@ jobs:
           push: true
           tags: |
             ghcr.io/${{ env.IMAGE_NAME_SERVER }}:latest
+
+      - name: Deploy via HTTP
+        run: |
+          curl -X POST https://deploy.razik.net/api/compose.deploy \
+          -H "Content-Type: application/json" \
+          -H "Accept: application/json" \
+          -H "X-Api-Key: ${{ secrets.DEPLOY_API_KEY }}" \
+          -d '{"composeId": "03rUyOrRT6QdaVzyiHy8-"}'
