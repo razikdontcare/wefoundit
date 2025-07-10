@@ -1,7 +1,6 @@
 import { reportService } from "../services/report.services.js";
 import { storageService } from "../services/storage.service.js";
 import type { Request, Response } from "express";
-import type { Report } from "../types/ReportType.js";
 
 export const getAllReports = async (req: Request, res: Response) => {
   try {
@@ -44,15 +43,38 @@ export const createReport = async (req: Request, res: Response) => {
         prefix: "reports",
       });
     }
+
+    // Parse barang from body (handle both JSON and multipart)
+    let barang;
+    if (req.body.barang && typeof req.body.barang === "string") {
+      barang = JSON.parse(req.body.barang);
+    } else {
+      barang = req.body.barang;
+    }
+
+    // Remove barang from body to avoid duplication
+    const { barang: _ignore, ...reportFields } = req.body;
+
+    // Add user_id from req.user (set by auth middleware)
+    const user_id = (req as any).user?.id;
+    if (!user_id) {
+      res.status(401).json({ error: "Unauthorized: user_id missing" });
+      return;
+    }
+
     const reportData = {
-      ...req.body,
+      ...reportFields,
+      barang,
       foto,
+      user_id,
     };
+
     const report = await reportService.createReport(
-      reportData as Omit<Report, "id" | "created_at">
+      reportData as any // Accepts the new structure
     );
     res.status(201).json(report);
   } catch (err) {
+    console.error("Error creating report:", err);
     res.status(500).json({ error: "Failed to create report" });
   }
 };

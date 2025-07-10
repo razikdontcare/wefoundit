@@ -44,7 +44,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 router.get("/", getAllReports);
 router.get("/:id", getReportById);
-router.post("/", authMiddleware, upload.single("photo"), createReport);
+router.post("/", authMiddleware, upload.single("foto"), createReport);
 router.put("/:id", authMiddleware, reportOwnerOrAdminMiddleware, updateReport);
 router.delete(
   "/:id",
