@@ -4,8 +4,8 @@ export default function Login() {
     return (
         <div className="flex flex-col w-full bg-[#1C1F23]">
            <div className="flex flex-row items-center justify-between gap-10 px-4 pt-10 text-white">
-                <h1 className="text-3xl left font-bold">Sign In</h1>
-                <h1 className="text-3xl left font-bold">Sign Up</h1>
+                <a className="text-3xl left font-bold cursor-pointer">Sign In</a>
+                <a className="text-3xl left font-bold cursor-pointer">Sign Up</a>
            </div>
            <div className="flex flex-col pl-96">
                 <div className="flex flex-row py-2 text-white">
@@ -34,11 +34,11 @@ export default function Login() {
                             required
                         />
                         <a href="/auth" className="text-blue-500 font-bold text-xs text-right hover:underline">Lupa Password?</a>
-                        <button type="submit" className="w-full h-10 bg-white text-[#3A3A3A] rounded-sm hover:btn-primary transition duration-150 font-bold">
+                        <button type="submit" className="w-full h-10 bg-white text-[#3A3A3A] rounded-sm cursor-pointer hover:btn-primary transition duration-150 font-bold">
                             Login
                         </button>
                         <p className="py-2 text-xs text-gray-400 text-center">------------atau masuk dengan------------</p>
-                        <button className="flex flex-row justify-center w-full h-12 items-center p-2 text-white border border-gray-300 rounded-md">
+                        <button className="flex flex-row justify-center w-full h-12 items-center p-2 text-white border border-gray-300 cursor-pointer rounded-md">
                             <svg width="24" height="24" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M25.7471 10.4539H24.7V10.4H13V15.6H20.347C19.2751 18.627 16.3949 20.8 13 20.8C8.69245 20.8 5.2 17.3075 5.2 13C5.2 8.69245 8.69245 5.2 13 5.2C14.9883 5.2 16.7973 5.9501 18.1747 7.17535L21.8517 3.4983C19.5299 1.33445 16.4242 0 13 0C5.82075 0 0 5.82075 0 13C0 20.1792 5.82075 26 13 26C20.1792 26 26 20.1792 26 13C26 12.1283 25.9103 11.2775 25.7471 10.4539Z" fill="#FFC107"/>
                                 <path d="M1.49915 6.94915L5.7703 10.0815C6.926 7.2202 9.7249 5.2 13.0002 5.2C14.9886 5.2 16.7975 5.9501 18.1749 7.17535L21.8519 3.4983C19.5301 1.33445 16.4244 0 13.0002 0C8.00695 0 3.67665 2.81905 1.49915 6.94915Z" fill="#FF3D00"/>
