@@ -342,11 +342,11 @@ class AuthService implements IAuthService {
       throw new AuthError("USER_NOT_FOUND", "User not found");
     }
 
-    const user = users[0];
+    // const user = users[0];
 
     // Update user fields
     const updateFields = Object.entries(updates)
-      .map(([key, value]) => `${key} = ?`)
+      .map(([key, _]) => `${key} = ?`)
       .join(", ");
     const updateValues = Object.values(updates);
 
