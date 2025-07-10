@@ -4,8 +4,8 @@ export default function Login() {
     return (
         <div className="flex flex-col w-full bg-[#1C1F23]">
            <div className="flex flex-row items-center justify-between gap-10 px-4 pt-10 text-white">
-                <a className="text-3xl left font-bold cursor-pointer">Sign In</a>
-                <a className="text-3xl left font-bold cursor-pointer">Sign Up</a>
+                <a href="/auth/signin" className="text-3xl left font-bold cursor-pointer">Sign In</a>
+                <a href="/auth/signup" className="text-3xl left font-bold cursor-pointer">Sign Up</a>
            </div>
            <div className="flex flex-col pl-96">
                 <div className="flex flex-row py-2 text-white">
@@ -35,7 +35,7 @@ export default function Login() {
                         />
                         <a href="/auth" className="text-blue-500 font-bold text-xs text-right hover:underline">Lupa Password?</a>
                         <button type="submit" className="w-full h-10 bg-white text-[#3A3A3A] rounded-sm cursor-pointer hover:btn-primary transition duration-150 font-bold">
-                            Login
+                            Masuk
                         </button>
                         <p className="py-2 text-xs text-gray-400 text-center">------------atau masuk dengan------------</p>
                         <button className="flex flex-row justify-center w-full h-12 items-center p-2 text-white border border-gray-300 cursor-pointer rounded-md">

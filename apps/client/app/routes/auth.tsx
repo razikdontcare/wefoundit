@@ -1,6 +1,7 @@
 import type { Route } from "./+types/auth";
 import { useNavigate } from "react-router";
-import Login from "~/components/login";
+import Login from "~/components/signin";
+import Register from "~/components/signup";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
@@ -11,7 +12,7 @@ export default function Auth() {
   return (
     <>
         <div className="flex flex-row min-h-screen box-primary">
-            <Login />
+            <Register />
         </div>
     </>
   );
