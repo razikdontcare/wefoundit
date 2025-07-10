@@ -20,9 +20,7 @@
     "@typescript-eslint/parser": "^8.32.1",
     "eslint": "^9.26.0",
     "react-email": "4.0.16",
-    "tsx": "^4.19.4"
-  },
-  "peerDependencies": {
+    "tsx": "^4.19.4",
     "typescript": "^5.0.0"
   },
   "dependencies": {
