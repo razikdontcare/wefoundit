@@ -12,8 +12,8 @@ export function meta({}: Route.MetaArgs) {
 }
 
 const breadcrumbLinks = [
-  { href: "#", label: "General" },
-  { label: "Status Laporan" },
+  { href: "#", label: "Admin" },
+  { label: "Kelola Laporan" },
 ];
 
 async function dummyData(): Promise<Report[]> {
@@ -63,10 +63,10 @@ export default function Reports({ loaderData }: Route.ComponentProps) {
       <SidebarHeader breadcrumbLinks={breadcrumbLinks} />
       <main className="flex flex-col m-10 gap-4">
         <div className="flex flex-col gap-2 max-w-2xl">
-          <h1 className="font-bold text-3xl">Status Laporan</h1>
+          <h1 className="font-bold text-3xl">Kelola Laporan</h1>
           <p>
-            Lihat dan kelola laporan barang hilang atau ditemukan yang telah
-            kamu buat. Tetap terhubung dan bantu proses pencarian lebih cepat.
+            Tinjau dan kelola semua laporan kehilangan dan penemuan yang dikirim
+            oleh pengguna.
           </p>
         </div>
         <DataTable

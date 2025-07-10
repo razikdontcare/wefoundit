@@ -9,8 +9,8 @@ import {
 export default [
   layout("./layouts/main-layout.tsx", [
     index("./routes/home.tsx"),
-    route("/reports", "./routes/dashboard/reports.tsx"),
     route("/browse", "./routes/browse.tsx"),
+    route("/laporan", "./routes/laporan.tsx")
     route("/search", "./routes/search.tsx"),
     route("/details/:id", "./routes/details.tsx"),
     route("/chat/:id", "./routes/chat.tsx"),
@@ -22,7 +22,15 @@ export default [
   ]),
   ...prefix("/dashboard", [
     layout("./layouts/dashboard-layout.tsx", [
+      route("/reports", "./routes/dashboard/reports.tsx"),
       index("./routes/dashboard/home.tsx"),
+      ...prefix("/settings", [
+        route("/account", "./routes/dashboard/accounts.tsx"),
+      ]),
+      ...prefix("/admin", [
+        route("/reports", "./routes/dashboard/admin/reports.tsx"),
+        route("/users", "./routes/dashboard/admin/users.tsx"),
+      ]),
     ]),
   ]),
 ] satisfies RouteConfig;

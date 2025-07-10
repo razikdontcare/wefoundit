@@ -59,7 +59,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           },
           {
             title: "Chats",
-            url: "#",
+            url: "/chats",
             icon: MessageSquare,
             isActive: isActive("/dashboard/chats"),
           },
@@ -71,9 +71,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: "Account",
-            url: "#",
+            url: defineUrl("/dashboard/settings/account"),
             icon: UserPen,
-            isActive: isActive("/dashboard/account"),
+            isActive: isActive("/dashboard/settings/account"),
           },
         ],
       },
@@ -83,13 +83,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: "Kelola User",
-            url: "#",
+            url: defineUrl("/dashboard/admin/users"),
             icon: UserCog,
             isActive: isActive("/dashboard/admin/users"),
           },
           {
             title: "Kelola Laporan",
-            url: "#",
+            url: defineUrl("/dashboard/admin/reports"),
             icon: ClipboardList,
             isActive: isActive("/dashboard/admin/reports"),
           },

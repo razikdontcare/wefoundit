@@ -10,14 +10,21 @@ export default function Card() {
             alt="foto"
             className="absolute w-full aspect-video object-cover object-center inset-0"
           />
+
+          <div className="absolute right-15 rounded-md">
+            <span className="alert alert-danger text-white px-2 py-1 rounded-md text-xs font-bold absolute top-2 left-2">
+              Lost
+            </span>
+          </div>
         </div>
         <div className="p-5 flex flex-col gap-2">
           <div className=" flex items-center justify-between">
             <span className="px-2 py-1  alert alert-info rounded-md font-bold text-sm  ">
               Handphone
             </span>
+
             <span className="italic text-black dark:text-white ml-7 text-xs">
-              Found on Thu, Apr 17 at 15:46 PM
+              Lost Around Thu, Apr 17 at 15:46 PM
             </span>
           </div>
 
@@ -46,9 +53,10 @@ export default function Card() {
                 Details
               </span>
             </div>
+
             <div className="btn-primary">
               <span className="flex items-center justify-center py-2 text-sm font-bold uppercase">
-                Claim
+                I Found It
               </span>
             </div>
           </div>
