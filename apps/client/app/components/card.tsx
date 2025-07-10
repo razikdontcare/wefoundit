@@ -22,7 +22,7 @@ export default function Card() {
               Handphone
             </span>
             <span className="italic text-black dark:text-white ml-7 text-xs">
-              Found on Thu, Apr 17 at 15:46 PM
+              Lost Around Thu, Apr 17 at 15:46 PM
             </span>
           </div>
 
