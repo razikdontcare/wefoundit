@@ -12,6 +12,7 @@ export default [
     route("/browse", "./routes/browse.tsx"),
     route("/search", "./routes/search.tsx"),
     route("/details/:id", "./routes/details.tsx"),
+    route("/chat/:id", "./routes/chat.tsx"),
   ]),
   ...prefix("/dashboard", [
     layout("./layouts/dashboard-layout.tsx", [
