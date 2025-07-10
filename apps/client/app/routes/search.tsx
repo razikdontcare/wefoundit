@@ -8,27 +8,37 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Search() {
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("q");
 
-    const [searchParams] = useSearchParams();
-    const query = searchParams.get("q") //&& searchParams.get("filter");
-    return (<>
-        <div className="flex flex-col margin px-30">
-            <div className="flex justify-between py-7">
-                <h1 className="text-3xl font-bold mb-4 underline lowercase">{query}</h1>
-                <Dropdown placeHolder="Filter" options={[{ label: "Found", labelValue: "Found"}, { label: "Lost", labelValue: "Lost"}, { label: "Reset Filter", labelValue: "Filter"}]} />
-            </div>
-            <div className="flex items-center justify-center container mx-auto max-w-7xl grid grid-cols-3 gap-4">
-                {Array.from({ length: 10 }).map((_, index) => (
-                    <div key={index}>
-                    <Card />
-                    </div>
-                ))}
-            </div>
-            <div className="flex justify-center items-center mt-10 py-4">
-                <p className="text-center text-gray-600 place-content-end">
-                    Search results for: <span className="font-semibold lowercase">{query}</span>
-                </p>
-            </div>
-        </div>
-    </>)
+  return (
+    <div className="flex flex-col px-4 sm:px-6 lg:px-10 py-6">
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+        <h1 className="text-2xl sm:text-3xl font-bold underline lowercase">{query}</h1>
+        <Dropdown
+          placeHolder="Filter"
+          options={[
+            { label: "Found", labelValue: "Found" },
+            { label: "Lost", labelValue: "Lost" },
+            { label: "Reset Filter", labelValue: "Filter" },
+          ]}
+        />
+      </div>
+
+      {/* Card Grid Section */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {Array.from({ length: 10 }).map((_, index) => (
+          <Card key={index} />
+        ))}
+      </div>
+
+      {/* Footer Section */}
+      <div className="flex justify-center items-center mt-10 py-4">
+        <p className="text-center text-gray-600">
+          Search results for: <span className="font-semibold lowercase">{query}</span>
+        </p>
+      </div>
+    </div>
+  );
 }
