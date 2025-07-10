@@ -18,17 +18,17 @@ export default function Dashboard() {
   return (
     <>
       <SidebarHeader breadcrumbLinks={breadcrumbLinks} />
-      <main className="container mx-auto h-full flex flex-col items-center justify-center gap-3">
+      <main className="container mx-auto max-w-xs md:max-w-full h-full flex flex-col items-center justify-center gap-3">
         <div className="flex items-center justify-center flex-col max-w-2xl gap-2">
-          <h1 className="font-bold text-2xl text-center">
+          <h1 className="font-bold text-xl md:text-2xl text-center">
             Welcome back, rikadoescare!
           </h1>
-          <p className="text-center">
+          <p className="text-center text-xs md:text-base">
             Lihat dan kelola laporan barang hilang atau ditemukan yang telah
             kamu buat. Tetap terhubung dan bantu proses pencarian lebih cepat.
           </p>
         </div>
-        <div className="flex flex-col items-center justify-center box-primary px-5 py-8 mt-5 rounded-md">
+        <div className="flex flex-col items-center justify-center box-primary px-5 py-8 mt-5 rounded-md text-xs md:text-base">
           <div className="w-full flex items-center gap-5">
             <span className="min-w-40">Report Submitted</span>
             <span className="w-full">: 5</span>
@@ -38,7 +38,7 @@ export default function Dashboard() {
             <span className="w-full">: 2 days ago</span>
           </div>
         </div>
-        <Button asChild className="btn-primary">
+        <Button asChild className="btn-primary text-xs md:text-base">
           <Link to={"/submit"}>
             {" "}
             <ClipboardPlus />

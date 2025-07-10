@@ -71,7 +71,7 @@ export function DataTable<TData, TValue>({
                     width = "120px"; // Fixed width for ID
                     break;
                   case "name":
-                    width = "auto"; // Takes remaining space
+                    width = "400px"; // Takes remaining space
                     break;
                   case "variant":
                     width = "200px"; // Min width for variant
@@ -81,6 +81,18 @@ export function DataTable<TData, TValue>({
                     break;
                   case "actions":
                     width = "100px"; // Fixed width for actions
+                    break;
+                  case "email":
+                    width = "250px"; // Fixed width for email
+                    break;
+                  case "phone":
+                    width = "150px"; // Fixed width for phone
+                    break;
+                  case "role":
+                    width = "150px"; // Fixed width for role
+                    break;
+                  case "displayName":
+                    width = "200px"; // Fixed width for displayName
                     break;
                   default:
                     width = "auto";

@@ -21,6 +21,10 @@ export default [
       ...prefix("/settings", [
         route("/account", "./routes/dashboard/accounts.tsx"),
       ]),
+      ...prefix("/admin", [
+        route("/reports", "./routes/dashboard/admin/reports.tsx"),
+        route("/users", "./routes/dashboard/admin/users.tsx"),
+      ]),
     ]),
   ]),
 ] satisfies RouteConfig;

@@ -83,13 +83,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         items: [
           {
             title: "Kelola User",
-            url: "#",
+            url: defineUrl("/dashboard/admin/users"),
             icon: UserCog,
             isActive: isActive("/dashboard/admin/users"),
           },
           {
             title: "Kelola Laporan",
-            url: "#",
+            url: defineUrl("/dashboard/admin/reports"),
             icon: ClipboardList,
             isActive: isActive("/dashboard/admin/reports"),
           },

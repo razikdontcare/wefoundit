@@ -1,50 +1,8 @@
-import { useState, useEffect } from "react";
 import { Sun, Moon } from "lucide-react";
+import useTheme from "../hooks/useTheme"; // Import the custom hook
 
 const DarkModeToggle = () => {
-  // Get initial theme from localStorage or system preference
-  const getInitialTheme = () => {
-    if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme) {
-        return savedTheme;
-      }
-
-      // Check system preference
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-    }
-    return "light"; // Default fallback
-  };
-
-  const [theme, setTheme] = useState(getInitialTheme());
-
-  // Apply theme to HTML element
-  useEffect(() => {
-    const root = window.document.documentElement;
-
-    // Clear any existing theme classes first
-    root.classList.remove("dark");
-
-    if (theme === "dark") {
-      root.classList.add("dark");
-    }
-
-    // Save to localStorage
-    localStorage.setItem("theme", theme);
-
-    // Log for debugging
-    console.log("Theme set to:", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => {
-      const newTheme = prevTheme === "light" ? "dark" : "light";
-      console.log("Toggling theme from", prevTheme, "to", newTheme);
-      return newTheme;
-    });
-  };
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <button
