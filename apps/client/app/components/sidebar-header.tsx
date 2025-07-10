@@ -74,7 +74,7 @@ export default function SidebarHeader({ breadcrumbLinks }: SidebarHeaderProps) {
         <div className="flex items-center gap-5">
           <DarkModeToggle />
           <Button asChild className="btn-primary">
-            <Link to={"/submit"}>
+            <Link to={"/laporan"}>
               {" "}
               <ClipboardPlus />
               <span>Laporan Baru</span>
@@ -99,7 +99,7 @@ export default function SidebarHeader({ breadcrumbLinks }: SidebarHeaderProps) {
                 </span>
               </MenubarItem>
               <MenubarItem>
-                <Link to={"/submit"} className="flex items-center">
+                <Link to={"/laporan"} className="flex items-center">
                   <ClipboardPlus className="w-4 h-4 md:w-5 md:h-5" />
                   <span className="ml-2">Laporan Baru</span>
                 </Link>

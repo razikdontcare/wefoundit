@@ -13,6 +13,16 @@ import {
 } from "~/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
 import { useAuth } from "../hooks/useSession";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from "~/components/ui/menubar";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -55,15 +65,46 @@ export default function Navbar() {
           ))}
           {user ? (
             <>
-              <span className="text-sm text-gray-600 dark:text-gray-300">
-                {user.name}
-              </span>
-              <button
-                onClick={logout}
-                className="ml-2 px-3 py-1 border border-red-500 text-red-500 rounded hover:bg-red-500 hover:text-white transition"
-              >
-                Logout
-              </button>
+              <Menubar className="bg-transparent border-none focus:bg-transparent w-fit">
+                <MenubarMenu>
+                  <MenubarTrigger className="bg-transparent border-none focus:bg-transparent cursor-pointer">
+                    <Avatar>
+                      <AvatarImage src={user.photo_url} />
+                      <AvatarFallback className="bg-primary text-white">
+                        {user.name.charAt(0).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </MenubarTrigger>
+                  <MenubarContent>
+                    <div className="flex items-center text-sm px-2 pb-5 pt-2">
+                      <Avatar className="size-12 mr-3">
+                        <AvatarImage src={user.photo_url} />
+                        <AvatarFallback className="bg-primary text-white">
+                          {user.name.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex flex-col justify-center">
+                        <span className="font-bold">{user.name}</span>
+                        <span className="text-xs">{user.email}</span>
+                      </div>
+                    </div>
+                    <MenubarItem>
+                      <Link to="/dashboard/settings/account" className="w-full">
+                        Akun Saya
+                      </Link>
+                    </MenubarItem>
+                    <MenubarItem>
+                      <Link to="/dashboard/reports" className="w-full">
+                        Laporan Saya
+                      </Link>
+                    </MenubarItem>
+                    <MenubarSeparator />
+                    <MenubarItem variant="destructive" onClick={logout}>
+                      Logout
+                    </MenubarItem>
+                  </MenubarContent>
+                </MenubarMenu>
+              </Menubar>
             </>
           ) : (
             <Link
@@ -74,7 +115,7 @@ export default function Navbar() {
             </Link>
           )}
           <Link
-            to="/laporan"
+            to={user ? "/laporan" : "/auth"}
             className="pl-2 pr-4 py-2 border border-primary text-primary rounded-lg text-sm/4 uppercase tracking-widest flex items-center gap-2"
           >
             <BetIcon />

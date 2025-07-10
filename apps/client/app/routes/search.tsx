@@ -1,5 +1,4 @@
 import type { Route } from "./+types/search";
-import { useSearchParams } from "react-router";
 import Dropdown from "~/components/dropdown";
 import Card from "~/components/card";
 import axios from "axios";
@@ -14,12 +13,14 @@ export async function loader({ request }: Route.LoaderArgs) {
   // const filter = url.searchParams.get("filter");
 
   //   Example API call (uncomment and adjust as needed)
-  const response = await axios.get<{ data: [] }>(
+  const response = await axios.get<{ data: any[] }>(
     `${process.env.API_URL}/api/search`,
     {
       params: { q: query },
     }
   );
+
+  console.log(response.data.data); // Log the response data for debugging
 
   // return response.data;
 
@@ -47,9 +48,9 @@ export default function Search({ loaderData }: Route.ComponentProps) {
         {data.length > 0 ? (
           <>
             <div className="flex items-center justify-center container mx-auto max-w-7xl grid grid-cols-3 gap-4">
-              {data.map((_, index) => (
+              {data.map((d, index) => (
                 <div key={index}>
-                  <Card />
+                  <Card data={d} />
                 </div>
               ))}
             </div>
