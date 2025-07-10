@@ -90,7 +90,7 @@ export default function Register({
               </a>
             )}
           </div>
-          <form className="flex flex-col gap-2 mt-4" onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-2 mt-4 primary-text" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Nama Lengkap"

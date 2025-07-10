@@ -37,16 +37,16 @@ export default function Details({ params }: { params: { id: string } }) {
           </span>
         </div>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-6 px-4 py-2">
-          <div className="rounded-2xl w-full lg:w-[45%] min-h-[20rem] border border-gray-300">
-            <div className="relative aspect-[14/18] overflow-hidden rounded-2xl">
+          <div className="rounded-2xl w-full lg:w-[45%] border border-gray-300">
+            <div className="relative aspect-video sm:aspect-[4/3] lg:aspect-[14/18] overflow-hidden rounded-2xl">
               <img
                 src="https://picsum.photos/640/360"
                 alt="foto"
-                className="absolute w-full aspect-[14/18] object-cover object-center inset-0"
+                className="absolute w-full h-full object-cover object-center inset-0"
               />
             </div>
           </div>
-          <div className="flex flex-col items-start rounded-2xl w-full lg:w-[55%] border border-gray-300 p-4 mt-4 lg:mt-0">
+          <div className="flex flex-col items-start rounded-2xl lg:h-full lg:w-[55%] border border-gray-300 p-4 mt-4 lg:mt-0">
             <span className="px-2 py-1  alert alert-info rounded-md font-bold text-sm  ">
               Handphone
             </span>
