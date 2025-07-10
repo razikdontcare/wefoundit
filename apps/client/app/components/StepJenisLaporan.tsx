@@ -10,13 +10,13 @@ export default function StepJenisLaporan({ onSelect }: Props) {
       </p>
       <button
         onClick={() => onSelect("kehilangan")}
-        className="border border-white py-2 rounded hover:bg-white hover:text-black transition"
+        className="border border-blue-500 py-2 rounded hover:bg-white hover:text-black transition"
       >
         Kehilangan Barang
       </button>
       <button
         onClick={() => onSelect("menemukan")}
-        className="border border-white py-2 rounded hover:bg-white hover:text-black transition"
+        className="border border-blue-500  py-2 rounded hover:bg-white hover:text-black transition"
       >
         Menemukan Barang
       </button>
