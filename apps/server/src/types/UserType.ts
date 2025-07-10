@@ -10,6 +10,8 @@ export type User = {
   active: boolean;
   last_login?: Date;
   providers: Array<"google" | "email">;
+  verification_code?: string;
+  verified: boolean;
 };
 
 export type RegisterUser = Omit<
