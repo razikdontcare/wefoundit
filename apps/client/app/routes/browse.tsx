@@ -12,13 +12,13 @@ export default function Browse() {
         <h1 className="text-4xl font-bold">Browse Lost & Found Items</h1>
         <div className="w-[140px] h-[4px] bg-black dark:bg-white rounded-full"></div>
       </div>
-      <div className="container mx-auto max-w-7xl grid grid-cols-3 gap-4 py-4">
-        {" "}
-        {Array.from({ length: 10 }).map((_, index) => (
-          <div key={index}>
-            <Card />
-          </div>
-        ))}
+
+      <div className="container mx-auto max-w-7xl px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <Card key={index} />
+          ))}
+        </div>
       </div>
     </>
   );

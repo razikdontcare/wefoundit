@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Compass, Info } from "lucide-react";
 
 export default function Card() {
+  const [isClicked, setIsClicked] = useState(false);
   return (
     <>
-      <div className=" w-full min-h-[36rem] bg-blue-400 text-black dark:bg-gray-700 dark:text-white  drop-shadow-2xl rounded-md overflow-hidden">
+      <div className=" w-full max-w-md mx-auto md:max-w-lg bg-gray-300 text-black dark:bg-gray-700 dark:text-white drop-shadow-2xl rounded-md overflow-hidden">
         <div className="relative aspect-video overflow-hidden">
           <img
             src="https://picsum.photos/640/360"
@@ -17,8 +19,8 @@ export default function Card() {
             </span>
           </div>
         </div>
-        <div className="p-5 flex flex-col gap-2">
-          <div className=" flex items-center justify-between">
+        <div className="p-4 sm:p-5 flex flex-col gap-3">
+          <div className=" flex flex-wrap items-center justify-between">
             <span className="px-2 py-1  alert alert-info rounded-md font-bold text-sm  ">
               Handphone
             </span>
@@ -48,15 +50,19 @@ export default function Card() {
           </div>
 
           <div className="flex flex-col w-full gap-2">
-            <div className="border-1 border-blue-600">
+            <div className="border-1 border-blue-600 rounded-md">
               <span className="flex items-center justify-center py-2 text-sm font-bold uppercase">
                 Details
               </span>
             </div>
-
-            <div className="btn-primary">
+            <div
+              className={`cursor-pointer rounded-md py-2 text-sm font-bold uppercase text-white flex items-center justify-center ${
+                isClicked ? "bg-green-400" : "bg-blue-600 hover:bg-blue-700"
+              }`}
+              onClick={() => setIsClicked(true)}
+            >
               <span className="flex items-center justify-center py-2 text-sm font-bold uppercase">
-                I Found It
+                {isClicked ? "Founded" : "I Found It"}
               </span>
             </div>
           </div>
