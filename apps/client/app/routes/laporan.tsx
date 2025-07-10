@@ -27,9 +27,9 @@ export default function Laporan() {
   const back = () => setStep(prev => prev - 1);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center px-4 py-8">
-      <h1 className="text-2xl font-bold mb-5 text-center">Laporkan Barang Hilang atau Ditemukan</h1>
-      <p className="text-sm text-gray-300 mb-14 text-center max-w-md">
+    <div className="min-h-screen bg-gray-200 dark:bg-gray-900 text-white flex flex-col items-center px-4 py-8">
+      <h1 className="text-2xl primary-text font-bold mb-5 text-center">Laporkan Barang Hilang atau Ditemukan</h1>
+      <p className="text-sm primary-text mb-14 text-center max-w-md">
         Sampaikan informasi barang secara detail untuk membantu proses pencarian atau pengembalian.
       </p>
 

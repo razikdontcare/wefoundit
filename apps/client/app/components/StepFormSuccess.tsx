@@ -8,12 +8,12 @@ interface StepFormSuccessProps {
 
 const StepFormSuccess = ({ onNext }: StepFormSuccessProps) => {
   return (
-    <div className="max-w-2xl mx-auto px-4 text-white text-center">
+    <div className="max-w-2xl mx-auto px-4 primary-text text-center">
       {/* Header */}
       <div className="mb-2">
         {/* <div className="w-16 h-[2px] bg-white mx-auto mb-2" /> */}
         <h2 className="text-2xl font-bold">Berhasil!</h2>
-        <p className="text-sm text-gray-300 mt-1 mb-6">Laporan Kamu berhasil disimpan.</p>
+        <p className="text-sm primary-text mt-1 mb-6">Laporan Kamu berhasil disimpan.</p>
       </div>
 
       {/* Icon Centang */}

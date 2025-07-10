@@ -9,7 +9,7 @@ export default function Stepper({ step }: StepperProps) {
         <div key={i} className="flex items-center">
           <div
             className={`w-6 h-6 rounded-full text-sm flex items-center justify-center ${
-              step >= num ? "bg-blue-500 text-white" : "bg-white text-black"
+              step >= num ? "bg-blue-500 text-white" : "dark:bg-white bg-gray-900 dark:text-black"
             }`}
           >
             {num}
@@ -17,7 +17,7 @@ export default function Stepper({ step }: StepperProps) {
           {i < 3 && (
             <div 
               className={`w-10 h-1 transition-all duration-300 ${
-                step > num ? "bg-blue-500" : "bg-white"
+                step > num ? "bg-blue-500" : "dark:bg-white bg-gray-900"
               }`}
             ></div>
           )}

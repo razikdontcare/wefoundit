@@ -14,10 +14,10 @@ export default function StepFormKehilangan({onBack, onNext}: StepFormKehilanganP
   };
 
   return (
-    <div className="max-w-3xl mx-auto text-white mt-8">
-      <h2 className="text-center text-lg font-semibold mb-4">Detail Barang</h2>
+    <div className="max-w-3xl mx-auto black-text mt-8">
+      <h2 className="text-center text-lg font-semibold mb-4 primary-text">Detail Barang</h2>
 
-      <p className="text-center text-sm text-gray-300 mb-6 py-2 px-4 rounded">
+      <p className="text-center text-sm primary-text mb-6 py-2 px-4 rounded">
         Berikan informasi sejelas mungkin mengenai barang yang hilang atau ditemukan.
       </p>
 
@@ -42,11 +42,11 @@ export default function StepFormKehilangan({onBack, onNext}: StepFormKehilanganP
       </div>
 
       <div className="flex items-center justify-between sm:justify-start gap-4 mb-6">
-        <label className="text-sm text-gray-300">Jumlah Barang</label>
+        <label className="text-sm primary-text">Jumlah Barang</label>
         <div className="flex items-center gap-2">
           <button
             onClick={handleKurang}
-            className="w-8 h-8 bg-blue-500 text-white rounded"
+            className="w-8 h-8 bg-blue-500 primary-text rounded"
           >
             -
           </button>
@@ -54,11 +54,11 @@ export default function StepFormKehilangan({onBack, onNext}: StepFormKehilanganP
             type="number"
             value={jumlahBarang}
             readOnly
-            className="w-12 h-8 text-center rounded text-white"
+            className="w-12 h-8 text-center rounded primary-text"
           />
           <button
             onClick={handleTambah}
-            className="w-8 h-8 bg-blue-500 text-white rounded"
+            className="w-8 h-8 bg-blue-500 primary-text rounded"
           >
             +
           </button>
@@ -68,13 +68,13 @@ export default function StepFormKehilangan({onBack, onNext}: StepFormKehilanganP
       <div className="flex justify-between gap-2">
         <button 
           onClick={onBack}
-          className="bg-transparent hover:bg-blue-600  w-full text-white font-semibold py-2 px-8 rounded border border-blue-600 transition"
+          className="bg-transparent hover:bg-blue-600  w-full hover:text-white dark:text-white text-black font-semibold py-2 px-8 rounded border border-blue-600 transition"
           >
           KEMBALI
         </button>
         <button 
           onClick={onNext}
-          className="bg-blue-500 hover:bg-blue-600  w-full text-white font-semibold py-2 px-8 rounded"
+          className="bg-blue-500 hover:bg-blue-600  w-full hover:text-white font-semibold py-2 px-8 rounded"
           >
           SELANJUTNYA
         </button>

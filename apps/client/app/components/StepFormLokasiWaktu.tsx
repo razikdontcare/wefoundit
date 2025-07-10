@@ -9,7 +9,7 @@ interface StepFormLokasiWaktuProps {
 
 const StepFormLokasiWaktu = ({onBack, onNext} : StepFormLokasiWaktuProps) => {
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 text-white">
+    <div className="max-w-2xl mx-auto px-4 py-8 primary-text">
 
       {/* Title and Description */}
       <h3 className="text-center text-lg font-semibold mb-2">Lokasi & Waktu</h3>
@@ -42,13 +42,13 @@ const StepFormLokasiWaktu = ({onBack, onNext} : StepFormLokasiWaktuProps) => {
       <div className="flex justify-between gap-2">
         <button 
           onClick={onBack}
-          className="bg-transparent hover:bg-blue-600  w-full text-white font-semibold py-2 px-8 rounded border border-blue-600 transition"
+          className="bg-transparent hover:bg-blue-600  w-full hover:text-white dark:text-white text-black font-semibold py-2 px-8 rounded border border-blue-600 transition"
           >
           KEMBALI
         </button>
         <button 
           onClick={onNext}
-          className="bg-blue-500 hover:bg-blue-600  w-full text-white font-semibold py-2 px-8 rounded"
+          className="bg-blue-500 hover:bg-blue-600  text-white w-full hover:text-white font-semibold py-2 px-8 rounded"
           >
           SELANJUTNYA
         </button>
