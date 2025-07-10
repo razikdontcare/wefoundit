@@ -24,5 +24,6 @@
     {
       "text": "If unsure between scopes, prefer the more specific one that covers all affected areas. For dependency updates affecting multiple projects, use [root] for build dependencies or [server][client] for runtime dependencies"
     }
-  ]
+  ],
+  "postman.settings.dotenv-detection-notification-visibility": false
 }

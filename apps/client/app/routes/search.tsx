@@ -10,7 +10,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Search() {
 
     const [searchParams] = useSearchParams();
-    const query = searchParams.get("q") && searchParams.get("filter");
+    const query = searchParams.get("q") //&& searchParams.get("filter");
     return (<>
         <div className="flex flex-col margin px-30">
             <div className="flex justify-between py-7">
