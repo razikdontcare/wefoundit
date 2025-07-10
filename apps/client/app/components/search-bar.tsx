@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Search } from "lucide-react";
 
-
 interface SearchBarProps {
   placeholder?: string;
   onSearch?: (query: string) => void;
@@ -16,7 +15,6 @@ export default function SearchBar({
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState(0);
-
 
   useEffect(() => {
     if (containerRef.current) {
@@ -53,8 +51,6 @@ export default function SearchBar({
     }, 0);
   };
 
-
-
   return (
     <>
       <div
@@ -66,17 +62,17 @@ export default function SearchBar({
           }
         }}
       >
-        <div className="py-2 px-3 gap-3 bg-gray-100 text-text flex items-center justify-center rounded-full border border-text-muted min-w-xs">
+        <div className="py-2 px-3 gap-3 bg-gray-100 text-text flex items-center justify-center rounded-full border border-text-muted md:min-w-xs">
           <div
             className={`flex items-center w-full ${
               !isFocused && !query ? "invisible" : "visible"
             }`}
           >
-            <Search className="w-5 h-5 text-text-muted flex-shrink-0 mr-2" />
+            <Search className="w-3 h-3 md:w-5 md:h-5 text-text-muted flex-shrink-0 mr-2" />
             <input
               ref={inputRef}
               type="text"
-              className="bg-transparent focus:outline-none w-full text-text placeholder:text-text-muted"
+              className="bg-transparent focus:outline-none w-full text-text placeholder:text-text-muted text-sm md:text-base"
               placeholder={placeholder}
               value={query}
               onChange={handleChange}
@@ -94,8 +90,8 @@ export default function SearchBar({
               height: containerHeight > 0 ? `${containerHeight}px` : "auto",
             }}
           >
-            <Search className="w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0" />
-            <span className="text-gray-400 dark:text-gray-500">
+            <Search className="w-3 h-3 md:w-5 md:h-5 text-gray-400 dark:text-gray-500 flex-shrink-0" />
+            <span className="text-gray-400 dark:text-gray-500 text-xs md:text-base">
               {placeholder}
             </span>
           </div>
