@@ -9,23 +9,30 @@ export default function Footer() {
 
   return (
     <>
-      <div className="container mx-auto flex flex-col justify-center py-12">
-        <div className="w-full flex justify-between">
-          <div className="flex">
-            <span className="text-4xl flex">
+      <div className="container mx-auto max-w-xs md:max-w-7xl flex flex-col justify-center py-12 gap-5 md:gap-0">
+        <div className="w-full flex flex-col md:flex-row md:justify-between">
+          <div className="flex mb-5 md:mb-0">
+            <span className="text-xl md:text-4xl flex">
               We<span className="font-bold">Found</span>It
             </span>
           </div>
-          <div className="flex flex-col items-end gap-3 max-w-xs text-end">
-            <span className="font-bold text-xl mb-3">Contact</span>
-            <Link to={`mailto:${contact.email}`}>{contact.email}</Link>
-            <Link to="#">
+          <div className="flex flex-col md:items-end gap-3 max-w-xs md:text-end">
+            <span className="font-bold text-sm md:text-xl md:mb-3">
+              Contact
+            </span>
+            <Link
+              to={`mailto:${contact.email}`}
+              className="text-xs md:text-base "
+            >
+              {contact.email}
+            </Link>
+            <Link to="#" className="text-xs md:text-base ">
               Jl. Raya Kampus Unud, Jimbaran, Kec. Kuta Sel., Kabupaten Badung,
               Bali 80361
             </Link>
           </div>
         </div>
-        <span>
+        <span className="text-xs md:text-base">
           We<span className="font-bold">Found</span>It &copy; Copyright 2025
         </span>
       </div>
