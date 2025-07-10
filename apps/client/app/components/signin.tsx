@@ -4,7 +4,7 @@ export default function Login() {
     return (
         <div className="flex flex-col w-full bg-[#1C1F23]">
            <div className="flex flex-row items-center justify-between gap-10 px-4 pt-10 text-white">
-                <a href="/auth/signin" className="text-3xl left font-bold cursor-pointer">Sign In</a>
+                <p className="text-3xl left font-bold">Sign In</p>
                 <a href="/auth/signup" className="text-3xl left font-bold cursor-pointer">Sign Up</a>
            </div>
            <div className="flex flex-col pl-96">

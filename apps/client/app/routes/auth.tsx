@@ -12,7 +12,7 @@ export default function Auth() {
   return (
     <>
         <div className="flex flex-row min-h-screen box-primary">
-            <Register />
+            <Login />
         </div>
     </>
   );

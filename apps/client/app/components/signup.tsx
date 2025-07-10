@@ -3,8 +3,8 @@ import DarkModeToggle from "./toggleTheme";
 export default function Register() {
     return (
         <div className="flex flex-col w-full bg-[#1C1F23] ">
-           <div className="flex flex-row items-center justify-between gap-10 px-4 pt-10 text-white">
-                <a href="/auth/signin" className="text-3xl left font-bold cursor-pointer">Sign Up</a>
+           <div className="flex flex-row-reverse items-center justify-between gap-10 px-4 pt-10 text-white">
+                <p className="text-3xl  font-bold">Sign Up</p>
            </div>
            
            <div className="flex flex-col items-center bg-[#1C1F23]">
