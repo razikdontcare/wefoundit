@@ -15,4 +15,6 @@ COPY --from=deps /app/bun.lockb ./
 RUN bun install --production
 
 COPY --from=build /app/dist ./dist
+COPY --from=build /app/src/swagger.yaml ./src/swagger.yaml
+COPY --from=build /app/src/swagger ./src/swagger
 CMD ["bun", "run", "start"]

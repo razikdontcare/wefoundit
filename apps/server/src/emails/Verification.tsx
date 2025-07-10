@@ -12,9 +12,16 @@ import {
   Section,
   Link,
 } from "@react-email/components";
-const user = "John Doe";
-const link = "https://wefoundit.com/verify-email?token=1234567890";
-export const VerificationEmail = () => {
+
+export default function VerificationEmail({
+  code,
+  user,
+}: {
+  code: string;
+  user: string;
+}) {
+  const link = "https://wefoundit.vercel.app/verify?code=" + code;
+
   return (
     <Tailwind>
       <Html>
@@ -61,11 +68,9 @@ export const VerificationEmail = () => {
       </Html>
     </Tailwind>
   );
-};
+}
 
 const main = {
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
 };
-
-export default VerificationEmail;

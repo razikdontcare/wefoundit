@@ -1,4 +1,4 @@
-import { RegisterUser, User } from "../types/UserType";
+import { RegisterUser, User } from "../types/UserType.js";
 
 export interface IAuthService {
   loginWithGoogle(
@@ -15,4 +15,19 @@ export interface IAuthService {
     photo_url,
   }: RegisterUser): Promise<User>;
   getUserById(id: string): Promise<User | null>;
+  getAllUsers(): Promise<User[]>;
+  generateVerificationCode(email: string): Promise<string>;
+  verifyEmail(
+    email: string,
+    verificationCode: string
+  ): Promise<{ user: User; sessionToken: string }>;
+  resetPassword(
+    email: string,
+    newPassword: string
+  ): Promise<{ user: User; sessionToken: string }>;
+  updateUser(
+    userId: string,
+    updates: Partial<Omit<User, "id" | "created_at" | "updated_at">>
+  ): Promise<User>;
+  deleteUser(userId: string): Promise<void>;
 }
