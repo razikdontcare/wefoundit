@@ -49,6 +49,7 @@ export default function Register({
   };
 
   return (
+
     <div className="w-full min-h-screen flex flex-col bg-[#e1e1e1] dark:bg-[#1C1F23] transition-all duration-500 border border-white rounded-3xl">
       <div
         className={`flex flex-1 flex-col items-center justify-center ${
@@ -64,6 +65,7 @@ export default function Register({
           <DarkModeToggle />
         </div>
         <div className="flex flex-col w-full max-w-md px-6 py-7 box-secondary rounded-lg gap-4 shadow-lg">
+
           <div className="flex justify-center my-3 text-2xl font-bold">
             Daftar Sekarang
           </div>
@@ -88,7 +90,7 @@ export default function Register({
               </a>
             )}
           </div>
-          <form className="flex flex-col gap-2 mt-4" onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-2 mt-4 primary-text" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Nama Lengkap"
@@ -135,10 +137,13 @@ export default function Register({
             <button
               type="submit"
               disabled={loading}
+
               className="w-full h-10 bg-white text-[#3A3A3A] rounded-sm cursor-pointer hover:bg-blue-100 transition duration-150 font-bold mt-2"
+
             >
               {loading ? "Loading..." : "Selanjutnya"}
             </button>
+
             <div className="flex items-center my-2">
               <div className="flex-grow border-t border-gray-300"></div>
               <span className="mx-2 text-xs text-gray-400">
@@ -148,6 +153,7 @@ export default function Register({
             </div>
             <button
               className="flex flex-row justify-center w-full h-12 items-center p-2 text-white border border-gray-300 cursor-pointer rounded-md bg-[#23272F] hover:bg-[#2c313a] transition"
+
               onClick={handleGoogle}
               type="button"
             >
@@ -183,6 +189,7 @@ export default function Register({
             >
               Butuh Bantuan?
             </a>
+
           </form>
         </div>
 

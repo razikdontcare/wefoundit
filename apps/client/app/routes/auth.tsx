@@ -21,6 +21,7 @@ export default function Auth() {
 
   return (
     <>
+
       <div className="relative min-h-screen bg-[#e1e1e1] dark:bg-[#1C1F23] transition-all duration-500 overflow-hidden">
         {/* Login Panel */}
         <div
@@ -53,6 +54,7 @@ export default function Auth() {
             onSwitchToLogin={() => setShowRegister(false)}
             isStacked={showRegister}
           />
+
         </div>
       </div>
       <button
