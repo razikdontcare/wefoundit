@@ -7,6 +7,9 @@ import type { ApiResponse } from "./types/ApiType";
 import { authRoutes } from "./routes/auth.routes";
 import { reportRoutes } from "./routes/reports.routes";
 import { reportService } from "./services/report.services";
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs";
+const swaggerDocument = YAML.load("./src/swagger.yaml");
 
 config();
 
@@ -25,6 +28,9 @@ app.get("/", (_req: Request, res: Response<ApiResponse<null>>) => {
     data: null,
   });
 });
+
+// Swagger documentation
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // auth routes
 
