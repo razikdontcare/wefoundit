@@ -3,6 +3,9 @@ import { useState } from "react";
 import axios from "axios";
 import { Eye } from "lucide-react";
 import { EyeClosed } from "lucide-react";
+import { useNavigate } from "react-router";
+import { auth } from "~/lib/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 interface LoginProps {
   onSwitchToRegister?: () => void;
@@ -16,6 +19,8 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -26,7 +31,7 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
         { email, password },
         { withCredentials: true }
       );
-      window.location.href = "/"; // redirect ke halaman utama
+      navigate("/dashboard");
     } catch (err: any) {
       setErrMsg(
         err?.response?.data?.error || "Gagal masuk, periksa kembali data Anda."
@@ -35,12 +40,35 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
     setLoading(false);
   };
 
-  const handleGoogle = () => {
-    window.location.href = "/api/auth/google"; // arahkan ke endpoint Google OAuth backend
+  const handleGoogle = async () => {
+    setLoading(true);
+    setErrMsg("");
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const idToken = await result.user.getIdToken();
+
+      // Send the Google ID token to backend for verification and custom token
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/google",
+        { token: idToken },
+        { withCredentials: true }
+      );
+
+      // Optionally, you may want to store the returned custom token or user info
+      // For now, just navigate to dashboard
+      navigate("/dashboard");
+    } catch (err: any) {
+      setErrMsg(
+        err?.response?.data?.error ||
+          err?.message ||
+          "Gagal masuk dengan Google."
+      );
+    }
+    setLoading(false);
   };
 
   return (
-
     <div
       className={`w-full min-h-screen flex flex-col bg-[#e1e1e1] dark:bg-[#1C1F23] transition-all duration-500
         ${
@@ -55,7 +83,6 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
       </div> */}
       <div className="flex flex-1 flex-col items-center md:items-end justify-center">
         <div className="flex flex-row py-2 mb-5 primary-text w-full max-w-md justify-start gap-3 items-center">
-
           <a href="/" className="text-3xl flex items-center">
             We<span className="font-bold">Found</span>It
           </a>
@@ -65,7 +92,6 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
         <div className="flex flex-col w-full max-w-md px-6 py-7 box-secondary rounded-lg gap-4 shadow-lg">
           <div className="flex flex-row items-center justify-between mt-2">
             <p className="text-sm primary-text">
-
               Belum punya akun We<b>Found</b>It?
             </p>
             {onSwitchToRegister ? (
@@ -85,7 +111,10 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
               </a>
             )}
           </div>
-          <form className="flex flex-col gap-2 mt-4 primary-text" onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col gap-2 mt-4 primary-text"
+            onSubmit={handleSubmit}
+          >
             <input
               type="email"
               placeholder="Email"
@@ -110,7 +139,6 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
                 type="button"
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
                 onClick={() => setShowPass((v) => !v)}
-
                 tabIndex={-1}
               >
                 {showPass ? <EyeClosed /> : <Eye />}
@@ -127,9 +155,7 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
             )}
             <button
               type="submit"
-
               className="w-full h-10 bg-white text-[#3A3A3A] rounded-sm cursor-pointer hover:bg-blue-100 transition duration-150 font-bold mt-2"
-
               disabled={loading}
             >
               {loading ? "Loading..." : "Masuk"}
@@ -146,7 +172,7 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
               onClick={handleGoogle}
               type="button"
               className="flex flex-row justify-center w-full h-12 items-center p-2 text-white border border-gray-300 cursor-pointer rounded-md bg-[#23272F] hover:bg-[#2c313a] transition"
-
+              disabled={loading}
             >
               <svg
                 width="24"
@@ -180,7 +206,6 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
             >
               Butuh Bantuan?
             </a>
-
           </form>
         </div>
         <div className="w-full max-w-md">

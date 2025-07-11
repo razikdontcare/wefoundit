@@ -31,11 +31,15 @@ export const authController = {
         email,
         password,
         name,
-        photo_url,
+        photo_url: photo_url || "",
         verified: false,
       });
 
       await mailService.sendWelcomeEmail(email);
+      const verificationCode = await authService.generateVerificationCode(
+        email
+      );
+      await mailService.sendVerificationEmail(email, verificationCode, name);
 
       sendResponse(res, "User registered successfully", user, 201);
       return;

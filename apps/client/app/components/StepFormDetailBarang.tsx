@@ -68,7 +68,7 @@ export default function StepFormDetailBarang({
         <div className="flex items-center gap-2">
           <button
             onClick={handleKurang}
-            className="w-8 h-8 bg-blue-500 primary-text rounded"
+            className="cursor-pointer w-8 h-8 bg-blue-500 primary-text rounded"
           >
             -
           </button>
@@ -80,7 +80,7 @@ export default function StepFormDetailBarang({
           />
           <button
             onClick={handleTambah}
-            className="w-8 h-8 bg-blue-500 primary-text rounded"
+            className="cursor-pointer w-8 h-8 bg-blue-500 primary-text rounded"
           >
             +
           </button>
@@ -90,14 +90,14 @@ export default function StepFormDetailBarang({
       <div className="flex justify-between gap-2">
         <button
           onClick={onBack}
-          className="bg-transparent hover:bg-blue-600  w-full hover:text-white dark:text-white text-black font-semibold py-2 px-8 rounded border border-blue-600 transition"
+          className="cursor-pointer bg-transparent hover:bg-blue-600  w-full hover:text-white dark:text-white text-black font-semibold py-2 px-8 rounded border border-blue-600 transition"
         >
           KEMBALI
         </button>
         <button
           onClick={onNext}
           disabled={!data.namaBarang || !data.jenisBarang || !data.deskripsi}
-          className="bg-blue-500 hover:bg-blue-600  w-full hover:text-white font-semibold py-2 px-8 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+          className="cursor-pointer bg-blue-500 hover:bg-blue-600  w-full hover:text-white font-semibold py-2 px-8 rounded disabled:opacity-50 disabled:cursor-not-allowed"
         >
           SELANJUTNYA
         </button>

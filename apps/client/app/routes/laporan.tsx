@@ -18,6 +18,8 @@ export default function Laporan() {
   const { user } = useAuth();
   const [step, setStep] = useState(1);
   let navigate = useNavigate();
+  // Error state for user feedback
+  const [error, setError] = useState<string | null>(null);
   // If user is not authenticated, redirect to login
   if (!user) {
     navigate("/auth");
@@ -63,7 +65,9 @@ export default function Laporan() {
   };
 
   // Step 5: Submit
+  const [createdReportId, setCreatedReportId] = useState<string | null>(null);
   const handleSubmit = async () => {
+    setError(null);
     try {
       const hasFile = !!formData.foto;
       // Flatten and map formData to match Report and Barang structure
@@ -83,6 +87,7 @@ export default function Laporan() {
         // foto will be handled below
       };
 
+      let resp;
       if (hasFile) {
         const form = new FormData();
         Object.entries(barang).forEach(([key, value]) => {
@@ -98,15 +103,15 @@ export default function Laporan() {
           );
         });
         if (formData.foto) form.append("foto", formData.foto);
-        console.log(form);
-        await axios.post("http://localhost:5000" + "/api/reports", form, {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwNzA0MjUwMDAwMSIsImVtYWlsIjoicmlrYWR3aXV0YW1pMkBnbWFpbC5jb20iLCJuYW1lIjoiUmlrYSIsInBob3RvVVJMIjoiIiwicm9sZSI6InVzZXIiLCJhY3RpdmUiOjEsInByb3ZpZGVycyI6IltcImVtYWlsXCJdIiwiaWF0IjoxNzUyMTcxMjg2LCJleHAiOjE3NTIxNzMwODZ9.wAZjRmfaLTqtFG_fmPj6RJ-Tq1t43t1nfAifpalYHd8`,
-          },
-          withCredentials: true,
-        });
+        resp = await axios.post(
+          "http://localhost:5000" + "/api/reports",
+          form,
+          {
+            withCredentials: true,
+          }
+        );
       } else {
-        await axios.post(
+        resp = await axios.post(
           "http://localhost:5000" + "/api/reports",
           {
             barang,
@@ -118,10 +123,17 @@ export default function Laporan() {
           }
         );
       }
-      navigate("/");
-    } catch (e) {
+      setCreatedReportId(resp.data.id);
+    } catch (e: any) {
       console.error("Error submitting report:", e);
-      alert("Gagal mengirim laporan");
+      // Try to extract error message from response
+      let message = "Gagal mengirim laporan. Silakan coba lagi.";
+      if (e.response && e.response.data && e.response.data.message) {
+        message = e.response.data.message;
+      } else if (e.message) {
+        message = e.message;
+      }
+      setError(message);
     }
   };
 
@@ -137,6 +149,12 @@ export default function Laporan() {
         Sampaikan informasi barang secara detail untuk membantu proses pencarian
         atau pengembalian.
       </p>
+
+      {error && (
+        <div className="bg-red-500 text-white px-4 py-2 rounded mb-4 max-w-md text-center">
+          {error}
+        </div>
+      )}
 
       <Stepper step={step} />
 
@@ -169,12 +187,23 @@ export default function Laporan() {
             setFile={handleFoto}
             onNext={async () => {
               await handleSubmit();
-              next();
+              // Only go to next step if no error
+              if (!error) next();
             }}
             onBack={back}
           />
         )}
-        {step === 5 && <StepFormSuccess onNext={() => navigate("/")} />}
+        {step === 5 && (
+          <StepFormSuccess
+            onNext={() => {
+              if (createdReportId) {
+                navigate(`/details/${createdReportId}`);
+              } else {
+                navigate("/");
+              }
+            }}
+          />
+        )}
       </div>
     </div>
   );

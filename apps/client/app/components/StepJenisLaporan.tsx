@@ -11,7 +11,7 @@ export default function StepJenisLaporan({ onSelect, value }: Props) {
       </p>
       <button
         onClick={() => onSelect("kehilangan")}
-        className={`border border-blue-500 py-2 rounded transition dark:text-white text-black dark:hover:bg-white hover:bg-blue-500 dark:hover:text-black hover:text-white ${
+        className={`cursor-pointer border border-blue-500 py-2 rounded transition dark:text-white text-black dark:hover:bg-white hover:bg-blue-500 dark:hover:text-black hover:text-white ${
           value === "kehilangan" ? "bg-blue-500 text-white" : ""
         }`}
       >
@@ -19,7 +19,7 @@ export default function StepJenisLaporan({ onSelect, value }: Props) {
       </button>
       <button
         onClick={() => onSelect("menemukan")}
-        className={`border border-blue-500 py-2 rounded transition dark:text-white text-black dark:hover:bg-white hover:bg-blue-500 dark:hover:text-black hover:text-white ${
+        className={`cursor-pointer border border-blue-500 py-2 rounded transition dark:text-white text-black dark:hover:bg-white hover:bg-blue-500 dark:hover:text-black hover:text-white ${
           value === "menemukan" ? "bg-blue-500 text-white" : ""
         }`}
       >
