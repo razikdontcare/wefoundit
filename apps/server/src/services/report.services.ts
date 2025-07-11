@@ -143,8 +143,8 @@ class ReportService implements IReportService {
       barang.id as barang_id, barang.nama_barang, barang.jenis_barang, barang.deskripsi, barang.jumlah
       FROM laporan 
       JOIN barang ON laporan.barang_id = barang.id 
-      WHERE (barang.nama_barang LIKE ? OR barang.deskripsi LIKE ?)`;
-    const params: any[] = [`%${query}%`, `%${query}%`];
+      WHERE (barang.nama_barang LIKE ? OR barang.deskripsi LIKE ? OR barang.jenis_barang LIKE ?)`;
+    const params: any[] = [`%${query}%`, `%${query}%`, `%${query}%`];
     if (jenis_lap) {
       sql += " AND laporan.jenis_lap = ?";
       params.push(jenis_lap);
@@ -161,7 +161,11 @@ class ReportService implements IReportService {
         query.toLowerCase(),
         (row.deskripsi || "").toLowerCase()
       );
-      const minDist = Math.min(nameDist, descDist);
+      const jenisDist = distance(
+        query.toLowerCase(),
+        (row.jenis_barang || "").toLowerCase()
+      );
+      const minDist = Math.min(nameDist, descDist, jenisDist);
       // Structure result like getAllReports
       const {
         barang_id,
