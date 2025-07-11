@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ChatAreaEmpty() {
   return (
-    <div className="flex-1 flex flex-col w-full justify-center items-center p-4 rounded-md">
+    <div className="flex-1 flex flex-col w-full justify-center items-center p-4 rounded-md ">
       <h1 className="font-bold text-5xl/14 md:text-7xl/22 tracking-tight flex flex-col items-center justify-center text-center">
         <span>
           We <span className="text-primary">Found</span> It
