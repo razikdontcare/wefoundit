@@ -10,7 +10,12 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Chat({ params }: { params?: { id?: string } }) {
-const navigate = useNavigate();
+  const navigate = useNavigate();
+  
+  const handleChatCardClick = (chatId: string) => {
+    navigate(`/chat/${chatId}`);
+  };
+
   return (
     <>
       <div className="container mx-auto max-w-7xl flex flex-col gap-2 px-2 sm:px-4" style={{ height: 'calc(90vh - 4rem)' }}>
@@ -39,14 +44,18 @@ const navigate = useNavigate();
             </div>
             {/* Chat list (scrollable) */}
             <div className="flex flex-col gap-2 overflow-y-auto flex-1 min-h-0">
-              <ChatCard />
-              <ChatCard />
+              <div onClick={() => handleChatCardClick('1')}>
+                <ChatCard />
+              </div>
+              <div onClick={() => handleChatCardClick('2')}>
+                <ChatCard />
+              </div>
               {/* Tambahkan ChatCard lain jika perlu */}
             </div>
           </div>
           {/* Chat Area */}
           <div className="rounded-2xl w-full h-full flex flex-col items-center justify-center">
-            {/* Jika ada chatId, tampilkan ChatArea, jika tidak tampilkan ChatAreaEmpty */}
+            {/* Jika ada chatId dari params, tampilkan ChatArea, jika tidak tampilkan ChatAreaEmpty */}
             {params?.id ? (
               <div className="w-full h-full">
                 <ChatArea />
