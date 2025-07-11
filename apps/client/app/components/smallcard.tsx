@@ -1,6 +1,6 @@
 export default function SmallCard({ data }: { data?: any }) {
   return (
-    <div className="w-full min-h-[15rem] bg-blue-400 text-black dark:bg-gray-700 dark:text-white drop-shadow-2xl rounded-md overflow-hidden flex flex-col">
+    <div className="w-full min-h-[15rem] bg-gray-300 text-black dark:bg-gray-700 dark:text-white drop-shadow-2xl rounded-md overflow-hidden flex flex-col">
       <div className="p-4 flex flex-col gap-3 flex-1">
         <div className="flex items-center justify-between">
           <span className="px-3 py-1 bg-blue-200 dark:bg-blue-900 rounded font-semibold text-xs">
@@ -31,7 +31,7 @@ export default function SmallCard({ data }: { data?: any }) {
             ${
               data.jenis_lap === "kehilangan"
                 ? "bg-red-600 text-white"
-                : "bg-green-600 text-white"
+                : "bg-blue-600 text-white"
             }
           `}
           >
