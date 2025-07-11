@@ -23,4 +23,13 @@ export const env = {
   JWT_EXPIRATION: process.env.JWT_EXPIRATION || "1h",
   CORS_ORIGIN: process.env.CORS_ORIGIN || "http://localhost:3000",
   LOG_LEVEL: process.env.LOG_LEVEL || "info",
+  SMTP_HOST: process.env.SMTP_HOST || "smtp.example.com",
+  SMTP_PORT: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587,
+  SMTP_USER: process.env.SMTP_USER || "",
+  SMTP_PASSWORD: process.env.SMTP_PASSWORD || "",
+  S3_ACCESS_KEY: process.env.S3_ACCESS_KEY || "",
+  S3_SECRET_KEY: process.env.S3_SECRET_KEY || "",
+  S3_BUCKET: process.env.S3_BUCKET || "",
+  S3_REGION: process.env.S3_REGION || "us-east-1",
+  S3_ENDPOINT: process.env.S3_ENDPOINT || "",
 };

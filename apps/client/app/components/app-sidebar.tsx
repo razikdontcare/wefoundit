@@ -26,8 +26,10 @@ import { Button } from "./ui/button";
 import { Link } from "react-router";
 import { NavUser } from "./nav-user";
 import { useLocation } from "react-router";
+import { useAuth } from "~/hooks/useSession";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useAuth();
   const location = useLocation();
   const pathname = location.pathname;
 
@@ -44,6 +46,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {
         title: "General",
         url: "#",
+        admin: false,
         items: [
           {
             title: "Dashboard",
@@ -68,6 +71,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {
         title: "Settings",
         url: "#",
+        admin: false,
         items: [
           {
             title: "Account",
@@ -80,6 +84,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {
         title: "Admin",
         url: "#",
+        admin: true,
         items: [
           {
             title: "Kelola User",
@@ -116,36 +121,34 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
         {data.navMain.map((item) => (
-          <SidebarGroup key={item.title}>
-            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {item.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton
-                      asChild
-                      isActive={item.isActive ?? false}
-                    >
-                      <a href={item.url}>
-                        {item.icon && <item.icon />}
-                        {item.title}
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+          <>
+            {item.admin && user?.role !== "admin" ? null : (
+              <SidebarGroup key={item.title}>
+                <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    {item.items.map((item) => (
+                      <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={item.isActive ?? false}
+                        >
+                          <a href={item.url}>
+                            {item.icon && <item.icon />}
+                            {item.title}
+                          </a>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            )}
+          </>
         ))}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser
-          user={{
-            name: "rikadoescare",
-            email: "rikautamii23@gmail.com",
-            avatar: "",
-          }}
-        />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

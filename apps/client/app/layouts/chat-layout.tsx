@@ -1,7 +1,7 @@
 import Navbar from "~/components/navbar";
 import { Outlet } from "react-router";
 
-export default function MainLayout() {
+export default function ChatLayout() {
   return (
     <div className="flex flex-col min-h-screen">
       <nav>

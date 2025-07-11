@@ -1,7 +1,7 @@
 import { initializeApp, AppOptions, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
-import { env } from "../config";
+import { env } from "../config.js";
 
 const adminConfig: AppOptions = {
   credential: cert({

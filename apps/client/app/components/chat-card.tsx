@@ -10,7 +10,7 @@ export default function chatCard() {
   return (
     <>
         <div className="flex flex-row rounded-md w-full h-16 box-secondary hover:bg-gray-100 transition duration-150 cursor-pointer">
-          <div className="flex items-center justify-between p-2 min-w-[50px]">
+          <div className="flex items-center justify-between p-2 min-w-[50px] aspect-[4/4]">
             <img
               src="https://picsum.photos/50"
               alt="User Avatar"

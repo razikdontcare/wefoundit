@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { ApiResponse } from "../types/ApiType";
+import { ApiResponse } from "../types/ApiType.js";
 // Helper functions for standardized responses
 const createSuccessResponse = <T>(
   message: string,

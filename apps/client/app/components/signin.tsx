@@ -3,13 +3,23 @@ import { useState } from "react";
 import axios from "axios";
 import { Eye } from "lucide-react";
 import { EyeClosed } from "lucide-react";
+import { useNavigate } from "react-router";
+import { auth } from "~/lib/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-export default function Login() {
+interface LoginProps {
+  onSwitchToRegister?: () => void;
+  isStacked?: boolean;
+}
+
+export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,11 +27,11 @@ export default function Login() {
     setErrMsg("");
     try {
       await axios.post(
-        "/api/auth/login", // proxy ke backend
+        "http://localhost:5000/api/auth/login",
         { email, password },
         { withCredentials: true }
       );
-      window.location.href = "/"; // redirect ke halaman utama
+      navigate("/dashboard");
     } catch (err: any) {
       setErrMsg(
         err?.response?.data?.error || "Gagal masuk, periksa kembali data Anda."
@@ -30,38 +40,81 @@ export default function Login() {
     setLoading(false);
   };
 
-  const handleGoogle = () => {
-    window.location.href = "/api/auth/google"; // arahkan ke endpoint Google OAuth backend
+  const handleGoogle = async () => {
+    setLoading(true);
+    setErrMsg("");
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const idToken = await result.user.getIdToken();
+
+      // Send the Google ID token to backend for verification and custom token
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/google",
+        { token: idToken },
+        { withCredentials: true }
+      );
+
+      // Optionally, you may want to store the returned custom token or user info
+      // For now, just navigate to dashboard
+      navigate("/dashboard");
+    } catch (err: any) {
+      setErrMsg(
+        err?.response?.data?.error ||
+          err?.message ||
+          "Gagal masuk dengan Google."
+      );
+    }
+    setLoading(false);
   };
 
   return (
-    <div className="flex flex-col w-full background">
-      <div className="flex flex-row items-center primary-text justify-between gap-10 px-4 pt-10 text-white">
-        <p className="text-3xl left font-bold ">Sign In</p>
-        <a
-          href="/auth/signup"
-          className="text-3xl left font-bold cursor-pointer"
-        >
-          Sign Up
-        </a>
-      </div>
-      <div className="flex flex-col pl-96">
-        <div className="flex flex-row py-2 primary-text">
+    <div
+      className={`w-full min-h-screen flex flex-col bg-[#e1e1e1] dark:bg-[#1C1F23] transition-all duration-500
+        ${
+          isStacked === false
+            ? "opacity-0 pointer-events-none scale-95"
+            : "opacity-100 pointer-events-auto scale-100"
+        }
+      `}
+    >
+      {/* <div className="flex flex-row items-center justify-between gap-10 px-4 pt-10 primary-text">
+        <p className="text-3xl font-bold">Sign In</p>
+      </div> */}
+      <div className="flex flex-1 flex-col items-center md:items-end justify-center">
+        <div className="flex flex-row py-2 mb-5 primary-text w-full max-w-md justify-start gap-3 items-center">
           <a href="/" className="text-3xl flex items-center">
             We<span className="font-bold">Found</span>It
           </a>
           <DarkModeToggle />
         </div>
-        <div className="flex flex-col w-96 h-105 flex px-4 py-5 box-primary primary-text rounded-lg gap-4">
+
+        <div className="flex flex-col w-full max-w-md px-6 py-7 box-secondary rounded-lg gap-4 shadow-lg">
           <div className="flex flex-row items-center justify-between mt-2">
-            <p className="text-sm">
+            <p className="text-sm primary-text">
               Belum punya akun We<b>Found</b>It?
             </p>
-            <a href="/signup" className="text-blue-500 font-bold hover:underline">
-              Daftar
-            </a>
+            {onSwitchToRegister ? (
+              <button
+                type="button"
+                className="text-blue-500 font-bold hover:underline bg-transparent border-none outline-none"
+                onClick={onSwitchToRegister}
+              >
+                Daftar
+              </button>
+            ) : (
+              <a
+                href="/signup"
+                className="text-blue-500 font-bold hover:underline"
+              >
+                Daftar
+              </a>
+            )}
           </div>
-          <form className="flex flex-col gap-2 mt-4" onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col gap-2 mt-4 primary-text"
+            onSubmit={handleSubmit}
+          >
             <input
               type="email"
               placeholder="Email"
@@ -71,45 +124,55 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
               autoFocus
             />
-            <p className="text-xs secondary-text">Contoh: wefoundit@gmail.com</p>
-            <div className="password-field flex w-full gap-2 border border-gray-300 rounded-md">
-            <input
-              type={showPass ? "text" : "password"}
-              placeholder="Password"
-              className="p-2 relative w-full"
-              tabIndex={-1}
-              required
-            />
+
+            <p className="text-xs text-gray-400">Contoh: wefoundit@gmail.com</p>
+            <div className="password-field flex w-full gap-2 relative">
+              <input
+                type={showPass ? "text" : "password"}
+                placeholder="Password"
+                value={password}
+                className="p-2 border border-gray-300 rounded-md w-full pr-10"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
               <button
                 type="button"
-                className=" p-1 background: none; border: none; color: #aaa; cursor-pointer; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); padding: 0"
-                onClick={() => setShowPass(v => !v)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
+                onClick={() => setShowPass((v) => !v)}
                 tabIndex={-1}
-                >
+              >
                 {showPass ? <EyeClosed /> : <Eye />}
               </button>
-                </div>
+            </div>
             <a
               href="/forgot-password"
-              className="text-blue-500 font-bold text-xs text-right hover:underline"
+              className="text-blue-500 font-bold text-xs text-right hover:underline ml-auto"
             >
               Lupa Password?
             </a>
+            {errMsg && (
+              <p className="text-red-500 text-xs text-center">{errMsg}</p>
+            )}
             <button
               type="submit"
-              className="w-full h-10 btn-primary text-[#3A3A3A] rounded-sm cursor-pointer hover:btn-primary transition duration-150 font-bold"
-              onClick={handleSubmit}
+              className="w-full h-10 bg-white text-[#3A3A3A] rounded-sm cursor-pointer hover:bg-blue-100 transition duration-150 font-bold mt-2"
               disabled={loading}
             >
               {loading ? "Loading..." : "Masuk"}
             </button>
-            <p className="py-2 text-xs primary-text text-center">
-              ------------atau masuk dengan------------
-            </p>
+
+            <div className="flex items-center my-2">
+              <div className="flex-grow border-t border-gray-300"></div>
+              <span className="mx-2 text-xs primary-text">
+                atau masuk dengan
+              </span>
+              <div className="flex-grow border-t border-gray-300"></div>
+            </div>
             <button
               onClick={handleGoogle}
-              type="submit"
-              className="flex flex-row justify-center w-full h-12 items-center p-2 primary-text border border-gray-300 cursor-pointer rounded-md hover:bg-primary/50 transition duration-150"
+              type="button"
+              className="flex flex-row justify-center w-full h-12 items-center p-2 text-white border border-gray-300 cursor-pointer rounded-md bg-[#23272F] hover:bg-[#2c313a] transition"
+              disabled={loading}
             >
               <svg
                 width="24"
@@ -139,18 +202,19 @@ export default function Login() {
             </button>
             <a
               href="/help"
-              className="text-blue-500 font-bold text-xs text-center hover:underline"
+              className="text-blue-500 font-bold text-xs text-center hover:underline mt-2"
             >
               Butuh Bantuan?
             </a>
-            <br />
-            <p className="text-xs text-center primary-text">
-              We<b>Found</b>It © 2025
-            </p>
-            <p className="text-xs text-center primary-text">
-              Made with ❤️ by kelompok E3
-            </p>
           </form>
+        </div>
+        <div className="w-full max-w-md">
+          <p className="text-xs text-center primary-text mt-6">
+            We<b>Found</b>It © 2025
+          </p>
+          <p className="text-xs text-center primary-text">
+            Made with ❤️ by kelompok E3
+          </p>
         </div>
       </div>
     </div>

@@ -17,12 +17,12 @@ export default [
   ...prefix("/auth", [
     layout("./layouts/auth-layout.tsx", [
       index("./routes/auth.tsx"),
+      route("/reset-password", "./routes/resetPass.tsx"),
     ]),
   ]),
   ...prefix("/chat", [
     layout("./layouts/chat-layout.tsx", [
       index("./routes/chat.tsx"),
-      // route("/chat/:id", "./routes/chat.tsx"),
     ]),
   ]),
   ...prefix("/dashboard", [
