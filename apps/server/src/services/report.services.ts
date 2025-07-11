@@ -143,7 +143,7 @@ class ReportService implements IReportService {
       barang.id as barang_id, barang.nama_barang, barang.jenis_barang, barang.deskripsi, barang.jumlah
       FROM laporan 
       JOIN barang ON laporan.barang_id = barang.id 
-      WHERE (barang.nama_barang LIKE ? OR barang.deskripsi LIKE ?)`;
+      WHERE (barang.nama_barang LIKE ? OR barang.deskripsi LIKE ? OR barang.jenis_barang LIKE ?)`;
     const params: any[] = [`%${query}%`, `%${query}%`];
     if (jenis_lap) {
       sql += " AND laporan.jenis_lap = ?";
