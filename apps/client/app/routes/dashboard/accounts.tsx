@@ -68,7 +68,7 @@ export default function Accounts() {
               Simpan
             </Button>
             <Button variant={"link"} asChild>
-              <Link to={"/dashboard/settings/reset-password"}>
+              <Link to={"/auth/reset-password"}>
                 <span>Reset Password</span>
               </Link>
             </Button>
