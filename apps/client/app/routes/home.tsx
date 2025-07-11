@@ -11,8 +11,10 @@ export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
 }
 
-export async function loader() {
-  const response = await axios.get<[]>("http://localhost:5000/api/reports");
+export async function clientLoader() {
+  const response = await axios.get<[]>(
+    import.meta.env.VITE_API_URL + "/api/reports"
+  );
   if (response.status !== 200) {
     throw new Error("Failed to fetch reports");
   }

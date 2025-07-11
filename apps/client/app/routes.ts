@@ -14,15 +14,13 @@ export default [
     route("/search", "./routes/search.tsx"),
     route("/details/:id", "./routes/details.tsx"),
   ]),
+  layout("./layouts/chat-layout.tsx", [
+    route("/chat/:id?", "./routes/chat.tsx"),
+  ]),
   ...prefix("/auth", [
     layout("./layouts/auth-layout.tsx", [
       index("./routes/auth.tsx"),
       route("/reset-password", "./routes/resetPass.tsx"),
-    ]),
-  ]),
-  ...prefix("/chat", [
-    layout("./layouts/chat-layout.tsx", [
-      index("./routes/chat.tsx"),
     ]),
   ]),
   ...prefix("/dashboard", [

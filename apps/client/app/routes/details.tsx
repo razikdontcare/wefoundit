@@ -10,10 +10,10 @@ export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
 }
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function clientLoader({ params }: Route.LoaderArgs) {
   // Example API call to fetch details by ID (uncomment and adjust as needed)
   const response = await axios.get(
-    `http://localhost:5000/api/reports/${params.id}`,
+    `${import.meta.env.VITE_API_URL}/api/reports/${params.id}`,
     {
       withCredentials: true,
     }
@@ -23,7 +23,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   }
 
   const userResponse = await axios.get(
-    "http://localhost:5000/api/auth/users/" + response.data.user_id,
+    import.meta.env.VITE_API_URL + "/api/auth/users/" + response.data.user_id,
     {
       withCredentials: true,
     }
@@ -74,7 +74,7 @@ export default function Details({
           <div className="rounded-2xl w-full lg:w-[70%] border border-gray-300">
             <div className="relative aspect-video sm:aspect-[2/3] lg:aspect-[14/18] overflow-hidden rounded-2xl">
               <img
-                src={"http://localhost:5000/api/file/" + data.foto}
+                src={import.meta.env.VITE_API_URL + "/api/file/" + data.foto}
                 alt={data.barang.nama_barang}
                 className="absolute w-full h-full object-cover object-center inset-0"
               />

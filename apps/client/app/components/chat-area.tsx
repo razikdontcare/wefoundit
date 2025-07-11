@@ -1,47 +1,106 @@
-import React from "react";
+import React, { useState, type FormEvent } from "react";
+import { Button } from "./ui/button";
+import type { Route } from "../routes/+types/chat";
+import axios from "axios";
+import type { User } from "~/hooks/useSession";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 
-// Dummy data untuk frontend saja
-const dummyChat = {
-  title: "Budi",
-  messages: [
-    { text: "Halo!", fromMe: false },
-    { text: "Hai juga!", fromMe: true },
-    { text: "Apa kabar?", fromMe: false },
-    { text: "Baik, kamu?", fromMe: true },
-  ],
+type Message = {
+  id?: string;
+  senderId: string;
+  receiverId?: string;
+  message: string;
+  timestamp?: any;
+  readBy?: string[];
 };
 
-export default function ChatArea() {
+type ChatAreaProps = {
+  messages: Message[];
+  onSend: (text: string, receiverId: string) => Promise<void>;
+  currentUser: User;
+  chatId: string;
+  otherUser: User;
+  // ...other fields as needed
+};
+
+export default function ChatArea({
+  messages,
+  onSend,
+  currentUser,
+  otherUser,
+}: ChatAreaProps) {
+  const [input, setInput] = useState("");
+
+  // Find the other participant (assumes 1-to-1 chat)
+  const otherUserId =
+    messages.find((msg) => msg.senderId !== currentUser.id)?.senderId ||
+    messages.find((msg) => msg.receiverId !== currentUser.id)?.receiverId ||
+    otherUser?.id ||
+    "";
+
+  const handleSend = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || !otherUserId) return;
+    setInput(""); // clear input immediately
+    await onSend(input, otherUserId);
+  };
+
   return (
-    <div className="flex-1 flex flex-col w-full h-full p-4 box-primary rounded-md border border-gray-200">
-      <div className="font-bold text-lg mb-2">{dummyChat.title}</div>
+    <div className="flex-1 flex flex-col w-full p-4 box-primary rounded-md border border-gray-200">
+      {/* User info at the top */}
+      <div className="flex items-center gap-3 mb-4">
+        <Avatar>
+          <AvatarImage src={otherUser?.photo_url} alt="User Avatar" />
+          <AvatarFallback>
+            {otherUser?.name
+              ? otherUser.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")
+                  .toUpperCase()
+              : "?"}
+          </AvatarFallback>
+        </Avatar>
+        <div>
+          <div className="font-bold text-base">
+            {otherUser?.name || otherUserId || "Pengguna lain"}
+          </div>
+        </div>
+      </div>
       <div className="flex-1 overflow-y-auto mb-4">
-        {dummyChat.messages.map((msg, idx) => (
+        {messages.map((msg, idx) => (
           <div
-            key={idx}
-            className={`mb-2 flex ${msg.fromMe ? "justify-end" : "justify-start"}`}
+            key={msg.id || idx}
+            className={`mb-2 flex ${
+              msg.senderId === currentUser.id ? "justify-end" : "justify-start"
+            }`}
           >
             <div
               className={`px-3 py-2 rounded-lg max-w-xs ${
-                msg.fromMe
+                msg.senderId === currentUser.id
                   ? "bg-blue-500 text-white"
                   : "bg-gray-200 text-gray-800"
               }`}
             >
-              {msg.text}
+              {msg.message}
             </div>
           </div>
         ))}
       </div>
-      <form className="flex gap-2">
+      <form className="flex gap-2" onSubmit={handleSend}>
         <input
           type="text"
           className="flex-1 border rounded px-3 py-2"
           placeholder="Ketik pesan..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+        <Button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
           Kirim
-        </button>
+        </Button>
       </form>
     </div>
   );
