@@ -122,11 +122,54 @@ class ReportService implements IReportService {
     id: string,
     updates: Partial<Omit<Report, "id" | "created_at">>
   ): Promise<Report | null> {
-    const [result]: any = await pool.query(
-      "UPDATE laporan SET ? WHERE id = ?",
-      [updates, id]
-    );
-    if (result.affectedRows === 0) return null;
+    // Get the current report to find barang_id
+    const report = await this.getReportById(id);
+    if (!report) return null;
+
+    // Split updates for laporan and barang
+    const laporanFields: any = {};
+    const barangFields: any = {};
+
+    // List fields that belong to laporan
+    const laporanFieldNames = [
+      "jenis_lap",
+      "status_lap",
+      "user_id",
+      "barang_id",
+      // add other laporan fields here
+    ];
+
+    // List fields that belong to barang
+    const barangFieldNames = [
+      "nama_barang",
+      "jenis_barang",
+      "deskripsi",
+      "jumlah",
+      // add other barang fields here
+    ];
+
+    for (const key in updates) {
+      if (laporanFieldNames.includes(key)) {
+        laporanFields[key] = (updates as any)[key];
+      }
+      if (barangFieldNames.includes(key)) {
+        barangFields[key] = (updates as any)[key];
+      }
+    }
+
+    // Update laporan if needed
+    if (Object.keys(laporanFields).length > 0) {
+      await pool.query("UPDATE laporan SET ? WHERE id = ?", [laporanFields, id]);
+    }
+
+    // Update barang if needed
+    if (Object.keys(barangFields).length > 0) {
+      await pool.query("UPDATE barang SET ? WHERE id = ?", [
+        barangFields,
+        report.barang_id,
+      ]);
+    }
+
     return this.getReportById(id);
   }
 

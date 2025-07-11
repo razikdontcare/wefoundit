@@ -12,6 +12,8 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 export const reportColumns: ColumnDef<Report>[] = [
   {
@@ -34,10 +36,10 @@ export const reportColumns: ColumnDef<Report>[] = [
       return (
         <span
           className={`w-full inline-block rounded-full text-center ${
-            variant === "penemuan" ? "bg-secondary" : "bg-danger"
+            variant === "menemukan" ? "bg-secondary" : "bg-danger"
           }`}
         >
-          {variant === "penemuan" ? "Found" : "Lost"}
+          {variant === "menemukan" ? "Found" : "Lost"}
         </span>
       );
     },
@@ -70,21 +72,73 @@ export const reportColumns: ColumnDef<Report>[] = [
     id: "actions",
     cell: ({ row }) => {
       const selected = row.original;
+      console.log(row.original);
+      const navigate = useNavigate();
 
-      let markAsLabel = "Diklaim";
+      let markAsLabel = "";
+      let nextStatus: "lost" | "found" | "claimed" | null = null;
+
       if (selected.jenis_lap === "kehilangan") {
         if (selected.status_lap === "lost") {
           markAsLabel = "Ditemukan";
-        } else {
+          nextStatus = "found";
+        } else if (selected.status_lap === "founded") {
           markAsLabel = "Belum Ditemukan";
+          nextStatus = "lost";
+        } else if (selected.status_lap === "claimed") {
+          markAsLabel = "Sudah Diklaim";
+          nextStatus = null;
         }
-      } else if (selected.jenis_lap === "penemuan") {
+      } else if (selected.jenis_lap === "menemukan") {
         if (selected.status_lap === "found") {
           markAsLabel = "Diklaim";
-        } else {
+          nextStatus = "claimed";
+        } else if (selected.status_lap === "claimed") {
           markAsLabel = "Belum Diklaim";
+          nextStatus = "found";
         }
       }
+
+      const handleMarkAs: React.MouseEventHandler<HTMLDivElement> = async (
+        e
+      ) => {
+        e.preventDefault();
+        if (!nextStatus) {
+          toast.error("Status tidak valid untuk diperbarui.");
+          return;
+        }
+        try {
+          await axios.put(
+            import.meta.env.VITE_API_URL + `/api/reports/${selected.id}`,
+            { status_lap: nextStatus },
+            { withCredentials: true }
+          );
+          toast.success("Status laporan berhasil diperbarui");
+          window.location.reload();
+        } catch (err) {
+          toast.error("Gagal memperbarui status laporan");
+        }
+      };
+
+      const handleEdit = () => {
+        navigate(`/dashboard/reports/edit/${selected.id}`);
+      };
+
+      const handleDelete = async () => {
+        if (!window.confirm("Yakin ingin menghapus laporan ini?")) return;
+        try {
+          await axios.delete(
+            import.meta.env.VITE_API_URL + `/api/reports/${selected.id}`,
+            {
+              withCredentials: true,
+            }
+          );
+          toast.success("Laporan berhasil dihapus");
+          window.location.reload(); // Or update the table state instead of reload
+        } catch (err) {
+          toast.error("Gagal menghapus laporan");
+        }
+      };
 
       return (
         <DropdownMenu>
@@ -96,7 +150,7 @@ export const reportColumns: ColumnDef<Report>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel className="font-bold">Actions</DropdownMenuLabel>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleMarkAs}>
               <span>Mark as</span>
               <span
                 className={`font-medium ${
@@ -110,7 +164,9 @@ export const reportColumns: ColumnDef<Report>[] = [
               </span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit Laporan</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleEdit}>
+              Edit Laporan
+            </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
                 navigator.clipboard.writeText(selected.id);
@@ -122,7 +178,9 @@ export const reportColumns: ColumnDef<Report>[] = [
               Copy No. Laporan
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
+            <DropdownMenuItem className="text-red-500" onClick={handleDelete}>
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

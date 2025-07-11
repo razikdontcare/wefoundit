@@ -85,12 +85,14 @@ export const updateReport = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const updated = await reportService.updateReport(id, req.body);
+    console.log(req.body);
     if (!updated) {
       res.status(404).json({ error: "Report not found" });
       return;
     }
     res.json(updated);
   } catch (err) {
+    console.log("Error updating report:", err);
     res.status(500).json({ error: "Failed to update report" });
   }
 };
