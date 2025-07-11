@@ -20,7 +20,6 @@ export default [
   ...prefix("/chat", [
     layout("./layouts/chat-layout.tsx", [
       index("./routes/chat.tsx"),
-      // route("/chat/:id", "./routes/chat.tsx"),
     ]),
   ]),
   ...prefix("/dashboard", [

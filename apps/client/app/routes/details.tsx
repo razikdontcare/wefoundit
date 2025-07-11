@@ -46,8 +46,8 @@ export default function Details({
   const { laporan: data, user } = loaderData as any;
   return (
     <>
-      <div className="rounded-lg container mx-auto max-w-7xl flex-col justify-center items-center my-10 gap-4 box-primary py-4 px-4">
-        <div className="flex justify-between items-center w-full rounded-md px-4 py-2">
+      <div className="rounded-lg container mx-auto max-w-7xl flex-col justify-center items-center my-4 sm:my-10 gap-4 box-primary py-4 px-2 sm:px-4">
+        <div className="flex justify-between items-center w-full rounded-md px-2 sm:px-4 py-2">
           <Undo2 onClick={() => navigate(-1)} className="cursor-pointer" />
           <span
             className={`min-w-[100px] flex flex-row justify-between items-center alert ${
@@ -70,17 +70,17 @@ export default function Details({
               : "Belum Diklaim"}
           </span>
         </div>
-        <div className="flex flex-row items-center justify-center gap-10 px-4 py-2">
-          <div className="rounded-2xl w-[70%] min-h-[36rem] border border-gray-300">
-            <div className="relative aspect-[14/18] overflow-hidden rounded-2xl">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-6 px-2 sm:px-4 py-2">
+          <div className="rounded-2xl w-full lg:w-[70%] border border-gray-300">
+            <div className="relative aspect-video sm:aspect-[2/3] lg:aspect-[14/18] overflow-hidden rounded-2xl">
               <img
                 src={"http://localhost:5000/api/file/" + data.foto}
                 alt={data.barang.nama_barang}
-                className="absolute w-full aspect-[14/18] object-cover object-center inset-0"
+                className="absolute w-full h-full object-cover object-center inset-0"
               />
             </div>
           </div>
-          <div className="flex flex-col items-start rounded-2xl w-full min-h-[38.5rem] border border-gray-300 p-4">
+          <div className="flex flex-col items-start rounded-2xl w-full lg:min-h-[38.5rem] border border-gray-300 p-4 mt-4 lg:mt-0">
             <span className="px-2 py-1  alert alert-info rounded-md font-bold text-sm  ">
               {data.barang.jenis_barang}
             </span>
@@ -97,14 +97,14 @@ export default function Details({
               })}
             </p>
             <p className="text-sm">Found by {user.name}</p>
-            <p className="text-sm py-4">{data.barang.deskripsi}</p>
-            <div className="flex justify-between gap-4">
-              <div className="flex flex-col gap-1">
+            <p className="text-sm py-2 sm:py-4">{data.barang.deskripsi}</p>
+            <div className="flex justify-between gap-4 w-full">
+              <div className="flex flex-col gap-1 text-sm">
                 <span>Jumlah Barang Ditemukan</span>
                 <span>Lokasi Ditemukan</span>
                 <span>Status</span>
               </div>
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1 text-sm">
                 <span>: {data.barang.jumlah}</span>
                 <span>: {data.lokasi_nama}</span>
                 <span>
@@ -113,8 +113,8 @@ export default function Details({
               </div>
             </div>
             <div className="flex flex-col w-full py-2">
-              <div className="rounded-md w-full min-h-[14rem] border border-gray-300">
-                <div className="relative aspect-[16/5.5] overflow-hidden rounded-md">
+              <div className="rounded-md w-full border border-gray-300 overflow-hidden">
+                <div className="relative aspect-video sm:aspect-[16/9] lg:aspect-[16/5.5]">
                   <ViewOnlyMapWrapper
                     lat={data.latitude as number}
                     lng={data.longitude as number}

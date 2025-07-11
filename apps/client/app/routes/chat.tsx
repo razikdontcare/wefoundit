@@ -9,7 +9,7 @@ export function meta({}: Route.MetaArgs) {
   return [{ title: "WeFoundIt" }, { name: "description", content: "" }];
 }
 
-export default function Chat({ params }: { params: { id: string } }) {
+export default function Chat({ params }: { params?: { id?: string } }) {
 const navigate = useNavigate();
   return (
     <>
@@ -45,14 +45,19 @@ const navigate = useNavigate();
             </div>
           </div>
           {/* Chat Area */}
-            <div className="rounded-2xl w-full min-h-[20rem] md:min-h-[38.5rem] flex flex-col items-start">
-            {/* ChatAreaEmpty hanya tampil di md ke atas */}
-            <div className="hidden md:block w-full">
+          <div className="rounded-2xl w-full min-h-[20rem] md:min-h-[38.5rem] flex flex-col items-start">
+            {/* Jika ada chatId, tampilkan ChatArea, jika tidak tampilkan ChatAreaEmpty */}
+            {params?.id ? (
+              <div className="w-full">
+                <ChatArea />
+              </div>
+            ) : (
+              <div className="hidden md:block w-full">
                 <ChatAreaEmpty />
-            </div>
-            {/* <ChatArea /> bisa kamu ganti logic-nya jika ada chat yang dipilih */}
-            </div>
+              </div>
+            )}
           </div>
+        </div>
       </div>
     </>
   );
