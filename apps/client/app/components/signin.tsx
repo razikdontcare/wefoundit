@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Eye } from "lucide-react";
 import { EyeClosed } from "lucide-react";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import { auth } from "~/lib/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
@@ -200,12 +200,12 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
               </svg>
               <p className="ml-2">Google</p>
             </button>
-            <a
-              href="/help"
+            <Link
+              to="/auth/bantuan"
               className="text-blue-500 font-bold text-xs text-center hover:underline mt-2"
             >
               Butuh Bantuan?
-            </a>
+            </Link>
           </form>
         </div>
         <div className="w-full max-w-md">

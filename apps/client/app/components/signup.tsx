@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "~/lib/firebase";
+import { Link } from "react-router";
 
 interface RegisterProps {
   onSwitchToLogin?: () => void;
@@ -83,9 +84,9 @@ export default function Register({
         } transition-all duration-500`}
       >
         <div className="flex flex-row py-2 mb-5 primary-text w-full max-w-md justify-start gap-3 items-center">
-          <a href="/" className="text-3xl flex items-center">
+          <Link to="/" className="text-3xl flex items-center">
             We<span className="font-bold">Found</span>It
-          </a>
+          </Link>
           <DarkModeToggle />
         </div>
         <div className="flex flex-col w-full max-w-md px-6 py-7 box-secondary rounded-lg gap-4 shadow-lg">
@@ -105,12 +106,12 @@ export default function Register({
                 Masuk
               </button>
             ) : (
-              <a
-                href="/signin"
+              <Link
+                to="/auth"
                 className="text-blue-500 font-bold hover:underline"
               >
                 Masuk
-              </a>
+              </Link>
             )}
           </div>
           <form
@@ -207,12 +208,12 @@ export default function Register({
               </svg>
               <p className="ml-2">Google</p>
             </button>
-            <a
-              href="/help"
+            <Link
+              to="/auth/bantuan"
               className="text-blue-500 font-bold text-xs text-center hover:underline mt-2"
             >
               Butuh Bantuan?
-            </a>
+            </Link>
           </form>
         </div>
 
