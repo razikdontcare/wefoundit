@@ -14,13 +14,11 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   //   Example API call (uncomment and adjust as needed)
   const response = await axios.get<{ data: any[] }>(
-    `${process.env.API_URL}/api/search`,
+    `${import.meta.env.VITE_API_URL}/api/search`,
     {
       params: { q: query },
     }
   );
-
-  console.log(response.data.data); // Log the response data for debugging
 
   // return response.data;
 

@@ -33,7 +33,7 @@ export default function Register({
 
       // Send the Google ID token to backend for verification and custom token
       await axios.post(
-        "http://localhost:5000/api/auth/google",
+        import.meta.env.VITE_API_URL + "/api/auth/google",
         { idToken },
         { withCredentials: true }
       );
@@ -57,7 +57,7 @@ export default function Register({
     setSuccess(false);
     try {
       await axios.post(
-        "http://localhost:5000/api/auth/register",
+        import.meta.env.VITE_API_URL + "/api/auth/register",
         { email, password, name },
         { withCredentials: true }
       );

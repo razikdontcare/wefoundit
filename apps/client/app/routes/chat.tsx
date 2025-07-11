@@ -37,7 +37,7 @@ export async function clientLoader({ params }: Route.ClientActionArgs) {
   if (!chatId) return { data: null };
 
   const response = await axios.get(
-    "http://localhost:5000/api/auth/users/" + chatId,
+    import.meta.env.VITE_API_URL + "/api/auth/users/" + chatId,
     {
       withCredentials: true,
     }
@@ -191,7 +191,7 @@ export default function Chat({ params, loaderData }: Route.ComponentProps) {
         idsToFetch.map(async (id) => {
           try {
             const res = await axios.get(
-              `http://localhost:5000/api/auth/users/${id}`,
+              `${import.meta.env.VITE_API_URL}/api/auth/users/${id}`,
               { withCredentials: true }
             );
             if (res.status === 200 && res.data?.data) {

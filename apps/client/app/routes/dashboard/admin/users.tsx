@@ -13,9 +13,12 @@ const breadcrumbLinks = [
 ];
 
 export async function clientLoader({ request }: Route.LoaderArgs) {
-  const response = await axios.get("http://localhost:5000/api/auth/users", {
-    withCredentials: true,
-  });
+  const response = await axios.get(
+    import.meta.env.VITE_API_URL + "/api/auth/users",
+    {
+      withCredentials: true,
+    }
+  );
   if (response.status !== 200) {
     throw new Error("Failed to fetch reports");
   }

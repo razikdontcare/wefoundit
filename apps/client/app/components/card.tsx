@@ -9,7 +9,7 @@ export default function Card({ data }: { data?: any }) {
     <div className="w-full max-w-xs md:max-w-sm min-h-[540px] mx-auto bg-gray-300 text-black dark:bg-gray-700 dark:text-white drop-shadow-2xl rounded-lg overflow-hidden flex flex-col">
       <div className="relative aspect-video overflow-hidden">
         <img
-          src={"http://localhost:5000/api/file/" + data.foto}
+          src={`${import.meta.env.VITE_API_URL}/api/file/${data.foto}`}
           alt={data.barang.nama_barang}
           className="absolute w-full h-full object-cover object-center inset-0"
         />
