@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Eye } from "lucide-react";
 import { EyeClosed } from "lucide-react";
+import { Link } from "react-router";
 
 interface LoginProps {
   onSwitchToRegister?: () => void;
@@ -56,9 +57,9 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
       <div className="flex flex-1 flex-col items-center md:items-end justify-center">
         <div className="flex flex-row py-2 mb-5 primary-text w-full max-w-md justify-start gap-3 items-center">
 
-          <a href="/" className="text-3xl flex items-center">
+          <Link to="/" className="text-3xl flex items-center">
             We<span className="font-bold">Found</span>It
-          </a>
+          </Link>
           <DarkModeToggle />
         </div>
 
@@ -77,12 +78,12 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
                 Daftar
               </button>
             ) : (
-              <a
-                href="/signup"
+              <Link
+                to="/auth"
                 className="text-blue-500 font-bold hover:underline"
               >
                 Daftar
-              </a>
+              </Link>
             )}
           </div>
           <form className="flex flex-col gap-2 mt-4 primary-text" onSubmit={handleSubmit}>
@@ -116,12 +117,12 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
                 {showPass ? <EyeClosed /> : <Eye />}
               </button>
             </div>
-            <a
-              href="/forgot-password"
+            <Link
+              to="/auth/reset-password"
               className="text-blue-500 font-bold text-xs text-right hover:underline ml-auto"
             >
               Lupa Password?
-            </a>
+            </Link>
             {errMsg && (
               <p className="text-red-500 text-xs text-center">{errMsg}</p>
             )}
@@ -174,12 +175,12 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
               </svg>
               <p className="ml-2">Google</p>
             </button>
-            <a
-              href="/help"
+            <Link
+              to="/auth/bantuan"
               className="text-blue-500 font-bold text-xs text-center hover:underline mt-2"
             >
               Butuh Bantuan?
-            </a>
+            </Link>
 
           </form>
         </div>

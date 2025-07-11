@@ -18,6 +18,7 @@ export default [
     layout("./layouts/auth-layout.tsx", [
       index("./routes/auth.tsx"),
       route("/reset-password", "./routes/resetPass.tsx"),
+      route("/bantuan", "./routes/help.tsx"),
     ]),
   ]),
   ...prefix("/chat", [
