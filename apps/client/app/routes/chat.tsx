@@ -242,9 +242,9 @@ export default function Chat({ params, loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <div className="container mx-auto max-w-7xl flex flex-col my-2 gap-4 px-2 sm:px-4">
+      <div className="container mx-auto max-w-7xl flex flex-col gap-2 px-2 sm:px-4" style={{ height: 'calc(90vh - 4rem)' }}>
         {/* Header */}
-        <div className="flex justify-between items-center w-full rounded-md px-2 sm:px-4 py-2">
+        <div className="flex justify-between items-center w-full rounded-md px-2 sm:px-4 py-2 flex-shrink-0">
           <Undo2
             onClick={() => navigate(-1)}
             className="cursor-pointer"
@@ -259,10 +259,10 @@ export default function Chat({ params, loaderData }: Route.ComponentProps) {
           <Undo2 className="opacity-0" size={28} />
         </div>
         {/* Main Chat Layout */}
-        <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 px-1 sm:px-4 py-2">
+        <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 px-1 sm:px-4 pb-2 flex-1 min-h-0">
           {/* Chat List (Sidebar) */}
-          <div className="rounded-2xl w-full md:w-[38%] min-h-[18rem] md:min-h-[36rem] gap-2 flex flex-col mb-4 md:mb-0">
-            <div className="flex items-center justify-center w-full mb-2">
+          <div className="rounded-2xl w-full md:w-[38%] h-full gap-2 flex flex-col">
+            <div className="flex items-center justify-center w-full mb-2 flex-shrink-0">
               <input
                 type="text"
                 placeholder="Search"

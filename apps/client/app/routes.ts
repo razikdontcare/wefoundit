@@ -18,7 +18,10 @@ export default [
     route("/chat/:id?", "./routes/chat.tsx"),
   ]),
   ...prefix("/auth", [
-    layout("./layouts/auth-layout.tsx", [index("./routes/auth.tsx")]),
+    layout("./layouts/auth-layout.tsx", [
+      index("./routes/auth.tsx"),
+      route("/reset-password", "./routes/resetPass.tsx"),
+    ]),
   ]),
   ...prefix("/dashboard", [
     layout("./layouts/dashboard-layout.tsx", [
