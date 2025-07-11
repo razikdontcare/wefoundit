@@ -20,6 +20,38 @@ export default function Accounts() {
   const user = useOutletContext<User>();
   const [email, setEmail] = useState(user.email || "");
   const [name, setName] = useState(user.name || "");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+
+  const handleUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage(null);
+    try {
+      const res = await fetch(
+        import.meta.env.VITE_API_URL + "/api/auth/users/" + user.id,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ name, email }),
+        }
+      );
+      const data = await res.json();
+      if (res.ok) {
+        setMessage("Berhasil memperbarui data akun.");
+        // Optionally update user context/state here
+      } else {
+        setMessage(data.message || "Gagal memperbarui data akun.");
+      }
+    } catch (err) {
+      setMessage("Terjadi kesalahan.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -32,7 +64,10 @@ export default function Accounts() {
             sesuai kebutuhan.
           </p>
         </div>
-        <div className="flex flex-col max-w-2xl mt-6 gap-10">
+        <form
+          className="flex flex-col max-w-2xl mt-6 gap-10"
+          onSubmit={handleUpdate}
+        >
           <div className="grid w-full items-center gap-3">
             <Label htmlFor="name" className="primary-text">
               Nama
@@ -63,9 +98,10 @@ export default function Accounts() {
           <div className="flex items-center gap-3">
             <Button
               className="btn-primary uppercase font-bold tracking-wider cursor-pointer"
-              disabled={email === user.email && name === user.name}
+              type="submit"
+              disabled={loading || (email === user.email && name === user.name)}
             >
-              Simpan
+              {loading ? "Menyimpan..." : "Simpan"}
             </Button>
             <Button variant={"link"} asChild>
               <Link to={"/dashboard/settings/reset-password"}>
@@ -73,7 +109,17 @@ export default function Accounts() {
               </Link>
             </Button>
           </div>
-        </div>
+          {message && (
+            <div
+              className="text-sm mt-2"
+              style={{
+                color: message.includes("Berhasil") ? "green" : "red",
+              }}
+            >
+              {message}
+            </div>
+          )}
+        </form>
       </main>
     </>
   );
