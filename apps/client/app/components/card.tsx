@@ -52,7 +52,10 @@ export default function Card({ data }: { data?: any }) {
           >
             <Link to={"/details/" + data.id}>Details</Link>
           </Button>
-          <Button className="rounded-md py-2 text-sm font-bold uppercase text-white flex items-center text-center justify-center w-full transition">
+          <Button
+            className="rounded-md py-2 text-sm font-bold uppercase text-white flex items-center text-center justify-center w-full transition"
+            asChild
+          >
             <Link to={"/chat/" + data.user_id}>
               <span className="mr-2">
                 {data.jenis_lap === "kehilangan" ? "I FOUND IT" : "CLAIM"}
