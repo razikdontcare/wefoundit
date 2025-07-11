@@ -104,7 +104,7 @@ export default function Laporan() {
         });
         if (formData.foto) form.append("foto", formData.foto);
         resp = await axios.post(
-          "http://localhost:5000" + "/api/reports",
+          import.meta.env.VITE_API_URL + "/api/reports",
           form,
           {
             withCredentials: true,
@@ -112,7 +112,7 @@ export default function Laporan() {
         );
       } else {
         resp = await axios.post(
-          "http://localhost:5000" + "/api/reports",
+          import.meta.env.VITE_API_URL + "/api/reports",
           {
             barang,
             ...laporan,

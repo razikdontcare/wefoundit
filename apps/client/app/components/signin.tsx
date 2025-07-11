@@ -27,7 +27,7 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
     setErrMsg("");
     try {
       await axios.post(
-        "http://localhost:5000/api/auth/login",
+        import.meta.env.VITE_API_URL + "/api/auth/login",
         { email, password },
         { withCredentials: true }
       );
@@ -50,7 +50,7 @@ export default function Login({ onSwitchToRegister, isStacked }: LoginProps) {
 
       // Send the Google ID token to backend for verification and custom token
       const response = await axios.post(
-        "http://localhost:5000/api/auth/google",
+        import.meta.env.VITE_API_URL + "/api/auth/google",
         { token: idToken },
         { withCredentials: true }
       );

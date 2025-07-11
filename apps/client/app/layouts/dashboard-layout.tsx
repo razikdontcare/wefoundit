@@ -6,9 +6,12 @@ import { redirect } from "react-router";
 import axios from "axios";
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
-  const response = await axios.get("http://localhost:5000/api/auth/me", {
-    withCredentials: true,
-  });
+  const response = await axios.get(
+    import.meta.env.VITE_API_URL + "/api/auth/me",
+    {
+      withCredentials: true,
+    }
+  );
   if (response.status !== 200) {
     // If the user is not authenticated, redirect to the login page
     return redirect("/auth");

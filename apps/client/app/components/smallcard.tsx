@@ -22,7 +22,7 @@ export default function SmallCard({ data }: { data?: any }) {
 
         <div className="relative w-full aspect-video rounded overflow-hidden mt-1">
           <img
-            src={"http://localhost:5000/api/file/" + data?.foto}
+            src={import.meta.env.VITE_API_URL + "/api/file/" + data?.foto}
             alt={data.barang.nama_barang}
             className="w-full h-full object-cover object-center"
           />

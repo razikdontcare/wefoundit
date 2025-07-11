@@ -12,25 +12,15 @@ export async function loader({ request }: Route.LoaderArgs) {
   const query = url.searchParams.get("q") || "";
   // const filter = url.searchParams.get("filter");
 
-  // Return empty if no query
-  if (!query.trim()) {
-    return { query, data: [] };
-  }
+  //   Example API call (uncomment and adjust as needed)
+  const response = await axios.get<{ data: any[] }>(
+    `${import.meta.env.VITE_API_URL}/api/search`,
+    {
+      params: { q: query },
+    }
+  );
 
-  try {
-    // Use fallback URL for API
-    const apiUrl = process.env.API_URL || "http://localhost:5000";
-    
-    //   Example API call (uncomment and adjust as needed)
-    const response = await axios.get<{ data: any[] }>(
-      `${apiUrl}/api/search`,
-      {
-        params: { q: query },
-        timeout: 10000,
-      }
-    );
-
-    console.log(response.data); // Log the response data for debugging
+  // return response.data;
 
     // Handle different response structures
     const data = response.data?.data || response.data || [];

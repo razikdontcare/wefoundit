@@ -17,15 +17,18 @@ const breadcrumbLinks = [
 ];
 
 export async function clientLoader({ request }: Route.LoaderArgs) {
-  const userResponse = await axios.get("http://localhost:5000/api/auth/me", {
-    withCredentials: true,
-  });
+  const userResponse = await axios.get(
+    import.meta.env.VITE_API_URL + "/api/auth/me",
+    {
+      withCredentials: true,
+    }
+  );
   if (userResponse.status !== 200) {
     throw new Error("User not authenticated");
   }
   const user = userResponse.data.data;
   const response = await axios.get(
-    "http://localhost:5000/api/reports?created_by=" + user.id,
+    import.meta.env.VITE_API_URL + "/api/reports?created_by=" + user.id,
     {
       withCredentials: true,
     }
