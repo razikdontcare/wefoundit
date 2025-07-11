@@ -2,6 +2,8 @@ import DarkModeToggle from "./toggleTheme";
 import axios from "axios";
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "~/lib/firebase";
 
 interface RegisterProps {
   onSwitchToLogin?: () => void;
@@ -20,9 +22,32 @@ export default function Register({
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  // Google OAuth
-  const handleGoogle = () => {
-    window.location.href = "/api/auth/google";
+  // Google OAuth with Firebase and backend custom token
+  const handleGoogle = async () => {
+    setLoading(true);
+    setErrMsg("");
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const idToken = await result.user.getIdToken();
+
+      // Send the Google ID token to backend for verification and custom token
+      await axios.post(
+        "http://localhost:5000/api/auth/google",
+        { idToken },
+        { withCredentials: true }
+      );
+
+      // Redirect or show success
+      window.location.href = "/dashboard";
+    } catch (err: any) {
+      setErrMsg(
+        err?.response?.data?.error ||
+          err?.message ||
+          "Gagal daftar dengan Google."
+      );
+    }
+    setLoading(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,13 +57,13 @@ export default function Register({
     setSuccess(false);
     try {
       await axios.post(
-        "/api/auth/register",
+        "http://localhost:5000/api/auth/register",
         { email, password, name },
         { withCredentials: true }
       );
       setSuccess(true);
       setTimeout(() => {
-        window.location.href = "/"; // Atau redirect ke login page sesuai kebutuhan
+        onSwitchToLogin ? onSwitchToLogin() : (window.location.href = "/"); // Redirect to login page or home
       }, 1000);
     } catch (err: any) {
       setErrMsg(
@@ -49,7 +74,6 @@ export default function Register({
   };
 
   return (
-
     <div className="w-full min-h-screen flex flex-col bg-[#e1e1e1] dark:bg-[#1C1F23] transition-all duration-500 border border-white rounded-3xl">
       <div
         className={`flex flex-1 flex-col items-center justify-center ${
@@ -65,7 +89,6 @@ export default function Register({
           <DarkModeToggle />
         </div>
         <div className="flex flex-col w-full max-w-md px-6 py-7 box-secondary rounded-lg gap-4 shadow-lg">
-
           <div className="flex justify-center my-3 text-2xl font-bold">
             Daftar Sekarang
           </div>
@@ -90,7 +113,10 @@ export default function Register({
               </a>
             )}
           </div>
-          <form className="flex flex-col gap-2 mt-4 primary-text" onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col gap-2 mt-4 primary-text"
+            onSubmit={handleSubmit}
+          >
             <input
               type="text"
               placeholder="Nama Lengkap"
@@ -137,9 +163,7 @@ export default function Register({
             <button
               type="submit"
               disabled={loading}
-
               className="w-full h-10 bg-white text-[#3A3A3A] rounded-sm cursor-pointer hover:bg-blue-100 transition duration-150 font-bold mt-2"
-
             >
               {loading ? "Loading..." : "Selanjutnya"}
             </button>
@@ -153,9 +177,9 @@ export default function Register({
             </div>
             <button
               className="flex flex-row justify-center w-full h-12 items-center p-2 text-white border border-gray-300 cursor-pointer rounded-md bg-[#23272F] hover:bg-[#2c313a] transition"
-
               onClick={handleGoogle}
               type="button"
+              disabled={loading}
             >
               <svg
                 width="24"
@@ -189,7 +213,6 @@ export default function Register({
             >
               Butuh Bantuan?
             </a>
-
           </form>
         </div>
 
