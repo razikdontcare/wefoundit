@@ -13,9 +13,11 @@ export default function Card({ data }: { data?: any }) {
           alt={data.barang.nama_barang}
           className="absolute w-full h-full object-cover object-center inset-0"
         />
-        <span className={`absolute top-3 left-3 text-white px-2 py-1 rounded-md text-xs font-bold z-10 ${
-          data.jenis_lap === "kehilangan" ? "bg-red-600" : "bg-blue-600"
-        }`}>
+        <span
+          className={`absolute top-3 left-3 text-white px-2 py-1 rounded-md text-xs font-bold z-10 ${
+            data.jenis_lap === "kehilangan" ? "bg-red-600" : "bg-blue-600"
+          }`}
+        >
           {data.jenis_lap === "kehilangan" ? "Lost" : "Found"}
         </span>
       </div>
@@ -50,10 +52,8 @@ export default function Card({ data }: { data?: any }) {
           >
             <Link to={"/details/" + data.id}>Details</Link>
           </Button>
-          <Button
-            className="rounded-md py-2 text-sm font-bold uppercase text-white flex items-center text-center justify-center w-full transition"
-          >
-            <Link to={"/chat/" + data.id}>
+          <Button className="rounded-md py-2 text-sm font-bold uppercase text-white flex items-center text-center justify-center w-full transition">
+            <Link to={"/chat/" + data.user_id}>
               <span className="mr-2">
                 {data.jenis_lap === "kehilangan" ? "I FOUND IT" : "CLAIM"}
               </span>
