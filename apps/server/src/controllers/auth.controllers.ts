@@ -12,7 +12,7 @@ export const authController = {
       res.cookie("sessionToken", result.sessionToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 30 * 60 * 1000, // 30 minutes
       });
 
@@ -56,7 +56,7 @@ export const authController = {
       res.cookie("sessionToken", result.sessionToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 30 * 60 * 1000, // 30 minutes
       });
 
@@ -173,7 +173,7 @@ export const authController = {
       res.cookie("sessionToken", sessionToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 30 * 60 * 1000, // 30 minutes
       });
 
@@ -201,7 +201,7 @@ export const authController = {
       res.cookie("sessionToken", sessionToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 30 * 60 * 1000, // 30 minutes
       });
 
