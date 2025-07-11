@@ -13,23 +13,23 @@ export async function loader({ request }: Route.LoaderArgs) {
   // const filter = url.searchParams.get("filter");
 
   //   Example API call (uncomment and adjust as needed)
-  const response = await axios.get<{ data: any[] }>(
-    `${import.meta.env.VITE_API_URL}/api/search`,
-    {
-      params: { q: query },
-    }
-  );
+  try {
+    const response = await axios.get<{ data: any[] }>(
+      `${import.meta.env.VITE_API_URL}/api/search`,
+      {
+        params: { q: query },
+      }
+    );
 
-  // return response.data;
+    // return response.data;
 
     // Handle different response structures
     const data = response.data?.data || response.data || [];
-    
+
     return { query, data: Array.isArray(data) ? data : [] };
-    
   } catch (error) {
     console.error("Search API error:", error);
-    
+
     // Return empty data on error for now
     return { query, data: [] };
   }
