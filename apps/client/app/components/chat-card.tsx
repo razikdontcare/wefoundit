@@ -14,7 +14,7 @@ export default function chatCard() {
             <img
               src="https://picsum.photos/50"
               alt="User Avatar"
-              className="rounded-full w-10 h-10 object-cover"
+              className="rounded-full w-10 h-10 object-cover aspect-[4/4]"
             />
           </div>
           <div className="flex flex-col items-center justify-between w-full p-2">

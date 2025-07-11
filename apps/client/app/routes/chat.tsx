@@ -13,9 +13,9 @@ export default function Chat({ params }: { params?: { id?: string } }) {
 const navigate = useNavigate();
   return (
     <>
-      <div className="container mx-auto max-w-7xl flex flex-col my-2 gap-4 px-2 sm:px-4">
+      <div className="container mx-auto max-w-7xl flex flex-col gap-2 px-2 sm:px-4" style={{ height: 'calc(90vh - 4rem)' }}>
         {/* Header */}
-        <div className="flex justify-between items-center w-full rounded-md px-2 sm:px-4 py-2">
+        <div className="flex justify-between items-center w-full rounded-md px-2 sm:px-4 py-2 flex-shrink-0">
           <Undo2
             onClick={() => navigate(-1)}
             className="cursor-pointer"
@@ -27,32 +27,32 @@ const navigate = useNavigate();
           <Undo2 className="opacity-0" size={28} />
         </div>
         {/* Main Chat Layout */}
-        <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 px-1 sm:px-4 py-2">
+        <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-4 px-1 sm:px-4 pb-2 flex-1 min-h-0">
           {/* Chat List (Sidebar) */}
-          <div className="rounded-2xl w-full md:w-[38%] min-h-[18rem] md:min-h-[36rem] gap-2 flex flex-col mb-4 md:mb-0">
-            <div className="flex items-center justify-center w-full mb-2">
+          <div className="rounded-2xl w-full md:w-[38%] h-full gap-2 flex flex-col">
+            <div className="flex items-center justify-center w-full mb-2 flex-shrink-0">
               <input
                 type="text"
                 placeholder="Search"
                 className="border border-gray-300 rounded-md p-2 w-full box-secondary hover:bg-gray-100 transition duration-150 text-sm"
               />
             </div>
-            {/* Chat list (scrollable on mobile) */}
-            <div className="flex flex-col gap-2 overflow-y-auto max-h-[24rem] md:max-h-[30rem]">
+            {/* Chat list (scrollable) */}
+            <div className="flex flex-col gap-2 overflow-y-auto flex-1 min-h-0">
               <ChatCard />
               <ChatCard />
               {/* Tambahkan ChatCard lain jika perlu */}
             </div>
           </div>
           {/* Chat Area */}
-          <div className="rounded-2xl w-full min-h-[20rem] md:min-h-[38.5rem] flex flex-col items-start">
+          <div className="rounded-2xl w-full h-full flex flex-col items-center justify-center">
             {/* Jika ada chatId, tampilkan ChatArea, jika tidak tampilkan ChatAreaEmpty */}
             {params?.id ? (
-              <div className="w-full">
+              <div className="w-full h-full">
                 <ChatArea />
               </div>
             ) : (
-              <div className="hidden md:block w-full">
+              <div className="hidden md:flex w-full h-full items-center justify-center">
                 <ChatAreaEmpty />
               </div>
             )}
